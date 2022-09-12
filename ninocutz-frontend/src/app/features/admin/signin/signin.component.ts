@@ -12,4 +12,8 @@ export class SigninComponent implements OnInit {
   password: string = '';
 
   ngOnInit(): void {}
+
+  loginClicked() {
+    // TODO: use email, password
+  }
 }
