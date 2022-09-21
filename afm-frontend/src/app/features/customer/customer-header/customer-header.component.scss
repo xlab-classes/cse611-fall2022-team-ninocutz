@@ -17,3 +17,14 @@
   font-size: 10px;
   text-align: center;
 }
+.test {
+  right: 0;
+}
+::ng-deep .p-menubar {
+  height: 50px;
+
+  p-menubarsub {
+    position: absolute;
+    right: 40px;
+  }
+}

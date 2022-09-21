@@ -12,3 +12,11 @@
   cursor: pointer;
   height: 40px;
 }
+::ng-deep .p-menubar {
+  height: 50px;
+
+  p-menubarsub {
+    position: absolute;
+    right: 40px;
+  }
+}
