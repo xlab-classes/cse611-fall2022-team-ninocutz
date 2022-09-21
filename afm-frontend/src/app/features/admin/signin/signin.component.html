@@ -1,12 +1,5 @@
 <div style="margin: 10px">
-  <div
-    style="
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    "
-  >
+  <div class="d-flex align-items-center justify-content-center">
     <div class="row" style="width: 300px">
       <div class="p-fluid grid justify-content-center">
         <div class="row">
@@ -21,12 +14,12 @@
 
         <div class="col-12 mt-3 mt-md-4">
           <span class="p-float-label">
-            <input
-              type="text"
+            <p-password
               id="password"
-              pInputText
               [(ngModel)]="password"
-            />
+              [feedback]="false"
+              [toggleMask]="true"
+            ></p-password>
             <label for="password">Password</label>
           </span>
         </div>

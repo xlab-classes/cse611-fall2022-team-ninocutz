@@ -1,0 +1,15 @@
+<div class="afm-header-background">
+  <span class="afm-header-text">ARCHITECT FOR MEN</span>
+</div>
+
+<p-menubar [model]="items">
+  <ng-template pTemplate="start">
+    <img
+      src="../../../../assets/logo-mark-black-sm.png"
+      height="40"
+      class="mr-2"
+      (click)="homeIconClicked()"
+      style="cursor: pointer"
+    />
+  </ng-template>
+</p-menubar>
