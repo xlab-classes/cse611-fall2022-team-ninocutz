@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ninocutz-frontend": {
+    "afm-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ninocutz-frontend",
+            "outputPath": "dist/afm-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ninocutz-frontend:build:production"
+              "browserTarget": "afm-frontend:build:production"
             },
             "development": {
-              "browserTarget": "ninocutz-frontend:build:development"
+              "browserTarget": "afm-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ninocutz-frontend:build"
+            "browserTarget": "afm-frontend:build"
           }
         },
         "test": {
