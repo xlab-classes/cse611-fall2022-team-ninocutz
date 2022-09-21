@@ -11,7 +11,15 @@ import { RequestRvComponent } from './request-rv/request-rv.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
-  declarations: [CustomerHomeComponent, CustomerComponent, CustomerHeaderComponent, CustomerFutureEventsComponent, CustomerPastEventsComponent, RequestRvComponent, SignUpComponent],
+  declarations: [
+    CustomerHomeComponent,
+    CustomerComponent,
+    CustomerHeaderComponent,
+    CustomerFutureEventsComponent,
+    CustomerPastEventsComponent,
+    RequestRvComponent,
+    SignUpComponent,
+  ],
   imports: [CustomerRoutingModule, CommonModule, SharedModule],
 })
 export class CustomerModule {}
