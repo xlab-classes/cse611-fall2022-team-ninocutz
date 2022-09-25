@@ -1,0 +1,34 @@
+<app-afm-blur-background>
+  <div class="carousal-border">
+    <p-carousel
+      [value]="data"
+      [numVisible]="noOfImages"
+      [numScroll]="1"
+      [circular]="true"
+    >
+      <ng-template let-image pTemplate="item">
+        <div style="border-style: solid; border: 2px">
+          <div
+            class="image-item"
+            (click)="imageClicked(image)"
+            style="cursor: pointer"
+          >
+            <div class="image-item-content">
+              <div class="mb-3" *ngIf="image.src">
+                <p-image
+                  [src]="image.src"
+                  alt="Image"
+                  width="250"
+                  [preview]="true"
+                ></p-image>
+              </div>
+              <div>
+                <h4 class="afm-label-text">{{ image.text }}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</app-afm-blur-background>

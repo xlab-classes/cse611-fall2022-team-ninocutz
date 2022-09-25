@@ -10,6 +10,8 @@ import { AfmButtonComponent } from './afm-button/afm-button.component';
 import { AfmBlurBackgroundComponent } from './afm-blur-background/afm-blur-background.component';
 import { AfmImageComponent } from './afm-image/afm-image.component';
 import { ImageModule } from 'primeng/image';
+import { CarouselModule } from 'primeng/carousel';
+import { AfmImageCarouselComponent } from './afm-image-carousel/afm-image-carousel.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { ImageModule } from 'primeng/image';
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,
+    AfmImageCarouselComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +29,7 @@ import { ImageModule } from 'primeng/image';
     MenubarModule,
     ButtonModule,
     ImageModule,
+    CarouselModule,
   ],
   exports: [
     FooterComponent,
@@ -34,9 +38,11 @@ import { ImageModule } from 'primeng/image';
     ButtonModule,
     PasswordModule,
     MenubarModule,
+    CarouselModule,
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,
+    AfmImageCarouselComponent,
   ],
 })
 export class SharedModule {}
