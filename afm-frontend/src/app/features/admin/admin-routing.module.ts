@@ -9,6 +9,8 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { UsersComponent } from './users/users.component';
 import { AdminComponent } from './admin.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -17,12 +19,20 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: '/admin/home', pathMatch: 'full' },
       {
-        path: 'admin/home',
-        component: AdminHomeComponent,
-      },
-      {
         path: 'admin/signin',
         component: SigninComponent,
+      },
+      {
+        path: 'admin/forgot-password',
+        component: ForgotPasswordComponent,
+      },
+      {
+        path: 'admin/reset-password',
+        component: ResetPasswordComponent,
+      },
+      {
+        path: 'admin/home',
+        component: AdminHomeComponent,
       },
       {
         path: 'admin/current-event',

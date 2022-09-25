@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageCarouselModel } from 'src/app/shared/models/image-carousel.model';
+import { ImageCarouselModel } from 'src/app/core/models/image-carousel.model';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 

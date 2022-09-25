@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ImageCarouselModel } from '../models/image-carousel.model';
+import { ImageCarouselModel } from '../../core/models/image-carousel.model';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

@@ -1,3 +1,4 @@
-<app-admin-header> </app-admin-header>
-
-<router-outlet> </router-outlet>
+<div *ngIf="showHeader">
+  <app-admin-header></app-admin-header>
+</div>
+<router-outlet></router-outlet>
