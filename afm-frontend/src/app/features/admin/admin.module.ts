@@ -13,7 +13,18 @@ import { BookingsComponent } from './bookings/bookings.component';
 import { UsersComponent } from './users/users.component';
 import { AdminComponent } from './admin.component';
 @NgModule({
-  declarations: [AdminHomeComponent, SigninComponent, AdminHeaderComponent, CurrentEventComponent, FutureEventsComponent, PastEventsComponent, GalleryComponent, BookingsComponent, UsersComponent, AdminComponent],
+  declarations: [
+    AdminHomeComponent,
+    SigninComponent,
+    AdminHeaderComponent,
+    CurrentEventComponent,
+    FutureEventsComponent,
+    PastEventsComponent,
+    GalleryComponent,
+    BookingsComponent,
+    UsersComponent,
+    AdminComponent,
+  ],
   imports: [AdminRoutingModule, CommonModule, SharedModule],
 })
 export class AdminModule {}
