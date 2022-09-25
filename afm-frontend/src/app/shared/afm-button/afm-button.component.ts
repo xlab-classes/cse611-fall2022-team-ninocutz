@@ -6,13 +6,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./afm-button.component.scss'],
 })
 export class AfmButtonComponent implements OnInit {
-  @Input() buttonText: string;
-  @Output() buttonClicked = new EventEmitter();
+  @Input() label: string;
+  @Output() click = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}
 
   buttonClick() {
-    this.buttonClicked.emit();
+    this.click.emit();
   }
 }

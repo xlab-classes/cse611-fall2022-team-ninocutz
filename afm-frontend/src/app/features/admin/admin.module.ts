@@ -12,6 +12,8 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { UsersComponent } from './users/users.component';
 import { AdminComponent } from './admin.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 @NgModule({
   declarations: [
     AdminHomeComponent,
@@ -24,6 +26,8 @@ import { AdminComponent } from './admin.component';
     BookingsComponent,
     UsersComponent,
     AdminComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [AdminRoutingModule, CommonModule, SharedModule],
 })
