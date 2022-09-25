@@ -1,6 +1,4 @@
-<p>admin-home works!</p>
-
-<!-- Examples of usages -->
+<!-- <p>admin-home works!</p>
 
 <app-afm-blur-background>
   <app-afm-button
@@ -20,3 +18,98 @@
 
   <app-afm-image-carousel [data]="test"></app-afm-image-carousel>
 </app-afm-blur-background>
+-->
+
+<div class="container-fluid px-0">
+  <div class="row justify-content-center" style="height: 250px">
+    <div class="align-self-center col-auto">
+      <app-afm-button
+        buttonText="Share Current Location"
+        (buttonClicked)="shareLocationButtonClick()"
+      ></app-afm-button>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div
+      class="col-auto"
+      style="cursor: pointer"
+      (click)="openFutureEventsPage()"
+    >
+      <h2 class="afm-heading-text">Future Events</h2>
+    </div>
+    <div
+      class="col-auto"
+      style="cursor: pointer"
+      (click)="openFutureEventsPage()"
+    >
+      <fa-icon [icon]="faEdit"></fa-icon>
+    </div>
+  </div>
+
+  <app-afm-blur-background>
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <app-afm-image-carousel
+          [data]="test"
+          (imageClick)="futureEventClicked($event)"
+          [displayIcon]="true"
+          [faIcon]="faEdit"
+        ></app-afm-image-carousel>
+      </div>
+    </div>
+  </app-afm-blur-background>
+
+  <br />
+  <br />
+
+  <div class="row justify-content-center">
+    <div
+      class="col-auto"
+      style="cursor: pointer"
+      (click)="openPastEventsPage()"
+    >
+      <h2 class="afm-heading-text">Past Events</h2>
+    </div>
+    <div
+      class="col-auto"
+      style="cursor: pointer"
+      (click)="openPastEventsPage()"
+    >
+      <fa-icon [icon]="faEdit"></fa-icon>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <app-afm-image-carousel
+        [data]="test"
+        (imageClick)="pastEventClicked($event)"
+        [displayIcon]="true"
+        [faIcon]="faEdit"
+      ></app-afm-image-carousel>
+    </div>
+  </div>
+
+  <br />
+  <br />
+
+  <div class="row justify-content-center">
+    <div class="col-auto" style="cursor: pointer" (click)="openGalleryPage()">
+      <h2 class="afm-heading-text">Gallery</h2>
+    </div>
+    <div class="col-auto" style="cursor: pointer" (click)="openGalleryPage()">
+      <fa-icon [icon]="faEdit"></fa-icon>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <app-afm-image-carousel
+        [data]="test"
+        [displayIcon]="true"
+        [faIcon]="faTrash"
+      ></app-afm-image-carousel>
+    </div>
+  </div>
+</div>

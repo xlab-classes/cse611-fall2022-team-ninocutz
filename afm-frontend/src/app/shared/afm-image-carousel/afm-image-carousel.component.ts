@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { ImageCarouselModel } from '../models/image-carousel.model';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-afm-image-carousel',
@@ -15,6 +16,8 @@ import { ImageCarouselModel } from '../models/image-carousel.model';
 })
 export class AfmImageCarouselComponent implements OnInit {
   @Input() data: ImageCarouselModel[];
+  @Input() displayIcon = false;
+  @Input() faIcon = faEdit;
   @Output() imageClick = new EventEmitter();
 
   getScreenWidth: any;
@@ -27,7 +30,7 @@ export class AfmImageCarouselComponent implements OnInit {
   }
 
   setNoOfImages(windowSize: number) {
-    this.noOfImages = windowSize <= 480 ? 1 : 3;
+    this.noOfImages = windowSize <= 480 ? 1 : 4;
   }
 
   @HostListener('window:resize', ['$event'])
