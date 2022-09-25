@@ -12,6 +12,7 @@ import { AfmImageComponent } from './afm-image/afm-image.component';
 import { ImageModule } from 'primeng/image';
 import { CarouselModule } from 'primeng/carousel';
 import { AfmImageCarouselComponent } from './afm-image-carousel/afm-image-carousel.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AfmImageCarouselComponent } from './afm-image-carousel/afm-image-carous
     ButtonModule,
     ImageModule,
     CarouselModule,
+    FontAwesomeModule,
   ],
   exports: [
     FooterComponent,
@@ -39,6 +41,7 @@ import { AfmImageCarouselComponent } from './afm-image-carousel/afm-image-carous
     PasswordModule,
     MenubarModule,
     CarouselModule,
+    FontAwesomeModule,
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,

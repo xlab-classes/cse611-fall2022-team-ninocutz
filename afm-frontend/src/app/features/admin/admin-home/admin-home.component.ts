@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageCarouselModel } from 'src/app/shared/models/image-carousel.model';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
@@ -8,12 +10,15 @@ import { ImageCarouselModel } from 'src/app/shared/models/image-carousel.model';
 })
 export class AdminHomeComponent implements OnInit {
   test: ImageCarouselModel[] = [];
+  faEdit = faEdit;
+  faTrash = faTrash;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.test = [
       {
+        src: '/assets/20220414_130358.jpg',
         name: 'first',
         text: 'First Image',
       },
@@ -35,7 +40,23 @@ export class AdminHomeComponent implements OnInit {
     ];
   }
 
-  buttonClicked() {
-    // Action of what needs to be done after button click can be added here
+  shareLocationButtonClick() {
+    this.router.navigate(['/admin/current-event']);
   }
+
+  openFutureEventsPage() {
+    this.router.navigate(['/admin/future-events']);
+  }
+
+  openPastEventsPage() {
+    this.router.navigate(['/admin/past-events']);
+  }
+
+  openGalleryPage() {
+    this.router.navigate(['/admin/gallery']);
+  }
+
+  futureEventClicked(event: ImageCarouselModel) {}
+
+  pastEventClicked(event: ImageCarouselModel) {}
 }
