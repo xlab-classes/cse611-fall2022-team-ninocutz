@@ -20,12 +20,12 @@
 </app-afm-blur-background>
 -->
 
-<div class="container-fluid px-0">
+<div class="container-fluid">
   <div class="row justify-content-center" style="height: 250px">
     <div class="align-self-center col-auto">
       <app-afm-button
-        buttonText="Share Current Location"
-        (buttonClicked)="shareLocationButtonClick()"
+        label="Share Current Location"
+        (click)="shareLocationButtonClick()"
       ></app-afm-button>
     </div>
   </div>
@@ -50,12 +50,17 @@
   <app-afm-blur-background>
     <div class="row justify-content-center">
       <div class="col-auto">
-        <app-afm-image-carousel
-          [data]="test"
-          (imageClick)="futureEventClicked($event)"
-          [displayIcon]="true"
-          [faIcon]="faEdit"
-        ></app-afm-image-carousel>
+        <div *ngIf="futureEvents.length == 0">
+          <p-progressSpinner></p-progressSpinner>
+        </div>
+        <div *ngIf="futureEvents.length > 0">
+          <app-afm-image-carousel
+            [data]="futureEvents"
+            (imageClick)="futureEventClicked($event)"
+            [displayIcon]="true"
+            [faIcon]="faEdit"
+          ></app-afm-image-carousel>
+        </div>
       </div>
     </div>
   </app-afm-blur-background>
@@ -80,16 +85,23 @@
     </div>
   </div>
 
-  <div class="row justify-content-center">
-    <div class="col-auto">
-      <app-afm-image-carousel
-        [data]="test"
-        (imageClick)="pastEventClicked($event)"
-        [displayIcon]="true"
-        [faIcon]="faEdit"
-      ></app-afm-image-carousel>
+  <app-afm-blur-background>
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <div *ngIf="pastEvents.length == 0">
+          <p-progressSpinner></p-progressSpinner>
+        </div>
+        <div *ngIf="pastEvents.length > 0">
+          <app-afm-image-carousel
+            [data]="pastEvents"
+            (imageClick)="pastEventClicked($event)"
+            [displayIcon]="true"
+            [faIcon]="faEdit"
+          ></app-afm-image-carousel>
+        </div>
+      </div>
     </div>
-  </div>
+  </app-afm-blur-background>
 
   <br />
   <br />
@@ -103,13 +115,20 @@
     </div>
   </div>
 
-  <div class="row justify-content-center">
-    <div class="col-auto">
-      <app-afm-image-carousel
-        [data]="test"
-        [displayIcon]="true"
-        [faIcon]="faTrash"
-      ></app-afm-image-carousel>
+  <app-afm-blur-background>
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <div *ngIf="galleryImages.length == 0">
+          <p-progressSpinner></p-progressSpinner>
+        </div>
+        <div *ngIf="galleryImages.length > 0">
+          <app-afm-image-carousel
+            [data]="galleryImages"
+            [displayIcon]="true"
+            [faIcon]="faTrash"
+          ></app-afm-image-carousel>
+        </div>
+      </div>
     </div>
-  </div>
+  </app-afm-blur-background>
 </div>

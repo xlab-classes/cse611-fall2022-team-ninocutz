@@ -1,6 +1,11 @@
+@import "../../../styles.scss";
+
 .p-button-rounded {
   background: black;
 }
 .p-button-rounded:hover {
-  background: #0B3197;
+  background: #0b3197;
+}
+::ng-deep .p-button-label {
+  @extend .afm-font-family;
 }

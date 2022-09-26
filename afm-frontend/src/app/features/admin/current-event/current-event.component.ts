@@ -3,13 +3,15 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-current-event',
   templateUrl: './current-event.component.html',
-  styleUrls: ['./current-event.component.scss']
+  styleUrls: ['./current-event.component.scss'],
 })
 export class CurrentEventComponent implements OnInit {
+  fromTime: Date;
+  toTime: Date;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
+  shareLocationClicked() {}
 }

@@ -5,7 +5,6 @@
       [numVisible]="noOfImages"
       [numScroll]="1"
       [circular]="true"
-      [autoplayInterval]="3000"
       ngClass="p-hide-paginator"
     >
       <ng-template let-image pTemplate="item">
@@ -17,21 +16,23 @@
           >
             <div class="image-item-content">
               <div class="mb-3">
-                <div class="row justify-content-center" *ngIf="image.src">
-                  <div class="col-auto">
-                    <p-image
-                      [src]="image.src"
-                      alt="Image"
-                      width="200"
-                    ></p-image>
-                  </div>
-                  <div class="col-auto" *ngIf="displayIcon">
-                    <fa-icon [icon]="faIcon"></fa-icon>
+                <div class="container">
+                  <div class="row justify-content-center" *ngIf="image.blob">
+                    <div class="col-10">
+                      <p-image
+                        src="data:image/png;base64,{{ image.blob }}"
+                        alt="Image"
+                        width="200"
+                      ></p-image>
+                    </div>
+                    <div class="col-2">
+                      <fa-icon [icon]="faIcon"></fa-icon>
+                    </div>
                   </div>
                 </div>
               </div>
               <div>
-                <h4 class="afm-label-text">{{ image.text }}</h4>
+                <h4 class="afm-label-text">{{ image.message }}</h4>
               </div>
             </div>
           </div>

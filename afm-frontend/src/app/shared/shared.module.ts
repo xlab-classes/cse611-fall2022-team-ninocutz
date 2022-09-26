@@ -13,6 +13,9 @@ import { ImageModule } from 'primeng/image';
 import { CarouselModule } from 'primeng/carousel';
 import { AfmImageCarouselComponent } from './afm-image-carousel/afm-image-carousel.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ImageModule,
     CarouselModule,
     FontAwesomeModule,
+    ProgressSpinnerModule,
+    CalendarModule,
+    InputTextareaModule,
   ],
   exports: [
     FooterComponent,
@@ -42,6 +48,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MenubarModule,
     CarouselModule,
     FontAwesomeModule,
+    ProgressSpinnerModule,
+    CalendarModule,
+    InputTextareaModule,
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,

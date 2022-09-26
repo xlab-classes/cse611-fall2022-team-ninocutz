@@ -1,5 +1,4 @@
 export class ImageCarouselModel {
-  src?: string;
-  name: string;
-  text: string;
+  blob?: string;
+  message: string;
 }
