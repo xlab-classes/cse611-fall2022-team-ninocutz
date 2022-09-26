@@ -48,22 +48,24 @@
             <h5 class="afm-label-text">Description</h5>
             <textarea
               [rows]="5"
-              [cols]="35"
+              [cols]="30"
               pInputTextarea
               [autoResize]="true"
             ></textarea>
           </div>
         </div>
+
+        <br />
+        <br />
+
+        <div class="row" style="text-align: center">
+          <app-afm-button
+            label="Share Location"
+            (click)="shareLocationClicked()"
+          ></app-afm-button>
+        </div>
       </div>
 
-      <div class="row" style="text-align: center">
-        <app-afm-button
-          label="Share Location"
-          (click)="shareLocationClicked()"
-        ></app-afm-button>
-      </div>
-
-      <br />
       <br />
     </app-afm-blur-background>
   </div>

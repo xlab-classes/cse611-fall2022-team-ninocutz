@@ -23,6 +23,11 @@
       right: 40px;
     }
   }
+
+  // Used for aligning menu bar kebab to the right in mobile view
+  a.p-menubar-button {
+    order: 1;
+  }
 }
 ::ng-deep .p-menuitem-text {
   @extend .afm-font-family;
