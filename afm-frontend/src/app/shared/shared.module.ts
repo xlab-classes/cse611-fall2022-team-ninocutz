@@ -17,6 +17,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { LoadingComponent } from './loading/loading.component';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { LoadingComponent } from './loading/loading.component';
     ProgressSpinnerModule,
     CalendarModule,
     InputTextareaModule,
+    FileUploadModule,
   ],
   exports: [
     FooterComponent,
@@ -53,6 +55,8 @@ import { LoadingComponent } from './loading/loading.component';
     ProgressSpinnerModule,
     CalendarModule,
     InputTextareaModule,
+    FileUploadModule,
+    ImageModule,
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,

@@ -14,6 +14,7 @@ import { UsersComponent } from './users/users.component';
 import { AdminComponent } from './admin.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AddFutureEventComponent } from './add-future-event/add-future-event.component';
 @NgModule({
   declarations: [
     AdminHomeComponent,
@@ -28,6 +29,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     AdminComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    AddFutureEventComponent,
   ],
   imports: [AdminRoutingModule, CommonModule, SharedModule],
 })

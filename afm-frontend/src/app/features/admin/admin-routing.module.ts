@@ -11,6 +11,7 @@ import { UsersComponent } from './users/users.component';
 import { AdminComponent } from './admin.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AddFutureEventComponent } from './add-future-event/add-future-event.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'admin/future-events',
         component: FutureEventsComponent,
+      },
+      {
+        path: 'admin/add-future-event',
+        component: AddFutureEventComponent,
       },
       {
         path: 'admin/past-events',
