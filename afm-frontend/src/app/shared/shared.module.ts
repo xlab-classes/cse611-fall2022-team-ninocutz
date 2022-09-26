@@ -16,6 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     AfmBlurBackgroundComponent,
     AfmImageComponent,
     AfmImageCarouselComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,
@@ -55,6 +57,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     AfmBlurBackgroundComponent,
     AfmImageComponent,
     AfmImageCarouselComponent,
+    LoadingComponent,
   ],
 })
 export class SharedModule {}
