@@ -8,6 +8,12 @@
           <div class="col" *ngIf="uploadedFiles && uploadedFiles.length > 0">
             <app-afm-image [src]="uploadedFiles[0].objectURL"></app-afm-image>
           </div>
+          <div
+            class="col-lg-12 align-self-center"
+            *ngIf="uploadedFiles && uploadedFiles.length > 0"
+          >
+            <app-afm-button label="Remove" (click)="clear()"></app-afm-button>
+          </div>
           <div class="col align-self-center">
             <p-fileUpload
               #fileUpload
@@ -24,8 +30,6 @@
             </p-fileUpload>
           </div>
         </div>
-
-        <!-- <app-afm-button label="Remove" (click)="clear()"></app-afm-button> -->
 
         <br />
         <br />
