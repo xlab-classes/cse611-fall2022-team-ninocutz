@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocationService } from 'src/app/core/services/location.service';
 
 @Component({
   selector: 'app-current-event',
@@ -8,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
 export class CurrentEventComponent implements OnInit {
   fromTime: Date;
   toTime: Date;
+  lat: number;
+  lng: number;
 
-  constructor() {}
+  constructor(private locationService: LocationService) {}
 
   ngOnInit(): void {}
 
-  shareLocationClicked() {}
+  shareLocationClicked() {
+    this.locationService.getPosition().then((pos) => {
+      this.lat = pos.lat;
+      this.lng = pos.lng;
+    });
+  }
 }
