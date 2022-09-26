@@ -6,6 +6,7 @@ import { DataService } from 'src/app/core/services/data.service';
 import { FutureEventsModel } from 'src/app/core/models/future-events.model';
 import { PastEventsModel } from 'src/app/core/models/past-events.model';
 import { GalleryImagesModel } from 'src/app/core/models/gallery-images.model';
+import { SharingService } from 'src/app/core/services/sharing.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -21,7 +22,11 @@ export class AdminHomeComponent implements OnInit {
   pastEvents: PastEventsModel[] = [];
   galleryImages: GalleryImagesModel[] = [];
 
-  constructor(private router: Router, private dateService: DataService) {}
+  constructor(
+    private router: Router,
+    private dateService: DataService,
+    private sharingService: SharingService
+  ) {}
 
   ngOnInit(): void {
     this.retrieveFutureEventsData();
@@ -58,6 +63,7 @@ export class AdminHomeComponent implements OnInit {
   }
 
   openFutureEventsPage() {
+    this.sharingService.setData(this.futureEvents);
     this.router.navigate(['/admin/future-events']);
   }
 
