@@ -1,1 +1,74 @@
-<p>current-event works!</p>
+<div class="root-div">
+  <h2 class="afm-heading-text" style="text-align: center">
+    Share Current Location
+  </h2>
+
+  <div class="form-external-box">
+    <app-afm-blur-background>
+      <div class="container" class="form-internal-box">
+        <div class="row">
+          <h5 class="afm-label-text">Time Slot</h5>
+        </div>
+
+        <br />
+
+        <div class="row">
+          <div class="col">
+            <h5 class="afm-label-text">From</h5>
+          </div>
+          <div class="col">
+            <h5 class="afm-label-text">To</h5>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p-calendar
+              [(ngModel)]="fromTime"
+              [timeOnly]="true"
+              [hourFormat]="'24'"
+              inputId="timeonly"
+            ></p-calendar>
+          </div>
+          <div class="col">
+            <p-calendar
+              [(ngModel)]="toTime"
+              [timeOnly]="true"
+              [hourFormat]="'24'"
+              [minDate]="fromTime"
+              inputId="timeonly"
+            ></p-calendar>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+          <div class="col">
+            <h5 class="afm-label-text">Description</h5>
+            <textarea
+              [rows]="5"
+              [cols]="30"
+              pInputTextarea
+              [autoResize]="true"
+            ></textarea>
+          </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="row" style="text-align: center">
+          <app-afm-button
+            label="Share Location"
+            (click)="shareLocationClicked()"
+          ></app-afm-button>
+        </div>
+      </div>
+
+      <br />
+    </app-afm-blur-background>
+  </div>
+</div>
+
+<app-loading *ngIf="loading"></app-loading>

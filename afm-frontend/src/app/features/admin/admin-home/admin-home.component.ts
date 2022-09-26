@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ImageCarouselModel } from 'src/app/core/models/image-carousel.model';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/core/services/data.service';
+import { FutureEventsModel } from 'src/app/core/models/future-events.model';
+import { PastEventsModel } from 'src/app/core/models/past-events.model';
+import { GalleryImagesModel } from 'src/app/core/models/gallery-images.model';
 
 @Component({
   selector: 'app-admin-home',
@@ -13,31 +17,40 @@ export class AdminHomeComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrash;
 
-  constructor(private router: Router) {}
+  futureEvents: FutureEventsModel[] = [];
+  pastEvents: PastEventsModel[] = [];
+  galleryImages: GalleryImagesModel[] = [];
+
+  constructor(private router: Router, private dateService: DataService) {}
 
   ngOnInit(): void {
-    this.test = [
-      {
-        src: '/assets/20220414_130358.jpg',
-        name: 'first',
-        text: 'First Image',
-      },
-      {
-        src: '/assets/20220414_130452.jpg',
-        name: 'Second',
-        text: 'Second Image',
-      },
-      {
-        src: '/assets/20220722_185050.jpg',
-        name: 'Third',
-        text: 'Third Image',
-      },
-      {
-        src: '/assets/20220722_185054.jpg',
-        name: 'Fourth',
-        text: 'Fourth Image',
-      },
-    ];
+    this.retrieveFutureEventsData();
+    this.retrievePastEventsData();
+    this.retrieveGalleryData();
+  }
+
+  retrieveFutureEventsData() {
+    this.dateService.getAllFutureEvents().subscribe((data) => {
+      setTimeout(() => {
+        this.futureEvents = data;
+      }, 1000);
+    });
+  }
+
+  retrievePastEventsData() {
+    this.dateService.getAllPastEvents().subscribe((data) => {
+      setTimeout(() => {
+        this.pastEvents = data;
+      }, 1000);
+    });
+  }
+
+  retrieveGalleryData() {
+    this.dateService.getAllGalleryImages().subscribe((data) => {
+      setTimeout(() => {
+        this.galleryImages = data;
+      }, 1000);
+    });
   }
 
   shareLocationButtonClick() {

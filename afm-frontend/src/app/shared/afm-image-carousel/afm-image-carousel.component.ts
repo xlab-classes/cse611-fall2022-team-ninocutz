@@ -30,7 +30,8 @@ export class AfmImageCarouselComponent implements OnInit {
   }
 
   setNoOfImages(windowSize: number) {
-    this.noOfImages = windowSize <= 480 ? 1 : 4;
+    this.noOfImages =
+      windowSize <= 635 ? 1 : windowSize <= 900 ? 2 : windowSize <= 1230 ? 3 : 4;
   }
 
   @HostListener('window:resize', ['$event'])

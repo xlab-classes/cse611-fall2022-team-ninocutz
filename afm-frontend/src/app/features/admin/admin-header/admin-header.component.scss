@@ -1,11 +1,13 @@
+@import "../../../../styles.scss";
+
 .afm-header-background {
   background-color: black;
   height: 25px;
   text-align: center;
 }
 .afm-header-text {
+  @extend .afm-font-family-logo;
   color: white;
-  font-family: ui-monospace;
   font-size: 14px;
 }
 .img-logo {
@@ -15,8 +17,18 @@
 ::ng-deep .p-menubar {
   height: 50px;
 
-  p-menubarsub {
-    position: absolute;
-    right: 40px;
+  @media (min-width: 961px) {
+    p-menubarsub {
+      position: absolute;
+      right: 40px;
+    }
   }
+
+  // Used for aligning menu bar kebab to the right in mobile view
+  a.p-menubar-button {
+    order: 1;
+  }
+}
+::ng-deep .p-menuitem-text {
+  @extend .afm-font-family;
 }
