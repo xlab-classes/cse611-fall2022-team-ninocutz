@@ -1,7 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
-import { SigninComponent } from './signin/signin.component';
 import { CurrentEventComponent } from './current-event/current-event.component';
 import { FutureEventsComponent } from './future-events/future-events.component';
 import { PastEventsComponent } from './past-events/past-events.component';
@@ -9,59 +8,60 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { UsersComponent } from './users/users.component';
 import { AdminComponent } from './admin.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AddFutureEventComponent } from './add-future-event/add-future-event.component';
+import { AuthGuardService } from 'src/app/core/auth/auth-gaurd.service';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
+    canActivate: [AuthGuardService],
     children: [
-      { path: '', redirectTo: '/admin/home', pathMatch: 'full' },
       {
-        path: 'admin/signin',
-        component: SigninComponent,
-      },
-      {
-        path: 'admin/forgot-password',
-        component: ForgotPasswordComponent,
-      },
-      {
-        path: 'admin/reset-password',
-        component: ResetPasswordComponent,
+        path: '',
+        redirectTo: '/admin/home',
+        pathMatch: 'full',
+        canActivateChild: [AuthGuardService],
       },
       {
         path: 'admin/home',
         component: AdminHomeComponent,
+        canActivateChild: [AuthGuardService],
       },
       {
         path: 'admin/current-event',
         component: CurrentEventComponent,
+        canActivateChild: [AuthGuardService],
       },
       {
         path: 'admin/future-events',
         component: FutureEventsComponent,
+        canActivateChild: [AuthGuardService],
       },
       {
         path: 'admin/add-future-event',
         component: AddFutureEventComponent,
+        canActivateChild: [AuthGuardService],
       },
       {
         path: 'admin/past-events',
         component: PastEventsComponent,
+        canActivateChild: [AuthGuardService],
       },
       {
         path: 'admin/gallery',
         component: GalleryComponent,
+        canActivateChild: [AuthGuardService],
       },
       {
         path: 'admin/bookings',
         component: BookingsComponent,
+        canActivateChild: [AuthGuardService],
       },
       {
         path: 'admin/users',
         component: UsersComponent,
+        canActivateChild: [AuthGuardService],
       },
     ],
   },

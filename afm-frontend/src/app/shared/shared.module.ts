@@ -18,6 +18,9 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { LoadingComponent } from './loading/loading.component';
 import { FileUploadModule } from 'primeng/fileupload';
+import { SigninComponent } from './signin/signin.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { FileUploadModule } from 'primeng/fileupload';
     AfmImageComponent,
     AfmImageCarouselComponent,
     LoadingComponent,
+    SigninComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -62,6 +68,9 @@ import { FileUploadModule } from 'primeng/fileupload';
     AfmImageComponent,
     AfmImageCarouselComponent,
     LoadingComponent,
+    SigninComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
 })
 export class SharedModule {}
