@@ -75,7 +75,10 @@ export class AdminHomeComponent implements OnInit {
     this.router.navigate(['/admin/gallery']);
   }
 
-  futureEventClicked(event: ImageCarouselModel) {}
+  futureEventClicked(event: ImageCarouselModel) {
+    this.sharingService.setData(event);
+    this.router.navigate(['/admin/edit-future-event']);
+  }
 
   pastEventClicked(event: ImageCarouselModel) {}
 }

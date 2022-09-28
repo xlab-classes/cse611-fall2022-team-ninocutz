@@ -11,6 +11,12 @@ export class SharingService {
   }
 
   getData(): any {
-    return this.data;
+    const tempData = this.data;
+    this.removeData();
+    return tempData;
+  }
+
+  removeData() {
+    this.data = undefined;
   }
 }
