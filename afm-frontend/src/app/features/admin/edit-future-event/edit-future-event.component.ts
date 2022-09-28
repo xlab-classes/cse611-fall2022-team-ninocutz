@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FutureEventsModel } from 'src/app/core/models/future-events.model';
-import { LocalStorageService } from 'src/app/core/services/local-storage.service';
+import { SessionStorageService } from 'src/app/core/services/session-storage.service';
 import { SharingService } from 'src/app/core/services/sharing.service';
 
 @Component({
@@ -17,25 +17,25 @@ export class EditFutureEventComponent implements OnInit, OnDestroy {
 
   constructor(
     private sharingService: SharingService,
-    private localStorageService: LocalStorageService
+    private sessionStorageService: SessionStorageService
   ) {}
 
   ngOnInit(): void {
     this.futureEvent = this.sharingService.getData();
     if (this.futureEvent) {
-      this.localStorageService.setLocalStorage(
+      this.sessionStorageService.setSessionStorage(
         this.localStorageKey,
         this.futureEvent
       );
     } else {
-      this.futureEvent = this.localStorageService.getLocalStorage(
+      this.futureEvent = this.sessionStorageService.getSessionStorage(
         this.localStorageKey
       );
     }
   }
 
   ngOnDestroy(): void {
-    this.localStorageService.removeLocalStorage(this.localStorageKey);
+    this.sessionStorageService.removeSessionStorage(this.localStorageKey);
   }
 
   async myUploader(event: any) {

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FutureEventsModel } from 'src/app/core/models/future-events.model';
 import { DataService } from 'src/app/core/services/data.service';
-import { LocalStorageService } from 'src/app/core/services/local-storage.service';
+import { SessionStorageService } from 'src/app/core/services/session-storage.service';
 import { SharingService } from 'src/app/core/services/sharing.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class FutureEventsComponent implements OnInit, OnDestroy {
     private sharingService: SharingService,
     private dateService: DataService,
     private router: Router,
-    private localStorageService: LocalStorageService
+    private sessionStorageService: SessionStorageService
   ) {}
 
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class FutureEventsComponent implements OnInit, OnDestroy {
     this.futureEvents = this.sharingService.getData();
     if (!this.futureEvents || this.futureEvents.length === 0) {
       // Check if data is available from the localStorage
-      this.futureEvents = this.localStorageService.getLocalStorage(
+      this.futureEvents = this.sessionStorageService.getSessionStorage(
         this.localStorageKey
       );
       if (!this.futureEvents || this.futureEvents.length === 0) {
@@ -40,11 +40,11 @@ export class FutureEventsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.localStorageService.removeLocalStorage(this.localStorageKey);
+    this.sessionStorageService.removeSessionStorage(this.localStorageKey);
   }
 
   saveInitialLoadData() {
-    this.localStorageService.setLocalStorage(
+    this.sessionStorageService.setSessionStorage(
       this.localStorageKey,
       this.futureEvents
     );
