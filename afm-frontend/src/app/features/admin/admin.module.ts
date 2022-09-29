@@ -14,6 +14,7 @@ import { AdminComponent } from './admin.component';
 import { AddFutureEventComponent } from './add-future-event/add-future-event.component';
 import { AuthGuardService } from 'src/app/core/auth/auth-gaurd.service';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
+import { EditFutureEventComponent } from './edit-future-event/edit-future-event.component';
 @NgModule({
   declarations: [
     AdminHomeComponent,
@@ -26,6 +27,7 @@ import { JWT_OPTIONS } from '@auth0/angular-jwt';
     UsersComponent,
     AdminComponent,
     AddFutureEventComponent,
+    EditFutureEventComponent,
   ],
   imports: [AdminRoutingModule, CommonModule, SharedModule],
   providers: [
