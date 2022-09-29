@@ -1,4 +1,5 @@
 from datetime import datetime
+from unicodedata import name
 from flask import Flask, request
 from domain import events_domain as eventsDomain
 from repository import eventsRepository as eventsRepo
@@ -15,22 +16,27 @@ IMAGE_LOCATION = '/tmp/images'
 
 @events_blueprint.route("/event/future", methods=['POST'])
 def future_event():
+    content = request.json
+    new_event = event(name = content['event_name'],\
+        event_type = content['event_type'],\
+            latitude =content['latitude'],\
+        longitude = content['longitude'],\
+            address = content['address'],\
+                zip_code = content['zip_code'],\
+                    event_time_slot = content['event_time_slot'],\
+                        event_date = content['event_date'],\
+                            message = content['message'],\
+                                image = content['image']
 
-    image_id = None
-    event_type = request.form.get('event_type')
-    longitude = request.form.get('longitude')
-    latitude = request.form.get('latitude')
-    email_id = request.form.get('email_id')
-    address = request.form.get('address')
-    event_date = request.form.get('event_date')
-    zip_code = request.form.get('zip_code')
-    message = request.form.get('message')
-    if 'file' in request.files:
-        file = request.files['file']
-        filename = secure_filename(file.filename)
-        image_type = request.args.get('image_type', None)
-        if not image_domain.get_file(file, IMAGE_LOCATION, filename):
-            return 'Invalid file', 400
+
+
+    )
+  
+    
+    
+    
+    
+    
 
         image_type = request.args.get('image_type', None)
         if not image_domain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):

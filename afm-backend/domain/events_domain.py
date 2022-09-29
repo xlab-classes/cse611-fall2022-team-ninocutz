@@ -7,8 +7,9 @@ import pymysql
 from repository import eventsRepository as eventsRepo
 from controller import event_controller as eventsController
 
-def createFutureEvent(image_id, event_type, longitude, latitude, email_id, address, event_date,zip_code,message):
-    event_id = eventsRepo.get_event_id(event_type)
+
+def createFutureEvent(new_event):
+    event_id = eventsRepo.get_event_id(new_event.event_type)
     event_date = event_date.split('/')
     now = datetime(int(event_date[2]), int(event_date[1]), int(event_date[0]))
     str_now = now.date().isoformat()
