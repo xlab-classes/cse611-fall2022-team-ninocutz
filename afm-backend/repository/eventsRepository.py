@@ -1,11 +1,8 @@
 import os
 import pymysql
+from app import Database
 
-username = os.environ.get("USER")
-password = os.environ.get("PASSWORD")
-
-db = pymysql.connect(host='54.172.170.239',user=username,password=password,database='AFM')
-
+db = Database()
 #Future Events
 
 def createFutureEvent(image_id, event_id, longitude, latitude, email_id, address, str_now,zip_code,message):
