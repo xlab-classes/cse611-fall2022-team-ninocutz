@@ -9,9 +9,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def create_app():
-    from controller.images_controller import images_blueprint
-    from controller.event_controller import events_blueprint
-    from controller.user_controller import user_blueprint
+    from controller.imagesController import images_blueprint
+    from controller.eventController import events_blueprint
+    from controller.userController import user_blueprint
 
     app = Flask(__name__)
 
