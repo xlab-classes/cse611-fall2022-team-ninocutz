@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 from flask import Blueprint
 import json, os
 from flask_jwt_extended import (create_access_token, get_jwt_identity, jwt_required)
+from flask_cors import CORS, cross_origin
 
 events_blueprint = Blueprint('events_blueprint', __name__)
 # bucket = os.environ.get("BUCKET")
@@ -15,7 +16,8 @@ bucket = 'afm-image-store'
 IMAGE_LOCATION = '/tmp/images'
 
 @events_blueprint.route("/event/future", methods=['POST'])
-@jwt_required()
+@cross_origin(origin='*')
+# @jwt_required()
 def future_event():
     image_id = None
     event_type = request.form.get('event_type')

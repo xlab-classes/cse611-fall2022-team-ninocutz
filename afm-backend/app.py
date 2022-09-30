@@ -4,6 +4,7 @@ import pymysql
 import os
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import create_access_token
+from flask_cors import CORS
 
 def create_app():
     from controller.images_controller import images_blueprint
@@ -18,6 +19,8 @@ def create_app():
     app.config['JWT_BLACKLIST_ENABLED'] = True
     app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access']
     app.config['DEBUG'] = True
+    CORS(app, allow_headers=['Content-Type', 'Access-Control-Allow-Origin',
+                         'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods'])
 
     jwt = JWTManager()
     jwt.init_app(app)
