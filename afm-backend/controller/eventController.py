@@ -17,6 +17,7 @@ IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 @cross_origin(origin='*')
 # @jwt_required() TODO: Check authentication failure from client
 def future_event():
+    # TODO: Add all the required fields
     image_id = None
     event_type = request.form.get('event_type')
     longitude = request.form.get('longitude')
@@ -74,6 +75,8 @@ def addCurrentEvent():
     event_date = request.form.get('event_date')
     zip_code = request.form.get('zip_code')
     message = request.form.get('message')
+
+    # TODO: Check if image is needed
     # if 'file' in request.files:
     #     file = request.files['file']
     #     filename = secure_filename(file.filename)

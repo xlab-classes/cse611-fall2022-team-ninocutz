@@ -5,6 +5,8 @@ db = Database()
 
 def createFutureEvent(image_id, event_type_id, longitude, latitude, address, str_now, zip_code, message):
 
+    # TODO: Add all the required fields
+
     sql = "INSERT INTO Event (imageId, \
         eventTypeId, \
             longitude, \
@@ -72,6 +74,7 @@ def getCurrentEvent():
     return results
 
 def addCurrentEvent(eventId):
+    # TODO: Truncate Table and add the new current event, to support only one current event at a time
     sql = "INSERT INTO CurrentEvent (eventId) VALUES (%s)"
 
     cursor = db.cursor()
