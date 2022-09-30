@@ -29,10 +29,7 @@
                 style="margin-top: 50px"
               >
                 <div class="p-3 border bg-light">
-                  <app-afm-image
-                    src="data:image/png;base64,{{ event.blob }}"
-                    width="300"
-                  ></app-afm-image>
+                  <app-afm-image [src]="event.Url" width="300"></app-afm-image>
                   <fa-icon
                     [icon]="faEdit"
                     class="icon-position"
@@ -40,7 +37,7 @@
                   ></fa-icon>
                   <div>
                     <h4 class="afm-label-text" style="text-align: center">
-                      {{ event.message }}
+                      {{ event.Message }}
                     </h4>
                   </div>
                 </div>

@@ -51,10 +51,10 @@ class Database:
     
     def commit(self):
         self.db.commit()
-        self.db.close()
+        # self.db.close()
 
-    def close(self):
-        self.db.close()
+    # def close(self):
+        # self.db.close()
         
 if __name__ == "__main__":
     app = create_app()

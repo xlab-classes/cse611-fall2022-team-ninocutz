@@ -39,9 +39,9 @@ export class EditFutureEventComponent implements OnInit, OnDestroy {
   }
 
   async myUploader(event: any) {
-    for (let file of event.files) {
-      this.futureEvent.blob = await this.getBase64(file);
-    }
+    // for (let file of event.files) {
+    //   this.futureEvent.blob = await this.getBase64(file);
+    // }
   }
 
   getBase64(file: any): Promise<any> {
@@ -55,7 +55,7 @@ export class EditFutureEventComponent implements OnInit, OnDestroy {
   }
 
   clear() {
-    this.futureEvent.blob = undefined;
+    this.futureEvent.Url = '';
     this.fileUpload.clear();
     this.uploadedFiles = undefined;
   }

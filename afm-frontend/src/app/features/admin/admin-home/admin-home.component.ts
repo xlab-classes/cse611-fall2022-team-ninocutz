@@ -36,9 +36,7 @@ export class AdminHomeComponent implements OnInit {
 
   retrieveFutureEventsData() {
     this.dateService.getAllFutureEvents().subscribe((data) => {
-      setTimeout(() => {
-        this.futureEvents = data;
-      }, 1000);
+      this.futureEvents = data.events;
     });
   }
 

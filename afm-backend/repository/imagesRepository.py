@@ -6,7 +6,7 @@ db = Database()
 
 def insert_image(image_type, url):
     cursor = db.cursor()
-    sql = "INSERT INTO image(image_type, url) VALUES (%s, %s)"
+    sql = "INSERT INTO Image(image_type, url) VALUES (%s, %s)"
     cursor.execute(sql, (image_type, url))
     id = cursor.lastrowid
     cursor.close()

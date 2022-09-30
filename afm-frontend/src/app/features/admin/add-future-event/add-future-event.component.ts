@@ -49,7 +49,7 @@ export class AddFutureEventComponent implements OnInit {
 
     data.address = this.address;
     data.event_date = moment(this.futureEventData).format(
-      'YYYY-MM-DD HH:mm:ss'
+      'YYYY-MM-DD'
     );
     data.latitude = '51.000000';
     data.longitude = '51.000000';
