@@ -5,6 +5,9 @@ import os
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import create_access_token
 from flask_cors import CORS
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def create_app():
     from controller.images_controller import images_blueprint
@@ -30,14 +33,15 @@ def create_app():
     app.register_blueprint(events_blueprint)
     app.register_blueprint(user_blueprint)
 
+    
+
     return app
 
 class Database:
     def __init__(self) -> None:
-        self.username = os.environ.get("USER")
-        self.password = os.environ.get("PASSWORD")
-        self.username = 'master'
-        self.password = 'Afm@fall2022'        
+        self.username = os.environ.get("DB_USERNAME")
+        self.password = os.environ.get("DB_PASSWORD")  
+
         self.db = None
 
     def create_connection(self):

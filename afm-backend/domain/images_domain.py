@@ -8,8 +8,8 @@ from flask import Flask, request
 from repository import imagesRepository as images_repo
 from werkzeug.utils import secure_filename
 
-ACCESS_KEY = os.environ.get("ACCESS_KEY")
-SECRET_KEY = os.environ.get("SECRET_KEY")
+ACCESS_KEY = os.environ.get("AWS_ACCESS_KEY")
+SECRET_KEY = os.environ.get("AWS_SECRET_KEY")
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 

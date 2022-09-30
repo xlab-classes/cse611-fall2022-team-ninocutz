@@ -101,7 +101,7 @@ export class DataService {
       Authorization: `Bearer ${token}`,
     });
 
-    return this.postData('event/future', formData, true);
+    return this.postData('/event/future', formData, true);
   }
 
   loginUser(emailId: string, password: string): Observable<AuthResponseModel> {
