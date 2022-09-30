@@ -19,8 +19,8 @@ export class AdminHomeComponent implements OnInit {
   faTrash = faTrash;
 
   futureEvents: FutureEventsModel[] = [];
-  pastEvents: any[] = [];
-  galleryImages: any[] = [];
+  pastEvents: PastEventsModel[] = [];
+  galleryImages: GalleryImagesModel[] = [];
 
   constructor(
     private router: Router,
@@ -41,14 +41,14 @@ export class AdminHomeComponent implements OnInit {
   }
 
   retrievePastEventsData() {
-    this.dateService.getAllFutureEvents().subscribe((data) => {
+    this.dateService.getAllPastEvents().subscribe((data) => {
       this.pastEvents = data.events;
     });
   }
 
   retrieveGalleryData() {
-    this.dateService.getAllFutureEvents().subscribe((data) => {
-      this.galleryImages = data.events;
+    this.dateService.getAllGalleryImages().subscribe((data) => {
+      this.galleryImages = data.images;
     });
   }
 

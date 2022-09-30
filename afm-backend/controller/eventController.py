@@ -94,3 +94,11 @@ def addCurrentEvent():
     return {'id': created_id}, 201
 
 #endregion Current Events
+
+
+#region Past Events
+@events_blueprint.route("/event/past", methods=['GET'])
+def getAllPastEvents():
+    events = eventsDomain.getAllPastEvents()
+    return {'events': events}, 200
+#endregion Past Events

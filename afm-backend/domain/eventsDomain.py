@@ -23,3 +23,7 @@ def createCurrentEvent(imageId, eventType, longitude, latitude, address, eventDa
     currentEventId = eventsRepo.addCurrentEvent(eventId)
 
     return currentEventId
+
+def getAllPastEvents():
+    events = eventsRepo.getAllPastEvents()
+    return events

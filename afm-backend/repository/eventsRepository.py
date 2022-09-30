@@ -53,7 +53,7 @@ def getEventById(id):
 def getAllFutureEvents():
     cursor = db.cursor()
     sql = "SELECT  E.Id, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
-        "FROM Event AS E INNER JOIN Image AS I ON E.ImageId = I.Id where E.EventDate > CURDATE();"
+        "FROM Event AS E LEFT JOIN Image AS I ON E.ImageId = I.Id where E.EventDate > CURDATE();"
     cursor.execute(sql)
     # results = cursor.fetchall()
     columns = cursor.description 
@@ -65,8 +65,20 @@ def getAllFutureEvents():
 def getCurrentEvent():
     cursor = db.cursor()
     sql = "SELECT E.Id, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message " + \
-        "FROM CurrentEvent AS C INNER JOIN Event AS E ON C.EventId = E.Id"
+        "FROM CurrentEvent AS C LEFT JOIN Event AS E ON C.EventId = E.Id"
     cursor.execute(sql)
+    columns = cursor.description 
+    results = [{columns[index][0]:column for index, column in enumerate(value)} for value in cursor.fetchall()]
+
+    cursor.close()
+    return results
+
+def getAllPastEvents():
+    cursor = db.cursor()
+    sql = "SELECT  E.Id, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
+        "FROM Event AS E LEFT JOIN Image AS I ON E.ImageId = I.Id where E.EventDate < CURDATE();"
+    cursor.execute(sql)
+    # results = cursor.fetchall()
     columns = cursor.description 
     results = [{columns[index][0]:column for index, column in enumerate(value)} for value in cursor.fetchall()]
 

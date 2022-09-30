@@ -1,7 +1,7 @@
 import os
 import boto3
 from botocore.exceptions import NoCredentialsError
-from repository import imagesRepository as images_repo
+from repository import imagesRepository
 
 ACCESS_KEY = os.environ.get("AWS_ACCESS_KEY")
 SECRET_KEY = os.environ.get("AWS_SECRET_KEY")
@@ -9,7 +9,7 @@ SECRET_KEY = os.environ.get("AWS_SECRET_KEY")
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 def add_image(image_type, url):
-    image_id = images_repo.insert_image(image_type, url)
+    image_id = imagesRepository.insert_image(image_type, url)
     return image_id
 
 def upload_to_aws(local_file, bucket, s3_file):
@@ -38,3 +38,8 @@ def get_file(file, upload_folder, filename):
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+    
+def getAllGalleryImages():
+    images = imagesRepository.getAllGalleryImages()
+    return images

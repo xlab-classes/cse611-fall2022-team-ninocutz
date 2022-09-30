@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { DataService } from './core/services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +8,7 @@ import { DataService } from './core/services/data.service';
 export class AppComponent {
   title = 'afm-frontend';
 
-  constructor(private dataService: DataService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.loadConfigurations();
-  }
-
-  async loadConfigurations() {
-    await this.dataService.loadAssetConfigurations(
-      environment.configurationPath
-    );
-  }
+  ngOnInit(): void {}
 }
