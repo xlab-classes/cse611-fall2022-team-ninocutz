@@ -5,13 +5,12 @@ from app import Database
 db = Database()
 #Future Events
 
-def createFutureEvent(image_id, event_id, longitude, latitude, email_id, address, str_now,zip_code,message):
+def createFutureEvent(image_id, event_id, longitude, latitude, address, str_now,zip_code,message):
 
     sql = "INSERT INTO Event (imageId, \
         eventTypeId, \
             longitude, \
                 latitude, \
-                    EmailID, \
                         Address, \
                             EventDate, \
                                 Zipcode, \
@@ -19,7 +18,7 @@ def createFutureEvent(image_id, event_id, longitude, latitude, email_id, address
 
 
     cursor = db.cursor()
-    cursor.execute(sql, (image_id, event_id, longitude, latitude, email_id, address, str_now, zip_code, message))
+    cursor.execute(sql, (image_id, event_id, longitude, latitude, address, str_now, zip_code, message))
     cursor.close()
     db.commit()
     return cursor.lastrowid
@@ -34,7 +33,8 @@ def get_event_id(event_type):
 
 def get_all_events():
     cursor = db.cursor()
-    sql = "SELECT *  FROM Event"
+    sql = "SELECT E.Id, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTImeSlot, E.Zipcode, E.Message, I.Url " + \
+        "FROM Event AS E INNER JOIN Image AS I ON E.ImageId = I.Id FROM Event"
     cursor.execute(sql)
     results = cursor.fetchall()
     cursor.close()
@@ -42,16 +42,22 @@ def get_all_events():
 
 def get_event_by_id(id):
     cursor = db.cursor()
-    sql = "SELECT * FROM Event where id='"+str(id).strip() + "'"
+    sql = "SELECT E.Id, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTImeSlot, E.Zipcode, E.Message, I.Url " + \
+        "FROM Event AS E INNER JOIN Image AS I ON E.ImageId = I.Id where Id=" + id
     cursor.execute(sql)
-    results = cursor.fetchall()
+    columns = cursor.description 
+    results = [{columns[index][0]:column for index, column in enumerate(value)} for value in cursor.fetchall()]
     cursor.close()
-    return results[0][0]
+    return results
 
 def get_all_future_events():
     cursor = db.cursor()
-    sql = "SELECT * FROM Event where EventDate > CURDATE()"
+    sql = "SELECT  E.Id, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTImeSlot, E.Zipcode, E.Message, I.Url " + \
+        "FROM Event AS E INNER JOIN Image AS I ON E.ImageId = I.Id where E.EventDate > CURDATE();"
     cursor.execute(sql)
-    results = cursor.fetchall()
+    # results = cursor.fetchall()
+    columns = cursor.description 
+    results = [{columns[index][0]:column for index, column in enumerate(value)} for value in cursor.fetchall()]
+
     cursor.close()
-    return results[0][0]
+    return results
