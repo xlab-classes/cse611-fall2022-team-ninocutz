@@ -10,3 +10,8 @@
   margin-top: -20px;
   cursor: pointer;
 }
+.message-break {
+  text-align: center;
+  overflow-wrap: break-word;
+  max-width: 300px;
+}
