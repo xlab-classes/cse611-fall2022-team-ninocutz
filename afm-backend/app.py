@@ -1,12 +1,11 @@
-from flask import Flask, request
-from flask import jsonify
+from flask import Flask
 import pymysql
 import os
 from flask_jwt_extended import JWTManager
-from flask_jwt_extended import create_access_token
 from flask_cors import CORS
 from dotenv import load_dotenv
 
+# Used to load .env file
 load_dotenv()
 
 def create_app():

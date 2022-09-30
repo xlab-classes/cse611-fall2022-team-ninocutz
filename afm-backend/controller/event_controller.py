@@ -1,13 +1,10 @@
-from datetime import datetime
-from flask import Flask, request
+from flask import request
 from domain import events_domain as eventsDomain
 from repository import eventsRepository as eventsRepo
 from domain import images_domain as image_domain
 from werkzeug.utils import secure_filename
 from flask import Blueprint
-import json, os
-from flask_jwt_extended import (create_access_token, get_jwt_identity, jwt_required)
-from flask_cors import CORS, cross_origin
+from flask_cors import cross_origin
 
 events_blueprint = Blueprint('events_blueprint', __name__)
 # bucket = os.environ.get("BUCKET")
