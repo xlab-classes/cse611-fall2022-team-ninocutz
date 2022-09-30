@@ -8,10 +8,10 @@ from werkzeug.utils import secure_filename
 from app import Database
 user_blueprint = Blueprint('user_blueprint', __name__)
 
-db = Database()
 
 @user_blueprint.route("/auth", methods=["POST"])
 def login():
+    db = Database()
     username = request.json.get("username", None)
     password = request.json.get("password", None)
     sql = "select * from RV_User where EmailID = '{username}' and Password = '{password}'"
@@ -20,4 +20,5 @@ def login():
     cursor.close()
     db.commit()    
     access_token = create_access_token(identity=username)
+    db = None
     return jsonify(access_token=access_token)

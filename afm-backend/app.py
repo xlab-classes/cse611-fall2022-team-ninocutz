@@ -30,7 +30,6 @@ def create_app():
     return app
 
 class Database:
-
     def __init__(self) -> None:
         self.username = os.environ.get("USER")
         self.password = os.environ.get("PASSWORD")
@@ -51,6 +50,9 @@ class Database:
         self.db.commit()
         self.db.close()
 
+    def close(self):
+        self.db.close()
+        
 if __name__ == "__main__":
     app = create_app()
     app.run(host="localhost", port=5555, debug=True)
