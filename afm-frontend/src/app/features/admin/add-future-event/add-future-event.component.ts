@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FutureEventRequestModel } from 'src/app/core/models/future-event-request.model';
 import { DataService } from 'src/app/core/services/data.service';
 import * as moment from 'moment';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService } from 'src/app/core/services/confirmation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-future-event',
   templateUrl: './add-future-event.component.html',
   styleUrls: ['./add-future-event.component.scss'],
-  providers: [MessageService],
 })
 export class AddFutureEventComponent implements OnInit {
   @ViewChild('fileUpload') fileUpload: any;
@@ -17,19 +17,21 @@ export class AddFutureEventComponent implements OnInit {
   futureEventData: Date;
   address: string;
   message: string;
-  zipCode: number;
+  zipCode?: number;
   selectedEvent: any;
   eventTypes: any[] = [];
 
   constructor(
     private dataService: DataService,
-    private messageService: MessageService
+
+    private confirmationService: ConfirmationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.eventTypes = [
       { name: 'Wedding', code: 'Wedding' },
-      { name: 'Wedding', code: 'Wedding' },
+      { name: 'Club', code: 'Club' },
     ];
   }
 
@@ -48,9 +50,7 @@ export class AddFutureEventComponent implements OnInit {
     const data: FutureEventRequestModel = new FutureEventRequestModel();
 
     data.address = this.address;
-    data.event_date = moment(this.futureEventData).format(
-      'YYYY-MM-DD'
-    );
+    data.event_date = moment(this.futureEventData).format('YYYY-MM-DD');
     data.latitude = '51.000000';
     data.longitude = '51.000000';
     data.message = this.message;
@@ -66,10 +66,16 @@ export class AddFutureEventComponent implements OnInit {
   }
 
   showSuccess() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Added Event',
-    });
+    this.confirmationService.setConfirmation(true);
+    this.router.navigate(['/admin/future-events']);
   }
+
+  // clearAllData() {
+  //   this.clear();
+  //   // this.futureEventData = ;
+  //   this.address = '';
+  //   this.message = '';
+  //   this.zipCode = undefined;
+  //   this.selectedEvent = {};
+  // }
 }
