@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  configurationPath: 'assets/config.json',
+  apibaseUrl: 'http://localhost:5555/',
 };
 
 /*

@@ -26,3 +26,9 @@ def upload_image():
     image_id = imagesDomain.add_image(image_type, url)
     return {'id': image_id}, 201
 
+#region Gallery
+@images_blueprint.route("/images/gallery", methods=['GET'])
+def getAllGalleryImages():
+    events = imagesDomain.getAllGalleryImages()
+    return {'images': events}, 200
+#endregion Gallery

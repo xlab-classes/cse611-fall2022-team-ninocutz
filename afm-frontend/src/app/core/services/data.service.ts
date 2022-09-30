@@ -8,12 +8,15 @@ import { AuthResponseModel } from '../models/auth-response.model';
 import { LocalStorageService } from './local-storage.service';
 import { FutureEventResponseModel } from '../models/future-events-response.model';
 import { CurrentEventRequestModel } from '../models/current-event-request.model';
+import { PastEventsResponseModel } from '../models/past-events-response.model';
+import { GalleryImagesResponseModel } from '../models/gallery-images-response.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  apiBaseUrl = 'http://localhost:5555/';
+  apiBaseUrl = environment.apibaseUrl;
 
   constructor(
     private httpClient: HttpClient,
@@ -53,34 +56,17 @@ export class DataService {
     return this.httpClient.put<T>(url, data);
   }
 
-  loadAssetConfigurations(configPath: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      this.httpClient
-        .get(configPath)
-        .toPromise()
-        .then((response: any) => {
-          this.apiBaseUrl = response.apiBaseUrl;
-          return resolve(this.apiBaseUrl);
-        })
-        .then(() => resolve(''))
-        .catch(() => reject());
-    });
-  }
-
   getAllFutureEvents(): Observable<FutureEventResponseModel> {
     return this.getData<FutureEventResponseModel>('/event/future');
   }
 
-  getAllPastEvents(): Observable<PastEventsModel[]> {
-    return this.httpClient.get<PastEventsModel[]>(
-      './assets/future-events.json'
-    );
+  getAllPastEvents(): Observable<PastEventsResponseModel> {
+    return this.getData<PastEventsResponseModel>('/event/past');
+    // return this.getData<FutureEventResponseModel>('/event/future');
   }
 
-  getAllGalleryImages(): Observable<GalleryImagesModel[]> {
-    return this.httpClient.get<GalleryImagesModel[]>(
-      './assets/future-events.json'
-    );
+  getAllGalleryImages(): Observable<GalleryImagesResponseModel> {
+    return this.getData<GalleryImagesResponseModel>('/images/gallery');
   }
 
   addFutureEvent(data: FutureEventRequestModel, file: File): Observable<any> {

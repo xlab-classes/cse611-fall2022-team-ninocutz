@@ -29,7 +29,10 @@
                 style="margin-top: 50px"
               >
                 <div class="p-3 border bg-light">
-                  <app-afm-image [src]="event.Url" width="300"></app-afm-image>
+                  <app-afm-image
+                    [src]="event.Url ?? ''"
+                    width="300"
+                  ></app-afm-image>
                   <fa-icon
                     [icon]="faEdit"
                     class="icon-position"
