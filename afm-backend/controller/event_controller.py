@@ -6,6 +6,7 @@ from domain import images_domain as image_domain
 from werkzeug.utils import secure_filename
 from flask import Blueprint
 import json, os
+from flask_jwt_extended import (create_access_token, get_jwt_identity, jwt_required)
 
 events_blueprint = Blueprint('events_blueprint', __name__)
 # bucket = os.environ.get("BUCKET")
@@ -14,13 +15,12 @@ bucket = 'afm-image-store'
 IMAGE_LOCATION = '/tmp/images'
 
 @events_blueprint.route("/event/future", methods=['POST'])
+@jwt_required()
 def future_event():
-
     image_id = None
     event_type = request.form.get('event_type')
     longitude = request.form.get('longitude')
     latitude = request.form.get('latitude')
-    email_id = request.form.get('email_id')
     address = request.form.get('address')
     event_date = request.form.get('event_date')
     zip_code = request.form.get('zip_code')
@@ -39,13 +39,12 @@ def future_event():
         image_id = image_domain.add_image(image_type, url)
     
     created_id = eventsDomain.createFutureEvent(image_id, \
-        event_type, longitude, latitude, email_id, \
+        event_type, longitude, latitude, \
             address, event_date, zip_code, message)
     return {'id': created_id}, 201
 
 @events_blueprint.route("/event/future/getAll", methods=['GET'])
 def getAllFutureEvents():
-    
     events = eventsRepo.get_all_future_events()
     return {'events': events}, 201
 
