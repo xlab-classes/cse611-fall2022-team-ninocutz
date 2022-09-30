@@ -56,6 +56,44 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-12 col-md-6 mt-5 mt-md-0">
+            <h3 class="afm-label-text">Event Type</h3>
+            <p-dropdown
+              [options]="eventTypes"
+              [(ngModel)]="selectedEvent"
+              placeholder="Select a City"
+              optionLabel="name"
+              [showClear]="true"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <h3 class="afm-label-text">Address</h3>
+            <textarea
+              [(ngModel)]="address"
+              [rows]="5"
+              [cols]="80"
+              pInputTextarea
+              [autoResize]="true"
+              style="max-width: 90%"
+            ></textarea>
+          </div>
+
+          <div class="col mt-5 mt-md-0">
+            <h3 class="afm-label-text">Zip Code</h3>
+            <p-inputNumber
+              [(ngModel)]="zipCode"
+              mode="decimal"
+              inputId="withoutgrouping"
+              [useGrouping]="false"
+            >
+            </p-inputNumber>
+          </div>
+        </div>
+
         <br />
         <br />
 

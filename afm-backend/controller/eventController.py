@@ -74,18 +74,18 @@ def addCurrentEvent():
     event_date = request.form.get('event_date')
     zip_code = request.form.get('zip_code')
     message = request.form.get('message')
-    if 'file' in request.files:
-        file = request.files['file']
-        filename = secure_filename(file.filename)
-        image_type = request.args.get('image_type', None)
-        if not imagesDomain.get_file(file, IMAGE_LOCATION, filename):
-            return 'Invalid file', 400
+    # if 'file' in request.files:
+    #     file = request.files['file']
+    #     filename = secure_filename(file.filename)
+    #     image_type = request.args.get('image_type', None)
+    #     if not imagesDomain.get_file(file, IMAGE_LOCATION, filename):
+    #         return 'Invalid file', 400
 
-        image_type = request.args.get('image_type', None)
-        if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
-            return 'Image upload failed', 500
-        url = f"https://{bucket}.s3.amazonaws.com/{filename}"        
-        image_id = imagesDomain.add_image(image_type, url)
+    #     image_type = request.args.get('image_type', None)
+    #     if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
+    #         return 'Image upload failed', 500
+    #     url = f"https://{bucket}.s3.amazonaws.com/{filename}"        
+    #     image_id = imagesDomain.add_image(image_type, url)
     
     created_id = eventsDomain.createCurrentEvent(image_id, event_type, longitude, latitude, address, event_date, zip_code, message)
     return {'id': created_id}, 201
