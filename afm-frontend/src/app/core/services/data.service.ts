@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FutureEventsModel } from '../models/future-events.model';
 import { PastEventsModel } from '../models/past-events.model';
 import { GalleryImagesModel } from '../models/gallery-images.model';
 import { FutureEventRequestModel } from '../models/future-event-request.model';
+import { AuthResponseModel } from '../models/auth-response.model';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,17 +14,37 @@ import { FutureEventRequestModel } from '../models/future-event-request.model';
 export class DataService {
   apiBaseUrl = 'http://localhost:5555/';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private localStorageService: LocalStorageService
+  ) {}
 
   private getData<T>(apiUrl: string): Observable<T> {
     const url = this.apiBaseUrl + apiUrl;
     return this.httpClient.get<T>(url);
   }
 
-  private postData<T>(apiUrl: string, data: any): Observable<T> {
+  private postData<T>(
+    apiUrl: string,
+    data: any,
+    useAuth = false
+  ): Observable<T> {
     const url = this.apiBaseUrl + apiUrl;
 
-    return this.httpClient.post<T>(url, data);
+    if (useAuth) {
+      const token = localStorage.getItem('token');
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+        }),
+      };
+      return this.httpClient.post<T>(url, data, httpOptions);
+    }
+    const httpOptions = {
+      headers: new HttpHeaders(),
+    };
+
+    return this.httpClient.post<T>(url, data, httpOptions);
   }
 
   private putData<T>(apiUrl: string, data: any): Observable<T> {
@@ -80,6 +102,20 @@ export class DataService {
     formData.append('message', data.message);
     formData.append('file', file, file.name);
 
-    return this.postData('event/future', formData);
+    const token = this.localStorageService.getLocalStorage('token');
+    const headers = new Headers({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.postData('event/future', formData, true);
+  }
+
+  loginUser(emailId: string, password: string): Observable<AuthResponseModel> {
+    const data = {
+      username: emailId,
+      password: password,
+    };
+
+    return this.postData('/auth', data);
   }
 }
