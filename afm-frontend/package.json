@@ -25,6 +25,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "bootstrap": "^5.2.1",
     "jquery": "^3.6.1",
+    "moment": "^2.29.4",
     "primeicons": "^5.0.0",
     "primeng": "^14.0.2",
     "rxjs": "~7.5.0",

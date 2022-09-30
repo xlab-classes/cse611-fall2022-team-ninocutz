@@ -21,6 +21,9 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { SigninComponent } from './signin/signin.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     CalendarModule,
     InputTextareaModule,
     FileUploadModule,
+    InputNumberModule,
+    DropdownModule,
+    ToastModule,
   ],
   exports: [
     FooterComponent,
@@ -62,7 +68,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     CalendarModule,
     InputTextareaModule,
     FileUploadModule,
+    InputNumberModule,
     ImageModule,
+    DropdownModule,
+    ToastModule,
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,
