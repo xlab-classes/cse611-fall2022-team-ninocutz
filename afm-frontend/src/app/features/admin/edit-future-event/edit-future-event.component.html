@@ -5,12 +5,12 @@
     <div class="container">
       <app-afm-blur-background>
         <div class="button-alignment row g-4">
-          <div class="col" *ngIf="uploadedFiles || futureEvent.blob">
-            <app-afm-image src="{{ futureEvent.blob }}"></app-afm-image>
+          <div class="col" *ngIf="uploadedFiles || futureEvent.Url">
+            <app-afm-image [src]="futureEvent.Url"></app-afm-image>
           </div>
           <div
             class="col-lg-12 align-self-center"
-            *ngIf="uploadedFiles || futureEvent.blob"
+            *ngIf="uploadedFiles || futureEvent.Url"
           >
             <app-afm-button label="Remove" (click)="clear()"></app-afm-button>
           </div>
@@ -24,7 +24,6 @@
               [customUpload]="true"
               [auto]="true"
               accept="image/*"
-              [maxFileSize]="1000000"
               chooseLabel="Upload Image"
             >
             </p-fileUpload>
@@ -38,6 +37,7 @@
           <div class="col">
             <h5 class="afm-label-text">Description</h5>
             <textarea
+              [(ngModel)]="futureEvent.Message"
               [rows]="5"
               [cols]="80"
               pInputTextarea
