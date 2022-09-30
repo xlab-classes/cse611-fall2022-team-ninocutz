@@ -1,10 +1,8 @@
-from flask import Flask, request
-from flask import jsonify
-from flask_jwt_extended import JWTManager
+import datetime
+from flask import request, jsonify
 from flask_jwt_extended import create_access_token
 from flask import request
 from flask import Blueprint
-from werkzeug.utils import secure_filename
 from app import Database
 user_blueprint = Blueprint('user_blueprint', __name__)
 
@@ -19,6 +17,6 @@ def login():
     cursor.execute(sql)
     cursor.close()
     db.commit()    
-    access_token = create_access_token(identity=username)
+    access_token = create_access_token(identity=username, expires_delta=datetime.timedelta(minutes=60))
     db = None
     return jsonify(access_token=access_token)

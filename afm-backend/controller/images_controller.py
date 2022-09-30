@@ -1,5 +1,4 @@
 from domain import images_domain as image_domain
-import os
 from flask import request
 from flask import Blueprint
 from werkzeug.utils import secure_filename

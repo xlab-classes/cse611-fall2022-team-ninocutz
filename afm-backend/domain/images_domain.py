@@ -1,12 +1,7 @@
-from distutils.command.upload import upload
 import os
 import boto3
 from botocore.exceptions import NoCredentialsError
-from datetime import datetime
-# from flask_jwt import jwt_required, JWT
-from flask import Flask, request
 from repository import imagesRepository as images_repo
-from werkzeug.utils import secure_filename
 
 ACCESS_KEY = os.environ.get("AWS_ACCESS_KEY")
 SECRET_KEY = os.environ.get("AWS_SECRET_KEY")

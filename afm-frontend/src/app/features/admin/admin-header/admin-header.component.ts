@@ -44,4 +44,9 @@ export class AdminHeaderComponent implements OnInit {
   homeIconClicked() {
     this.router.navigate(['/admin']);
   }
+
+  logOut() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }

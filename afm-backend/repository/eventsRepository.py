@@ -1,5 +1,3 @@
-import os
-import pymysql
 from app import Database
 
 db = Database()

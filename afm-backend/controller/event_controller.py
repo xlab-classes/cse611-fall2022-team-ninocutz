@@ -1,23 +1,20 @@
-from datetime import datetime
-from flask import Flask, request
+import os
+from werkzeug.utils import secure_filename
+from flask import Blueprint
+from flask_cors import cross_origin
+from flask import request
 from domain import events_domain as eventsDomain
 from repository import eventsRepository as eventsRepo
 from domain import images_domain as image_domain
-from werkzeug.utils import secure_filename
-from flask import Blueprint
-import json, os
-from flask_jwt_extended import (create_access_token, get_jwt_identity, jwt_required)
-from flask_cors import CORS, cross_origin
+
 
 events_blueprint = Blueprint('events_blueprint', __name__)
-# bucket = os.environ.get("BUCKET")
-bucket = 'afm-image-store'
-# IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
-IMAGE_LOCATION = '/tmp/images'
+bucket = os.environ.get("S3_BUCKET")
+IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 
 @events_blueprint.route("/event/future", methods=['POST'])
 @cross_origin(origin='*')
-# @jwt_required()
+# @jwt_required() TODO: Check authentication failure from client
 def future_event():
     image_id = None
     event_type = request.form.get('event_type')
@@ -48,9 +45,9 @@ def future_event():
 @events_blueprint.route("/event/future", methods=['GET'])
 def getAllFutureEvents():
     events = eventsRepo.get_all_future_events()
-    return {'events': events}, 201
+    return {'events': events}, 200
 
 @events_blueprint.route("/event/future/getEventById", methods=['GET'])
 def getEventById(ID):
     event = eventsRepo.get_event_by_id()
-    return {'events': event}, 201
+    return {'events': event}, 200

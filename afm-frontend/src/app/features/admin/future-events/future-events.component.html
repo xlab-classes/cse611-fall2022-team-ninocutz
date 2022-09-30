@@ -24,7 +24,7 @@
           <div style="margin-top: 50px">
             <div class="row g-3">
               <div
-                class="col-12 col-lg-6 d-flex justify-content-center"
+                class="col-12 col-lg-6 d-flex justify-content-center align-self-center"
                 *ngFor="let event of futureEvents"
                 style="margin-top: 50px"
               >
@@ -36,7 +36,7 @@
                     (click)="editFutureEvent(event)"
                   ></fa-icon>
                   <div>
-                    <h4 class="afm-label-text" style="text-align: center">
+                    <h4 class="afm-label-text message-break">
                       {{ event.Message }}
                     </h4>
                   </div>
