@@ -11,7 +11,8 @@ import { SharingService } from 'src/app/core/services/sharing.service';
 export class EditFutureEventComponent implements OnInit, OnDestroy {
   @ViewChild('fileUpload') fileUpload: any;
 
-  futureEvent: FutureEventsModel;
+  // futureEvent: FutureEventsModel;
+  futureEvent: any;
   uploadedFiles: any;
   localStorageKey = 'edit-future-event';
 

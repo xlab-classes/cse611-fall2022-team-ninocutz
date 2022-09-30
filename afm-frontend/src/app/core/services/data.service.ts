@@ -7,6 +7,7 @@ import { GalleryImagesModel } from '../models/gallery-images.model';
 import { FutureEventRequestModel } from '../models/future-event-request.model';
 import { AuthResponseModel } from '../models/auth-response.model';
 import { LocalStorageService } from './local-storage.service';
+import { FutureEventResponseModel } from '../models/future-events-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -59,7 +60,6 @@ export class DataService {
         .toPromise()
         .then((response: any) => {
           this.apiBaseUrl = response.apiBaseUrl;
-          // this.apiBaseUrl = 'http://localhost:5555/';
           return resolve(this.apiBaseUrl);
         })
         .then(() => resolve(''))
@@ -67,14 +67,8 @@ export class DataService {
     });
   }
 
-  // getAllFutureEvents(): Observable<FutureEventsModel[]> {
-  //   return this.getData<FutureEventsModel[]>('futureEvents');
-  // }
-
-  getAllFutureEvents(): Observable<FutureEventsModel[]> {
-    return this.httpClient.get<FutureEventsModel[]>(
-      './assets/future-events.json'
-    );
+  getAllFutureEvents(): Observable<FutureEventResponseModel> {
+    return this.getData<FutureEventResponseModel>('/event/future');
   }
 
   getAllPastEvents(): Observable<PastEventsModel[]> {

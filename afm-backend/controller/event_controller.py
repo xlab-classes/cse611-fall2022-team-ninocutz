@@ -45,7 +45,7 @@ def future_event():
             address, event_date, zip_code, message)
     return {'id': created_id}, 201
 
-@events_blueprint.route("/event/future/getAll", methods=['GET'])
+@events_blueprint.route("/event/future", methods=['GET'])
 def getAllFutureEvents():
     events = eventsRepo.get_all_future_events()
     return {'events': events}, 201
