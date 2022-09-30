@@ -14,7 +14,7 @@ def createFutureEvent(image_id, event_id, longitude, latitude, address, str_now,
                         Address, \
                             EventDate, \
                                 Zipcode, \
-                                    Message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                                    Message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
 
 
     cursor = db.cursor()
