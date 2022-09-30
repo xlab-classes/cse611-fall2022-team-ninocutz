@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { MessageService } from 'primeng/api';
 import { FutureEventsModel } from 'src/app/core/models/future-events.model';
+import { ConfirmationService } from 'src/app/core/services/confirmation.service';
 import { DataService } from 'src/app/core/services/data.service';
 import { SessionStorageService } from 'src/app/core/services/session-storage.service';
 import { SharingService } from 'src/app/core/services/sharing.service';
@@ -10,6 +12,7 @@ import { SharingService } from 'src/app/core/services/sharing.service';
   selector: 'app-future-events',
   templateUrl: './future-events.component.html',
   styleUrls: ['./future-events.component.scss'],
+  providers: [MessageService],
 })
 export class FutureEventsComponent implements OnInit, OnDestroy {
   futureEvents: FutureEventsModel[] = [];
@@ -20,10 +23,17 @@ export class FutureEventsComponent implements OnInit, OnDestroy {
     private sharingService: SharingService,
     private dateService: DataService,
     private router: Router,
-    private sessionStorageService: SessionStorageService
+    private sessionStorageService: SessionStorageService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
+    if (this.confirmationService.checkConfirmation()) {
+      setTimeout(() => {
+        this.showSuccess();
+      }, 2000);
+    }
     // Check if data is available from the sharingService
     this.futureEvents = this.sharingService.getData();
     if (!this.futureEvents || this.futureEvents.length === 0) {
@@ -41,6 +51,14 @@ export class FutureEventsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sessionStorageService.removeSessionStorage(this.localStorageKey);
+  }
+
+  showSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Added Event',
+    });
   }
 
   saveInitialLoadData() {
