@@ -54,8 +54,8 @@ export class AddFutureEventComponent implements OnInit {
     data.eventName = this.eventName;
     data.address = this.address;
     data.eventDate = moment(this.futureEventData).format('YYYY-MM-DD');
-    data.latitude = '';
-    data.longitude = '';
+    data.latitude = '0.0';
+    data.longitude = '0.0';
     data.message = this.message;
     data.zipCode = '' + this.zipCode;
     data.eventType = this.selectedEvent.code;
