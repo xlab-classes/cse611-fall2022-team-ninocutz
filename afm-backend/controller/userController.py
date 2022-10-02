@@ -12,9 +12,12 @@ def login():
     db = Database()
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-    sql = "select * from RV_User where EmailID = '{username}' and Password = '{password}'"
+    sql = "select * from RV_User where EmailID = '" + username + "' and Password = '"+ password + "'"
     cursor = db.cursor()
     cursor.execute(sql)
+    res = cursor.fetchall()
+    if len(res) != 1:
+        return "Invalid username or password", 401
     cursor.close()
     db.commit()    
     access_token = create_access_token(identity=username, expires_delta=datetime.timedelta(minutes=60))
