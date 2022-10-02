@@ -1,10 +1,10 @@
 from app import Database
-
+from model.EventModel import EventModel
 db = Database()
 # Future Events
 
 
-def createFutureEvent(imageId, eventTypeId, name, longitude, latitude, address, eventDate, zipCode, message, eventTimeSlot):
+def createFutureEvent(newEvent: EventModel):
 
     sql = "INSERT INTO Event \
         (ImageId, EventTypeId, Name, Longitude, Latitude, \
@@ -12,8 +12,9 @@ def createFutureEvent(imageId, eventTypeId, name, longitude, latitude, address, 
         Message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
     cursor = db.cursor()
-    cursor.execute(sql, (imageId, eventTypeId, name, longitude,
-                   latitude, address, eventDate, eventTimeSlot, zipCode, message))
+    cursor.execute(sql, (newEvent.imageId, newEvent.eventTypeId, newEvent.name, newEvent.longitude,
+                   newEvent.latitude, newEvent.address, newEvent.eventDate, newEvent.eventTimeSlot,
+                         newEvent.zipCode, newEvent.message))
     cursor.close()
     db.commit()
     return cursor.lastrowid

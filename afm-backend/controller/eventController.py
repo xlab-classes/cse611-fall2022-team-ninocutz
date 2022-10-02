@@ -1,11 +1,14 @@
+from datetime import date
+from email import message
 import os
+from unicodedata import name
 from werkzeug.utils import secure_filename
 from flask import Blueprint
 from flask_cors import cross_origin
 from flask import request
 from domain import eventsDomain
 from domain import imagesDomain
-
+from model.EventModel import EventModel
 
 events_blueprint = Blueprint('events_blueprint', __name__)
 bucket = os.environ.get("S3_BUCKET")
@@ -18,16 +21,16 @@ IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 @cross_origin(origin='*')
 # @jwt_required() TODO: Check authentication failure from client
 def future_event():
-    imageId = None
-    eventName = request.form.get('eventName')
-    eventType = request.form.get('eventType')
-    longitude = request.form.get('longitude')
-    latitude = request.form.get('latitude')
-    address = request.form.get('address')
-    eventDate = request.form.get('eventDate')
-    zipCode = request.form.get('zipCode')
-    message = request.form.get('message')
-    eventTimeSlot = request.form.get('eventTimeSlot')
+    newEvent = EventModel(name=request.form.get('eventName'),
+                          eventType=request.form.get('eventType'),
+                          longitude=request.form.get('longitude'),
+                          latitude=request.form.get('latitude'),
+                          zipCode=request.form.get('zipCode'),
+                          address=request.form.get('address'),
+                          message=request.form.get('message'),
+                          eventTimeSlot=request.form.get('eventTimeSlot'),
+                          eventDate=request.form.get('eventDate')
+                          )
 
     if 'file' in request.files:
         file = request.files['file']
@@ -41,11 +44,11 @@ def future_event():
             return 'Image upload failed', 500
         url = f"https://{bucket}.s3.amazonaws.com/{filename}"
         imageId = imagesDomain.add_image(image_type, url)
+    newEvent.imageId = imageId
 
-    created_id = eventsDomain.createFutureEvent(
-        imageId, eventName, eventType, longitude, latitude, address, eventDate, zipCode, message, eventTimeSlot)
+    createEventId = eventsDomain.createFutureEvent(newEvent)
 
-    return {'id': created_id}, 201
+    return {'id': createEventId}, 201
 
 
 @events_blueprint.route("/event/future", methods=['GET'])
@@ -74,16 +77,17 @@ def getCurrentEvent():
 @cross_origin(origin='*')
 # @jwt_required() TODO: Check authentication failure from client
 def addCurrentEvent():
-    imageId = None
-    eventName = request.form.get('eventName')
-    eventType = request.form.get('eventType')
-    longitude = request.form.get('longitude')
-    latitude = request.form.get('latitude')
-    address = request.form.get('address')
-    eventDate = request.form.get('eventDate')
-    zipCode = request.form.get('zipCode')
-    message = request.form.get('message')
-    eventTimeSlot = request.form.get('eventTimeSlot')
+
+    newEvent = EventModel(name=request.form.get('eventName'),
+                          eventType=request.form.get('eventType'),
+                          longitude=request.form.get('longitude'),
+                          latitude=request.form.get('latitude'),
+                          zipCode=request.form.get('zipCode'),
+                          address=request.form.get('address'),
+                          message=request.form.get('message'),
+                          eventTimeSlot=request.form.get('eventTimeSlot'),
+                          eventDate=request.form.get('eventDate')
+                          )
 
     # TODO: Check if image is needed
     # if 'file' in request.files:
@@ -99,9 +103,8 @@ def addCurrentEvent():
     #     url = f"https://{bucket}.s3.amazonaws.com/{filename}"
     #     image_id = imagesDomain.add_image(image_type, url)
 
-    created_id = eventsDomain.createCurrentEvent(
-        imageId, eventName, eventType, longitude, latitude, address, eventDate, eventTimeSlot, zipCode, message)
-    return {'id': created_id}, 201
+    createdCurrentEventId = eventsDomain.createCurrentEvent(newEvent)
+    return {'id': createdCurrentEventId}, 201
 
 # endregion Current Events
 

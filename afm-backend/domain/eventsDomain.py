@@ -1,10 +1,11 @@
 from repository import eventsRepository as eventsRepo
+from model.EventModel import EventModel
 
 
-def createFutureEvent(imageId, eventName, eventType, longitude, latitude, address, eventDate, zipCode, message, eventTimeSlot):
-    eventTypeId = eventsRepo.getEventTypeId(eventType)
-    createdEventId = eventsRepo.createFutureEvent(
-        imageId, eventTypeId, eventName, longitude, latitude, address, eventDate, zipCode, message, eventTimeSlot)
+def createFutureEvent(newEvent: EventModel):
+    newEvent.eventTypeId = eventsRepo.getEventTypeId(newEvent.eventType)
+
+    createdEventId = eventsRepo.createFutureEvent(newEvent)
 
     return createdEventId
 
@@ -24,9 +25,9 @@ def getCurrentEvent():
     return event
 
 
-def createCurrentEvent(imageId, eventName, eventType, longitude, latitude, address, eventDate, eventTimeSlot, zipCode, message):
-    eventId = createFutureEvent(imageId, eventName, eventType, longitude,
-                                latitude, address, eventDate, zipCode, message, eventTimeSlot)
+def createCurrentEvent(event: EventModel):
+    eventId = createFutureEvent(event.imageId, event.name, event.eventType, event.longitude,
+                                event.latitude, event.address, event.eventDate, event.zipCode, event.message, event.eventTimeSlot)
 
     currentEventId = eventsRepo.addCurrentEvent(eventId)
 
