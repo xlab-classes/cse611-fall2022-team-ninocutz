@@ -20,6 +20,9 @@ export class AddFutureEventComponent implements OnInit {
   zipCode?: number;
   selectedEvent: any;
   eventTypes: any[] = [];
+  eventName: string;
+  fromTime: Date;
+  toTime: Date;
 
   constructor(
     private dataService: DataService,
@@ -48,15 +51,18 @@ export class AddFutureEventComponent implements OnInit {
 
   async addNewFutureEvent() {
     const data: FutureEventRequestModel = new FutureEventRequestModel();
-
+    data.eventName = this.eventName;
     data.address = this.address;
-    data.event_date = moment(this.futureEventData).format('YYYY-MM-DD');
-    data.latitude = '51.000000';
-    data.longitude = '51.000000';
+    data.eventDate = moment(this.futureEventData).format('YYYY-MM-DD');
+    data.latitude = '';
+    data.longitude = '';
     data.message = this.message;
-    data.zip_code = '' + this.zipCode;
-    data.event_type = this.selectedEvent.code;
-    data.email_id = 'Test@Test.com';
+    data.zipCode = '' + this.zipCode;
+    data.eventType = this.selectedEvent.code;
+    data.eventTimeSlot =
+      moment(this.fromTime).format('HH:mm') +
+      '-' +
+      moment(this.toTime).format('HH:mm');
 
     await this.dataService
       .addFutureEvent(data, this.uploadedFiles)
@@ -69,13 +75,4 @@ export class AddFutureEventComponent implements OnInit {
     this.confirmationService.setConfirmation(true);
     this.router.navigate(['/admin/future-events']);
   }
-
-  // clearAllData() {
-  //   this.clear();
-  //   // this.futureEventData = ;
-  //   this.address = '';
-  //   this.message = '';
-  //   this.zipCode = undefined;
-  //   this.selectedEvent = {};
-  // }
 }

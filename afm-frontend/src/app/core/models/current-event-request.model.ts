@@ -1,19 +1,11 @@
 export class CurrentEventRequestModel {
-  // event_name: string;
-  // latitude: string;
-  // longitude: string;
-  // address: string;
-  // zip_code: string;
-  // event_date: string;
-  // event_time_slot: string;
-  // message: string;
-
-  event_type: string;
+  eventName: string;
+  eventType: string;
   longitude: string;
   latitude: string;
-  email_id: string;
   address: string;
-  event_date: string;
-  zip_code: string;
+  eventDate: string;
+  zipCode: string;
   message: string;
+  eventTimeSlot: string;
 }
