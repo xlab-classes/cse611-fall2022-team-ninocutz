@@ -14,11 +14,12 @@ def addBooking():
     bookingDate = data.get('bookingDate', '')
     bookingTimeSlot = data.get('bookingTimeSlot', '')
     address = data.get('address', '')
+    zipCode = data.get('zipCode', '')
     emailId = data.get('emailId', '')
     mobileNumber = data.get('mobileNumber', '')
 
     bookingId = bookingsDomain.addBooking(
-        firstName, lastName, numberOfPeople, bookingDate, bookingTimeSlot, address, emailId, mobileNumber)
+        firstName, lastName, numberOfPeople, bookingDate, bookingTimeSlot, address, zipCode, emailId, mobileNumber)
     return {'id': bookingId}, 201
 
 

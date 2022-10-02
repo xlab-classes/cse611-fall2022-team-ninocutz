@@ -3,12 +3,11 @@ from app import Database
 db = Database()
 
 
-def addBooking(firstName, lastName, numberOfPeople, bookingDate, bookingTimeSlot, address, emailId, mobileNumber):
+def addBooking(customerId, numberOfPeople, bookingDate, bookingTimeSlot):
     cursor = db.cursor()
-    sql = "INSERT INTO Booking(FirstName, LastName, NumberOfPeople, BookingDate, BookingTimeSlot, Address, \
-         EmailId, MobileNumber, BookingStatus) VALUES (%s, %s, %s, %s, %s, %s,%s, %s, %s)"
-    cursor.execute(sql, (firstName, lastName, numberOfPeople, bookingDate,
-                   bookingTimeSlot, address, emailId, mobileNumber, 'REQUESTED'))
+    sql = "INSERT INTO Booking(CustomerId, NumberOfPeople, BookingDate, BookingTimeSlot, BookingStatus) VALUES (%s, %s, %s, %s, %s)"
+    cursor.execute(sql, (customerId, numberOfPeople,
+                   bookingDate, bookingTimeSlot, 'REQUESTED'))
     id = cursor.lastrowid
     cursor.close()
     db.commit()
@@ -17,7 +16,8 @@ def addBooking(firstName, lastName, numberOfPeople, bookingDate, bookingTimeSlot
 
 def getAllBookings():
     cursor = db.cursor()
-    sql = "SELECT FirstName, LastName, NumberOfPeople, BookingDate, BookingTimeSlot, Address, EmailId, MobileNumber, BookingStatus FROM AFM.Booking"
+    sql = "SELECT C.FirstName, C.LastName, B.NumberOfPeople, B.BookingDate, B.BookingTimeSlot, C.Address, C.EmailId, C.MobileNumber, B.BookingStatus \
+        FROM AFM.Booking AS B LEFT JOIN AFM.Customer AS C ON B.CustomerId = C.Id"
     cursor.execute(sql)
     columns = cursor.description
     results = [{columns[index][0]:column for index,
@@ -29,7 +29,8 @@ def getAllBookings():
 
 def getAllRequestedBookings():
     cursor = db.cursor()
-    sql = "SELECT FirstName, LastName, NumberOfPeople, BookingDate, BookingTimeSlot, Address, EmailId, MobileNumber FROM AFM.Booking WHERE BookingStatus = 'REQUESTED'"
+    sql = "SELECT C.FirstName, C.LastName, B.NumberOfPeople, B.BookingDate, B.BookingTimeSlot, C.Address, C.EmailId, C.MobileNumber \
+        FROM AFM.Booking AS B LEFT JOIN AFM.Customer AS C ON B.CustomerId = C.Id WHERE BookingStatus = 'REQUESTED'"
     cursor.execute(sql)
     columns = cursor.description
     results = [{columns[index][0]:column for index,

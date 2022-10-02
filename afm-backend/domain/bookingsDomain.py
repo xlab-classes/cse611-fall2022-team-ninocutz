@@ -1,9 +1,18 @@
 from repository import bookingsRepository
+from repository import customerRepository
 
 
-def addBooking(firstName, lastName, numberOfPeople, bookingDate, bookingTimeSlot, address, emailId, mobileNumber):
+def addBooking(firstName, lastName, numberOfPeople, bookingDate, bookingTimeSlot, address, zipCode, emailId, mobileNumber):
+    customer = customerRepository.getCustomerByMobileNumber(mobileNumber)
+
+    if customer:
+        customerId = customer[0]
+    else:
+        customerId = customerRepository.addNewCustomer(
+            firstName, lastName, emailId, mobileNumber, address, zipCode)
+
     bookingId = bookingsRepository.addBooking(
-        firstName, lastName, numberOfPeople, bookingDate, bookingTimeSlot, address, emailId, mobileNumber)
+        customerId, numberOfPeople, bookingDate, bookingTimeSlot)
     return bookingId
 
 
