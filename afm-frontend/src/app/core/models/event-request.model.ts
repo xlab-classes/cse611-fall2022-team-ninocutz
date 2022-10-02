@@ -1,4 +1,4 @@
-export class FutureEventRequestModel {
+export class EventRequestModel {
   eventName: string;
   eventType: string;
   longitude: string;

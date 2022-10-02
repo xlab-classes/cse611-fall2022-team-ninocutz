@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FutureEventRequestModel } from '../models/future-event-request.model';
+import { EventRequestModel } from '../models/event-request.model';
 import { AuthResponseModel } from '../models/auth-response.model';
 import { LocalStorageService } from './local-storage.service';
 import { FutureEventResponseModel } from '../models/future-events-response.model';
@@ -68,7 +68,7 @@ export class DataService {
     return this.getData<GalleryImagesResponseModel>('images/gallery');
   }
 
-  addFutureEvent(data: FutureEventRequestModel, file: File): Observable<any> {
+  createEvent(data: EventRequestModel, file: File): Observable<any> {
     const formData = new FormData();
 
     formData.append('eventName', data.eventName);
@@ -87,7 +87,7 @@ export class DataService {
       Authorization: `Bearer ${token}`,
     });
 
-    return this.postData('event/future', formData, true);
+    return this.postData('event', formData, true);
   }
 
   loginUser(emailId: string, password: string): Observable<AuthResponseModel> {

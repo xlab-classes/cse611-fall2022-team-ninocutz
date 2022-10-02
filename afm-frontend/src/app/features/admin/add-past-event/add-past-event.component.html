@@ -1,5 +1,5 @@
 <div class="root-div">
-  <h2 class="afm-heading-text" style="text-align: center">Add Future Event</h2>
+  <h2 class="afm-heading-text" style="text-align: center">Add Past Event</h2>
 
   <div class="form-external-box">
     <div class="container">
@@ -53,10 +53,10 @@
                 <div class="col">
                   <h3 class="afm-label-text">Event Date</h3>
                   <p-calendar
-                    [(ngModel)]="futureEventData"
+                    [maxDate]="yesterdayDate"
+                    [(ngModel)]="pastEventDate"
                     [showIcon]="true"
                     inputId="icon"
-                    [minDate]="tomorrowDate"
                   ></p-calendar>
                 </div>
                 <div class="col-12 col-md-6 mt-5 mt-md-0">
@@ -123,7 +123,7 @@
 
           <app-afm-button
             label="Submit"
-            (click)="addNewFutureEvent()"
+            (click)="addNewPastEvent()"
           ></app-afm-button>
         </div>
 

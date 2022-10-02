@@ -17,10 +17,10 @@ IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 # region Future Events
 
 
-@events_blueprint.route("/event/future", methods=['POST'])
+@events_blueprint.route("/event", methods=['POST'])
 @cross_origin(origin='*')
 # @jwt_required() TODO: Check authentication failure from client
-def future_event():
+def createEvent():
     newEvent = EventModel(name=request.form.get('eventName'),
                           eventType=request.form.get('eventType'),
                           longitude=request.form.get('longitude'),
@@ -46,7 +46,7 @@ def future_event():
         imageId = imagesDomain.add_image(image_type, url)
     newEvent.imageId = imageId
 
-    createEventId = eventsDomain.createFutureEvent(newEvent)
+    createEventId = eventsDomain.createEvent(newEvent)
 
     return {'id': createEventId}, 201
 
