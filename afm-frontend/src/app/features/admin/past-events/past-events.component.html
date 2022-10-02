@@ -1,1 +1,61 @@
-<p>past-events works!</p>
+<div class="root-div">
+  <h2 class="afm-heading-text" style="text-align: center">Past Events</h2>
+
+  <div class="form-external-box">
+    <div class="button-alignment">
+      <app-afm-button
+        label="Add New Event"
+        (click)="addNewPastEvent()"
+      ></app-afm-button>
+    </div>
+
+    <div class="container">
+      <app-afm-blur-background>
+        <div
+          class="row justify-content-center"
+          *ngIf="!pastEvents || pastEvents.length == 0"
+          style="margin-top: 50px"
+        >
+          <div class="col-auto">
+            <p-progressSpinner></p-progressSpinner>
+          </div>
+        </div>
+        <div *ngIf="pastEvents && pastEvents.length > 0">
+          <div style="margin-top: 50px">
+            <div class="row g-3">
+              <div
+                class="col-12 col-lg-6 d-flex justify-content-center align-self-center"
+                *ngFor="let event of pastEvents"
+                style="margin-top: 50px"
+              >
+                <div class="p-3 border bg-light">
+                  <app-afm-image
+                    [src]="event.Url ?? ''"
+                    width="300"
+                  ></app-afm-image>
+                  <fa-icon
+                    [icon]="faEdit"
+                    class="icon-position"
+                    (click)="editPastEvent(event)"
+                  ></fa-icon>
+                  <div>
+                    <h4 class="afm-label-text message-break">
+                      {{ event.Message }}
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br />
+        </div>
+      </app-afm-blur-background>
+    </div>
+
+    <br />
+    <br />
+  </div>
+</div>
+
+<p-toast></p-toast>

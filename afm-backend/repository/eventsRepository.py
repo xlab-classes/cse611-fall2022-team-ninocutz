@@ -4,7 +4,7 @@ db = Database()
 # Future Events
 
 
-def createFutureEvent(newEvent: EventModel):
+def createEvent(newEvent: EventModel):
 
     sql = "INSERT INTO Event \
         (ImageId, EventTypeId, Name, Longitude, Latitude, \

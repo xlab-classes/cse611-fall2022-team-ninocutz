@@ -1,21 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { EventRequestModel } from 'src/app/core/models/event-request.model';
-import { DataService } from 'src/app/core/services/data.service';
-import * as moment from 'moment';
-import { ConfirmationService } from 'src/app/core/services/confirmation.service';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
+import { EventRequestModel } from 'src/app/core/models/event-request.model';
+import { ConfirmationService } from 'src/app/core/services/confirmation.service';
+import { DataService } from 'src/app/core/services/data.service';
 
 @Component({
-  selector: 'app-add-future-event',
-  templateUrl: './add-future-event.component.html',
-  styleUrls: ['./add-future-event.component.scss'],
+  selector: 'app-add-past-event',
+  templateUrl: './add-past-event.component.html',
+  styleUrls: ['./add-past-event.component.scss'],
 })
-export class AddFutureEventComponent implements OnInit {
+export class AddPastEventComponent implements OnInit {
   @ViewChild('fileUpload') fileUpload: any;
 
-  tomorrowDate = moment().add(1, 'day').toDate();
+  yesterdayDate = moment().subtract(1, 'day').toDate();
   uploadedFiles: any;
-  futureEventData: Date;
+  pastEventDate: Date;
   address: string;
   message: string;
   zipCode?: number;
@@ -49,11 +49,11 @@ export class AddFutureEventComponent implements OnInit {
     this.uploadedFiles = undefined;
   }
 
-  addNewFutureEvent() {
+  addNewPastEvent() {
     const data: EventRequestModel = new EventRequestModel();
     data.eventName = this.eventName;
     data.address = this.address;
-    data.eventDate = moment(this.futureEventData).format('YYYY-MM-DD');
+    data.eventDate = moment(this.pastEventDate).format('YYYY-MM-DD');
     data.latitude = '0.0';
     data.longitude = '0.0';
     data.message = this.message;
@@ -71,6 +71,6 @@ export class AddFutureEventComponent implements OnInit {
 
   showSuccess() {
     this.confirmationService.setConfirmation(true);
-    this.router.navigate(['/admin/future-events']);
+    this.router.navigate(['/admin/past-events']);
   }
 }
