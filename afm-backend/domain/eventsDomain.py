@@ -1,5 +1,6 @@
 from repository import eventsRepository as eventsRepo
-from model import EventModel
+from model.EventModel import EventModel
+
 
 def createFutureEvent(newEvent: EventModel):
     newEvent.eventTypeId = eventsRepo.getEventTypeId(newEvent.eventType)
