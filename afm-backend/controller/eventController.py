@@ -11,21 +11,24 @@ events_blueprint = Blueprint('events_blueprint', __name__)
 bucket = os.environ.get("S3_BUCKET")
 IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 
-#region Future Events
+# region Future Events
+
 
 @events_blueprint.route("/event/future", methods=['POST'])
 @cross_origin(origin='*')
 # @jwt_required() TODO: Check authentication failure from client
 def future_event():
-    # TODO: Add all the required fields
-    image_id = None
-    event_type = request.form.get('event_type')
+    imageId = None
+    eventName = request.form.get('eventName')
+    eventType = request.form.get('eventType')
     longitude = request.form.get('longitude')
     latitude = request.form.get('latitude')
     address = request.form.get('address')
-    event_date = request.form.get('event_date')
-    zip_code = request.form.get('zip_code')
+    eventDate = request.form.get('eventDate')
+    zipCode = request.form.get('zipCode')
     message = request.form.get('message')
+    eventTimeSlot = request.form.get('eventTimeSlot')
+
     if 'file' in request.files:
         file = request.files['file']
         filename = secure_filename(file.filename)
@@ -36,45 +39,51 @@ def future_event():
         image_type = request.args.get('image_type', None)
         if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
             return 'Image upload failed', 500
-        url = f"https://{bucket}.s3.amazonaws.com/{filename}"        
-        image_id = imagesDomain.add_image(image_type, url)
-    
-    created_id = eventsDomain.createFutureEvent(image_id, \
-        event_type, longitude, latitude, \
-            address, event_date, zip_code, message)
+        url = f"https://{bucket}.s3.amazonaws.com/{filename}"
+        imageId = imagesDomain.add_image(image_type, url)
+
+    created_id = eventsDomain.createFutureEvent(
+        imageId, eventName, eventType, longitude, latitude, address, eventDate, zipCode, message, eventTimeSlot)
+
     return {'id': created_id}, 201
+
 
 @events_blueprint.route("/event/future", methods=['GET'])
 def getAllFutureEvents():
     events = eventsDomain.getAllFutureEvents()
     return {'events': events}, 200
 
+
 @events_blueprint.route("/event/future/getEventById", methods=['GET'])
 def getEventById(ID):
     event = eventsDomain.getEventById(ID)
     return {'events': event}, 200
 
-#endregion Future Events
+# endregion Future Events
 
-#region Current Events
+# region Current Events
+
 
 @events_blueprint.route("/event/current", methods=['GET'])
 def getCurrentEvent():
     events = eventsDomain.getCurrentEvent()
     return {'events': events}, 200
 
+
 @events_blueprint.route("/event/current", methods=['POST'])
 @cross_origin(origin='*')
 # @jwt_required() TODO: Check authentication failure from client
 def addCurrentEvent():
-    image_id = None
-    event_type = request.form.get('event_type')
+    imageId = None
+    eventName = request.form.get('eventName')
+    eventType = request.form.get('eventType')
     longitude = request.form.get('longitude')
     latitude = request.form.get('latitude')
     address = request.form.get('address')
-    event_date = request.form.get('event_date')
-    zip_code = request.form.get('zip_code')
+    eventDate = request.form.get('eventDate')
+    zipCode = request.form.get('zipCode')
     message = request.form.get('message')
+    eventTimeSlot = request.form.get('eventTimeSlot')
 
     # TODO: Check if image is needed
     # if 'file' in request.files:
@@ -87,18 +96,19 @@ def addCurrentEvent():
     #     image_type = request.args.get('image_type', None)
     #     if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
     #         return 'Image upload failed', 500
-    #     url = f"https://{bucket}.s3.amazonaws.com/{filename}"        
+    #     url = f"https://{bucket}.s3.amazonaws.com/{filename}"
     #     image_id = imagesDomain.add_image(image_type, url)
-    
-    created_id = eventsDomain.createCurrentEvent(image_id, event_type, longitude, latitude, address, event_date, zip_code, message)
+
+    created_id = eventsDomain.createCurrentEvent(
+        imageId, eventName, eventType, longitude, latitude, address, eventDate, eventTimeSlot, zipCode, message)
     return {'id': created_id}, 201
 
-#endregion Current Events
+# endregion Current Events
 
 
-#region Past Events
+# region Past Events
 @events_blueprint.route("/event/past", methods=['GET'])
 def getAllPastEvents():
     events = eventsDomain.getAllPastEvents()
     return {'events': events}, 200
-#endregion Past Events
+# endregion Past Events

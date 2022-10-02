@@ -72,14 +72,15 @@ export class DataService {
   addFutureEvent(data: FutureEventRequestModel, file: File): Observable<any> {
     const formData = new FormData();
 
-    formData.append('event_type', data.event_type);
+    formData.append('eventName', data.eventName);
+    formData.append('eventType', data.eventType);
     formData.append('longitude', data.longitude);
     formData.append('latitude', data.latitude);
-    formData.append('email_id', data.email_id);
     formData.append('address', data.address);
-    formData.append('event_date', data.event_date);
-    formData.append('zip_code', data.zip_code);
+    formData.append('eventDate', data.eventDate);
+    formData.append('zipCode', data.zipCode);
     formData.append('message', data.message);
+    formData.append('eventTimeSlot', data.eventTimeSlot);
     formData.append('file', file, file.name);
 
     const token = this.localStorageService.getLocalStorage('token');
@@ -102,14 +103,15 @@ export class DataService {
   addCurrentEvent(data: CurrentEventRequestModel): Observable<any> {
     const formData = new FormData();
 
-    formData.append('event_type', data.event_type);
+    formData.append('eventName', data.eventName);
+    formData.append('eventType', data.eventType);
     formData.append('longitude', data.longitude);
     formData.append('latitude', data.latitude);
-    formData.append('email_id', data.email_id);
     formData.append('address', data.address);
-    formData.append('event_date', data.event_date);
-    formData.append('zip_code', data.zip_code);
+    formData.append('eventDate', data.eventDate);
+    formData.append('zipCode', data.zipCode);
     formData.append('message', data.message);
+    formData.append('eventTimeSlot', data.eventTimeSlot);
 
     return this.postData('/event/current', formData);
   }

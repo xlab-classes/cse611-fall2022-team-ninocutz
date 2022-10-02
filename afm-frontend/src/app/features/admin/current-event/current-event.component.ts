@@ -18,6 +18,7 @@ export class CurrentEventComponent implements OnInit {
   message: string;
   selectedEvent: any;
   eventTypes: any[] = [];
+  eventName: string;
 
   constructor(
     private locationService: LocationService,
@@ -36,14 +37,19 @@ export class CurrentEventComponent implements OnInit {
     this.locationService.getPosition().then((pos) => {
       const data: CurrentEventRequestModel = new CurrentEventRequestModel();
 
-      data.address = this.address;
-      data.event_date = moment(Date.now()).format('YYYY-MM-DD');
+      data.eventName = this.eventName;
+      data.eventType = this.selectedEvent.code;
       data.latitude = '' + pos.lat;
       data.longitude = '' + pos.lng;
+      data.address = this.address;
+      data.eventDate = moment(Date.now()).format('YYYY-MM-DD');
+      data.zipCode = '' + this.zipCode;
       data.message = this.message;
-      data.zip_code = '' + this.zipCode;
-      data.event_type = this.selectedEvent.code;
-      data.email_id = 'Test@Test.com';
+      data.eventTimeSlot =
+        moment(this.fromTime).format('HH:mm') +
+        '-' +
+        moment(this.toTime).format('HH:mm');
+
       this.loading = false;
 
       this.dataService.addCurrentEvent(data).subscribe((data) => {
