@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PastEventsModel } from '../models/past-events.model';
-import { GalleryImagesModel } from '../models/gallery-images.model';
 import { FutureEventRequestModel } from '../models/future-event-request.model';
 import { AuthResponseModel } from '../models/auth-response.model';
 import { LocalStorageService } from './local-storage.service';
@@ -58,16 +56,16 @@ export class DataService {
   }
 
   getAllFutureEvents(): Observable<FutureEventResponseModel> {
-    return this.getData<FutureEventResponseModel>('/event/future');
+    return this.getData<FutureEventResponseModel>('event/future');
   }
 
   getAllPastEvents(): Observable<PastEventsResponseModel> {
-    return this.getData<PastEventsResponseModel>('/event/past');
+    return this.getData<PastEventsResponseModel>('event/past');
     // return this.getData<FutureEventResponseModel>('/event/future');
   }
 
   getAllGalleryImages(): Observable<GalleryImagesResponseModel> {
-    return this.getData<GalleryImagesResponseModel>('/images/gallery');
+    return this.getData<GalleryImagesResponseModel>('images/gallery');
   }
 
   addFutureEvent(data: FutureEventRequestModel, file: File): Observable<any> {
@@ -89,7 +87,7 @@ export class DataService {
       Authorization: `Bearer ${token}`,
     });
 
-    return this.postData('/event/future', formData, true);
+    return this.postData('event/future', formData, true);
   }
 
   loginUser(emailId: string, password: string): Observable<AuthResponseModel> {
@@ -98,7 +96,7 @@ export class DataService {
       password: password,
     };
 
-    return this.postData('/auth', data);
+    return this.postData('auth', data);
   }
 
   addCurrentEvent(data: CurrentEventRequestModel): Observable<any> {
@@ -114,10 +112,24 @@ export class DataService {
     formData.append('message', data.message);
     formData.append('eventTimeSlot', data.eventTimeSlot);
 
-    return this.postData('/event/current', formData);
+    return this.postData('event/current', formData);
   }
 
   getAllBookings(): Observable<BookingsResponseModel> {
     return this.getData<BookingsResponseModel>('/bookings');
+  }
+
+  addNewGalleryImage(file: File): Observable<any> {
+    const formData = new FormData();
+
+    formData.append('file', file, file.name);
+
+    return this.postData('images/gallery', formData);
+  }
+
+  deleteGalleryImage(imageId: number): Observable<any> {
+    const url = this.apiBaseUrl + 'images/gallery/' + imageId;
+
+    return this.httpClient.delete(url);
   }
 }

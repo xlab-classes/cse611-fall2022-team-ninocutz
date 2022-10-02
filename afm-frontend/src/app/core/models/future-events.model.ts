@@ -1,16 +1,6 @@
 import { ImageCarouselModel } from './image-carousel.model';
 
 export class FutureEventsModel extends ImageCarouselModel {
-  // Id: number;
-  // imageId: number;
-  // name: string;
-  // lattitude: number;
-  // longitude: number;
-  // address: string;
-  // zipCode: string;
-  // date: string;
-  // timeSlot: string;
-
   Address: string;
   EventDate: string;
   EventTImeSlot: string;
