@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { MessageService } from 'primeng/api';
 import { GalleryImagesModel } from 'src/app/core/models/gallery-images.model';
 import { DataService } from 'src/app/core/services/data.service';
 
@@ -7,6 +8,7 @@ import { DataService } from 'src/app/core/services/data.service';
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
+  providers: [MessageService],
 })
 export class GalleryComponent implements OnInit {
   @ViewChild('fileUpload') fileUpload: any;
@@ -14,16 +16,17 @@ export class GalleryComponent implements OnInit {
   galleryImages: GalleryImagesModel[] = [];
   uploadedFiles: any;
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.getAllGalleryImages();
   }
 
   getAllGalleryImages() {
-    this.dataService.getAllGalleryImages().subscribe((data) => {
-      this.galleryImages = data.images;
-    });
+    this.loadGalleryImages();
   }
 
   myUploader(event: any) {
@@ -32,10 +35,47 @@ export class GalleryComponent implements OnInit {
     }
   }
 
+  loadGalleryImages() {
+    this.dataService.getAllGalleryImages().subscribe((data) => {
+      this.galleryImages = data.images;
+    });
+  }
+
   clear() {
     this.fileUpload.clear();
     this.uploadedFiles = undefined;
   }
 
-  deleteImage(image: GalleryImagesModel) {}
+  uploadImage() {
+    this.dataService
+      .addNewGalleryImage(this.uploadedFiles)
+      .subscribe((data) => {
+        this.clear();
+        this.loadGalleryImages();
+        this.showAddSuccess();
+      });
+  }
+
+  showAddSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Added Image',
+    });
+  }
+
+  showDeleteSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Deleted Image',
+    });
+  }
+
+  deleteImage(image: GalleryImagesModel) {
+    this.dataService.deleteGalleryImage(image.Id).subscribe((data) => {
+      this.loadGalleryImages();
+      this.showDeleteSuccess();
+    });
+  }
 }

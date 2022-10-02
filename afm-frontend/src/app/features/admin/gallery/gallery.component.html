@@ -9,6 +9,9 @@
       <div class="col-lg-12 align-self-center" *ngIf="uploadedFiles">
         <app-afm-button label="Remove" (click)="clear()"></app-afm-button>
       </div>
+      <div class="col-lg-12 align-self-center" *ngIf="uploadedFiles">
+        <app-afm-button label="Submit" (click)="uploadImage()"></app-afm-button>
+      </div>
       <p-fileUpload
         #fileUpload
         name="myfile[]"
@@ -66,3 +69,5 @@
     <br />
   </div>
 </div>
+
+<p-toast></p-toast>

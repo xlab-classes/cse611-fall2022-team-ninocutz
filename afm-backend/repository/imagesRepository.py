@@ -38,3 +38,12 @@ def insertNewGalleryImage(url):
     cursor.close()
     db.commit()
     return id
+
+
+def deleteImage(imageId):
+    cursor = db.cursor()
+    sql = "DELETE FROM AFM.Image WHERE Id = %s"
+    cursor.execute(sql, (imageId))
+    cursor.close()
+    db.commit()
+    return imageId

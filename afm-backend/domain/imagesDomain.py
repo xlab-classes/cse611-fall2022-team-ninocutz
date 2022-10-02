@@ -51,3 +51,7 @@ def getAllGalleryImages():
 def addNewGalleryImage(url):
     imageId = imagesRepository.insertNewGalleryImage(url)
     return imageId
+
+
+def deleteImage(imageId):
+    return imagesRepository.deleteImage(imageId)

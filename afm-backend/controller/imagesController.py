@@ -50,4 +50,12 @@ def addNewGalleryImage():
         imageId = imagesDomain.addNewGalleryImage(url)
 
         return {'Created': imageId}, 201
+
+
+@images_blueprint.route("/images/gallery/<imageId>", methods=['DELETE'])
+def deleteGalleryImage(imageId):
+    imageId = imagesDomain.deleteImage(imageId)
+
+    return {}, 204
+
 # endregion Gallery
