@@ -11,6 +11,7 @@ import { CurrentEventRequestModel } from '../models/current-event-request.model'
 import { PastEventsResponseModel } from '../models/past-events-response.model';
 import { GalleryImagesResponseModel } from '../models/gallery-images-response.model';
 import { environment } from 'src/environments/environment';
+import { BookingsResponseModel } from '../models/bookings-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -114,5 +115,9 @@ export class DataService {
     formData.append('eventTimeSlot', data.eventTimeSlot);
 
     return this.postData('/event/current', formData);
+  }
+
+  getAllBookings(): Observable<BookingsResponseModel> {
+    return this.getData<BookingsResponseModel>('/bookings');
   }
 }

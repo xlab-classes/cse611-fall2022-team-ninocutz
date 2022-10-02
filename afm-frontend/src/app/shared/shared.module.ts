@@ -24,6 +24,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ToastModule } from 'primeng/toast';
     InputNumberModule,
     DropdownModule,
     ToastModule,
+    TableModule,
   ],
   exports: [
     FooterComponent,
@@ -72,6 +74,7 @@ import { ToastModule } from 'primeng/toast';
     ImageModule,
     DropdownModule,
     ToastModule,
+    TableModule,
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,
