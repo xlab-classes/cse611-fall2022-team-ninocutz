@@ -9,6 +9,7 @@ bucket = 'afm-image-store'
 # IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 IMAGE_LOCATION = '/tmp/images'
 
+
 @images_blueprint.route("/upload/image", methods=['POST'])
 def upload_image():
     if 'file' not in request.files:
@@ -22,13 +23,31 @@ def upload_image():
     if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
         return 'Image upload failed', 500
     url = f"https://{bucket}.s3.amazonaws.com/{filename}"
-    
+
     image_id = imagesDomain.add_image(image_type, url)
     return {'id': image_id}, 201
 
-#region Gallery
+# region Gallery
+
+
 @images_blueprint.route("/images/gallery", methods=['GET'])
 def getAllGalleryImages():
     events = imagesDomain.getAllGalleryImages()
     return {'images': events}, 200
-#endregion Gallery
+
+
+@images_blueprint.route("/images/gallery", methods=['POST'])
+def addNewGalleryImage():
+    if 'file' in request.files:
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        if not imagesDomain.get_file(file, IMAGE_LOCATION, filename):
+            return 'Invalid file', 400
+
+        if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
+            return 'Image upload failed', 500
+        url = f"https://{bucket}.s3.amazonaws.com/{filename}"
+        imageId = imagesDomain.addNewGalleryImage(url)
+
+        return {'Created': imageId}, 201
+# endregion Gallery

@@ -1,1 +1,68 @@
-<p>gallery works!</p>
+<div class="root-div">
+  <h2 class="afm-heading-text" style="text-align: center">Gallery</h2>
+
+  <div class="form-external-box">
+    <div class="button-alignment">
+      <div class="col" *ngIf="uploadedFiles">
+        <app-afm-image [src]="uploadedFiles.objectURL"></app-afm-image>
+      </div>
+      <div class="col-lg-12 align-self-center" *ngIf="uploadedFiles">
+        <app-afm-button label="Remove" (click)="clear()"></app-afm-button>
+      </div>
+      <p-fileUpload
+        #fileUpload
+        name="myfile[]"
+        mode="basic"
+        (uploadHandler)="myUploader($event)"
+        (onUpload)="myUploader($event)"
+        [customUpload]="true"
+        [auto]="true"
+        accept="image/*"
+        chooseLabel="Upload Image"
+      >
+      </p-fileUpload>
+    </div>
+
+    <div class="container">
+      <app-afm-blur-background>
+        <div
+          class="row justify-content-center"
+          *ngIf="!galleryImages || galleryImages.length == 0"
+          style="margin-top: 50px"
+        >
+          <div class="col-auto">
+            <p-progressSpinner></p-progressSpinner>
+          </div>
+        </div>
+        <div *ngIf="galleryImages && galleryImages.length > 0">
+          <div style="margin-top: 50px">
+            <div class="row g-3">
+              <div
+                class="col-12 col-lg-6 d-flex justify-content-center align-self-center"
+                *ngFor="let image of galleryImages"
+                style="margin-top: 50px"
+              >
+                <div class="p-3 border bg-light">
+                  <app-afm-image
+                    [src]="image.Url ?? ''"
+                    width="300"
+                  ></app-afm-image>
+                  <fa-icon
+                    [icon]="faTrash"
+                    class="icon-position"
+                    (click)="deleteImage(image)"
+                  ></fa-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br />
+        </div>
+      </app-afm-blur-background>
+    </div>
+
+    <br />
+    <br />
+  </div>
+</div>

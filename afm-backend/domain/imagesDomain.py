@@ -8,9 +8,11 @@ SECRET_KEY = os.environ.get("AWS_SECRET_KEY")
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
+
 def add_image(image_type, url):
     image_id = imagesRepository.insert_image(image_type, url)
     return image_id
+
 
 def upload_to_aws(local_file, bucket, s3_file):
     s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY,
@@ -18,7 +20,7 @@ def upload_to_aws(local_file, bucket, s3_file):
     try:
         s3.upload_file(local_file, bucket, s3_file)
         url = f"https://{bucket}.s3.amazonaws.com/{s3_file}"
-        print("Upload Successful",url)
+        print("Upload Successful", url)
         return True
     except FileNotFoundError:
         print("The file was not found")
@@ -26,6 +28,7 @@ def upload_to_aws(local_file, bucket, s3_file):
     except NoCredentialsError:
         print("Credentials not available")
         return False
+
 
 def get_file(file, upload_folder, filename):
     if file.filename == '':
@@ -39,7 +42,12 @@ def get_file(file, upload_folder, filename):
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-    
+
 def getAllGalleryImages():
     images = imagesRepository.getAllGalleryImages()
     return images
+
+
+def addNewGalleryImage(url):
+    imageId = imagesRepository.insertNewGalleryImage(url)
+    return imageId
