@@ -44,7 +44,7 @@ def createEvent():
             return 'Image upload failed', 500
         url = f"https://{bucket}.s3.amazonaws.com/{filename}"
         imageId = imagesDomain.add_image(image_type, url)
-    newEvent.imageId = imageId
+        newEvent.imageId = imageId
 
     createEventId = eventsDomain.createEvent(newEvent)
 
