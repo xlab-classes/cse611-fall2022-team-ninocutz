@@ -1,10 +1,10 @@
 from app import Database
 from model.EventModel import EventModel
-db = Database()
 # Future Events
 
 
 def createEvent(newEvent: EventModel):
+    db = Database()
 
     sql = "INSERT INTO Event \
         (ImageId, EventTypeId, Name, Longitude, Latitude, \
@@ -21,6 +21,7 @@ def createEvent(newEvent: EventModel):
 
 
 def getEventTypeId(event_type):
+    db = Database()
     cursor = db.cursor()
     sql = "SELECT id from EventType where name = '" + \
         str(event_type).strip() + "'"
@@ -31,6 +32,7 @@ def getEventTypeId(event_type):
 
 
 def getAllEvents():
+    db = Database()
     cursor = db.cursor()
     sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
         "FROM Event AS E INNER JOIN Image AS I ON E.ImageId = I.Id FROM Event"
@@ -41,6 +43,7 @@ def getAllEvents():
 
 
 def getEventById(id):
+    db = Database()
     cursor = db.cursor()
     sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
         "FROM Event AS E INNER JOIN Image AS I ON E.ImageId = I.Id where E.Id=" + id
@@ -53,6 +56,7 @@ def getEventById(id):
 
 
 def getAllFutureEvents():
+    db = Database()
     cursor = db.cursor()
     sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
         "FROM Event AS E LEFT JOIN Image AS I ON E.ImageId = I.Id where E.EventDate > CURDATE();"
@@ -67,6 +71,7 @@ def getAllFutureEvents():
 
 
 def getCurrentEvent():
+    db = Database()
     cursor = db.cursor()
     sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
         "FROM CurrentEvent AS C LEFT JOIN Event AS E ON C.EventId = E.Id"
@@ -80,6 +85,7 @@ def getCurrentEvent():
 
 
 def getAllPastEvents():
+    db = Database()
     cursor = db.cursor()
     sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
         "FROM Event AS E LEFT JOIN Image AS I ON E.ImageId = I.Id where E.EventDate < CURDATE();"
@@ -94,6 +100,7 @@ def getAllPastEvents():
 
 
 def addCurrentEvent(eventId):
+    db = Database()
     # TODO: Truncate Table and add the new current event, to support only one current event at a time
     sql = "INSERT INTO CurrentEvent (eventId) VALUES (%s)"
 
