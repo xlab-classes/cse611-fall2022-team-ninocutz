@@ -4,6 +4,7 @@ import os
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from dotenv import load_dotenv
+from uuid import uuid4
 
 # Used to load .env file
 load_dotenv()
@@ -18,8 +19,8 @@ def create_app():
     app = Flask(__name__)
 
     # JWT
-    # TODO Feature - change it to random string generator
-    app.secret_key = 'afm_dev_key'
+    # Random Secret Key
+    app.secret_key = uuid4().hex
     app.config['JWT_BLACKLIST_ENABLED'] = True
     app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access']
     app.config['DEBUG'] = True
