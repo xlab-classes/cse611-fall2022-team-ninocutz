@@ -10,6 +10,8 @@ import { PastEventsResponseModel } from '../models/past-events-response.model';
 import { GalleryImagesResponseModel } from '../models/gallery-images-response.model';
 import { environment } from 'src/environments/environment';
 import { BookingsResponseModel } from '../models/bookings-response.model';
+import { NotificationsResponseModel } from '../models/notifications-response.model';
+import { NotificationsModel } from '../models/notifications.model';
 
 @Injectable({
   providedIn: 'root',
@@ -116,7 +118,7 @@ export class DataService {
   }
 
   getAllBookings(): Observable<BookingsResponseModel> {
-    return this.getData<BookingsResponseModel>('/bookings');
+    return this.getData<BookingsResponseModel>('bookings');
   }
 
   addNewGalleryImage(file: File): Observable<any> {
@@ -131,5 +133,18 @@ export class DataService {
     const url = this.apiBaseUrl + 'images/gallery/' + imageId;
 
     return this.httpClient.delete(url);
+  }
+
+  getAllNotifications(): Observable<NotificationsResponseModel> {
+    return this.getData<NotificationsResponseModel>('notifications');
+  }
+
+  updateNotification(notificationUpdate: NotificationsModel): Observable<any> {
+    const data = {
+      id: notificationUpdate.Id,
+      notificationTemplate: notificationUpdate.NotificationTemplate,
+      notificationType: notificationUpdate.NotificationType,
+    };
+    return this.putData('notifications', data);
   }
 }

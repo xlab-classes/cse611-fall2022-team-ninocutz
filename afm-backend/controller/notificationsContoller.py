@@ -9,7 +9,7 @@ notifications_blueprint = Blueprint('notifications_blueprint', __name__)
 def addNotification():
     data = request.get_json()
     notificationType = data.get('notificationType', '')
-    template = data.get('template', '')
+    template = data.get('notificationTemplate', '')
 
     notificationId = notificationsDomain.insertNotification(
         notificationType, template)
@@ -28,7 +28,7 @@ def updateNotification():
     data = request.get_json()
     id = data.get('id', '')
     notificationType = data.get('notificationType', '')
-    template = data.get('template', '')
+    template = data.get('notificationTemplate', '')
     updated = notificationsDomain.updateNotification(
         id, notificationType, template)
 
