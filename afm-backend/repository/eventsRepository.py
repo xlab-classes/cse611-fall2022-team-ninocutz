@@ -59,8 +59,8 @@ def getEventById(id):
 def getAllFutureEvents():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
-        "FROM Event AS E LEFT JOIN Image AS I ON E.ImageId = I.Id where E.EventDate > CURDATE();"
+    sql = "SELECT E.Id, E.Name, ET.Name AS EventType, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
+        "FROM Event AS E LEFT JOIN Image AS I ON E.ImageId = I.Id LEFT JOIN EventType AS ET ON E.EventTypeId = ET.Id where E.EventDate > CURDATE();"
     cursor.execute(sql)
     # results = cursor.fetchall()
     columns = cursor.description
@@ -125,7 +125,7 @@ def delete_event(id):
     val = cursor.execute(sql)
     cursor.close()
     db.commit()
-    
+
     if image_id:
         imagesRepository.deleteImage(imageId=image_id)
 
@@ -137,7 +137,7 @@ def edit_event(newEvent: EventModel, event_id):
     update_string = newEvent.get_update_string()
     current_table_sql = "UPDATE Event set " + update_string + "where Id = %s"
     cursor = db.cursor()
-    val = cursor.execute(current_table_sql,(event_id))
+    val = cursor.execute(current_table_sql, (event_id))
     cursor.close()
     db.commit()
     return val == 1

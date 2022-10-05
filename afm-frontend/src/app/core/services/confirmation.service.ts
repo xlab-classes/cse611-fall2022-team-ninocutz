@@ -4,19 +4,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ConfirmationService {
-  private data: boolean = false;
+  private data: string = '';
 
-  setConfirmation(data: boolean) {
+  setConfirmation(data: string) {
     this.data = data;
   }
 
-  checkConfirmation(): boolean {
+  checkConfirmation(): string {
     const tempData = this.data;
     this.removeData();
     return tempData;
   }
 
   removeData() {
-    this.data = false;
+    this.data = '';
   }
 }
