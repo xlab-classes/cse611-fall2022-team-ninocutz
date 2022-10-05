@@ -37,3 +37,6 @@ def createCurrentEvent(event: EventModel):
 def getAllPastEvents():
     events = eventsRepo.getAllPastEvents()
     return events
+
+def delete_event(id):
+    return eventsRepo.delete_event(id)

@@ -115,3 +115,13 @@ def getAllPastEvents():
     events = eventsDomain.getAllPastEvents()
     return {'events': events}, 200
 # endregion Past Events
+
+@events_blueprint.route("/event", methods=['DELETE'])
+def delete_event():
+    id = request.json.get("id", None)
+    if not id:
+        return 'No event id provided', 400
+    events = eventsDomain.delete_event(id)
+    if events:
+        return 'Successfully deleted the event', 200
+    return 'Error encountered during event deletion', 500

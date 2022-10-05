@@ -109,3 +109,17 @@ def addCurrentEvent(eventId):
     cursor.close()
     db.commit()
     return cursor.lastrowid
+
+
+def delete_event(id):
+    db = Database()
+    # Delete from Current Events table
+    current_table_sql = "DELETE FROM CurrentEvent WHERE eventId=" + str(id)
+    # Delete from events table
+    sql = "DELETE FROM Event WHERE id=" + str(id)
+    cursor = db.cursor()
+    cursor.execute(current_table_sql)
+    val = cursor.execute(sql)
+    cursor.close()
+    db.commit()
+    return val == 1
