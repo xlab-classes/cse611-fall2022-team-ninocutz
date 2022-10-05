@@ -115,3 +115,49 @@ def getAllPastEvents():
     events = eventsDomain.getAllPastEvents()
     return {'events': events}, 200
 # endregion Past Events
+
+
+@events_blueprint.route("/event/<event_id>", methods=['DELETE'])
+def delete_event(event_id):
+    if not event_id:
+        return 'No event id provided', 400
+    events = eventsDomain.delete_event(event_id)
+    if events:
+        return 'Successfully deleted the event', 200
+    return 'Error encountered during event deletion', 500
+
+
+@events_blueprint.route("/event", methods=['PUT'])
+def edit_event():
+    newEvent = EventModel(name=request.form.get('eventName'),
+                          eventType=request.form.get('eventType'),
+                          longitude=request.form.get('longitude'),
+                          latitude=request.form.get('latitude'),
+                          zipCode=request.form.get('zipCode'),
+                          address=request.form.get('address'),
+                          message=request.form.get('message'),
+                          eventTimeSlot=request.form.get('eventTimeSlot'),
+                          eventDate=request.form.get('eventDate')
+                          )
+    event_id = request.form.get('eventId')
+    if not event_id:
+        return 'Event id is required', 400
+
+    if 'file' in request.files:
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        image_type = request.args.get('image_type', None)
+        if not imagesDomain.get_file(file, IMAGE_LOCATION, filename):
+            return 'Invalid file', 400
+
+        image_type = request.args.get('image_type', None)
+        if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
+            return 'Image upload failed', 500
+        url = f"https://{bucket}.s3.amazonaws.com/{filename}"
+        image_id = imagesDomain.add_image(image_type, url)
+        newEvent.imageId = image_id
+
+    event_status = eventsDomain.edit_event(newEvent, event_id)
+    if event_status:
+        return 'Successfully updated the event', 204
+    return 'Error encountered during event update', 500
