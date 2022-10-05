@@ -127,8 +127,8 @@ def delete_event(event_id):
     return 'Error encountered during event deletion', 500
 
 
-@events_blueprint.route("/event/<event_id>", methods=['PUT'])
-def edit_event(event_id):
+@events_blueprint.route("/event", methods=['PUT'])
+def edit_event():
     newEvent = EventModel(name=request.form.get('eventName'),
                           eventType=request.form.get('eventType'),
                           longitude=request.form.get('longitude'),
@@ -139,7 +139,7 @@ def edit_event(event_id):
                           eventTimeSlot=request.form.get('eventTimeSlot'),
                           eventDate=request.form.get('eventDate')
                           )
-
+    event_id = request.form.get('eventId')
     if not event_id:
         return 'Event id is required', 400
 
