@@ -125,8 +125,9 @@ def delete_event(id):
     val = cursor.execute(sql)
     cursor.close()
     db.commit()
-
-    imagesRepository.deleteImage(imageId=image_id)
+    
+    if image_id:
+        imagesRepository.deleteImage(imageId=image_id)
 
     return val == 1
 
