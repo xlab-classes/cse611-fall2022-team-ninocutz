@@ -1,5 +1,6 @@
 from app import Database
 from model.EventModel import EventModel
+from repository import imagesRepository
 # Future Events
 
 
@@ -113,15 +114,20 @@ def addCurrentEvent(eventId):
 
 def delete_event(id):
     db = Database()
-    # Delete from Current Events table
-    current_table_sql = "DELETE FROM CurrentEvent WHERE eventId=" + str(id)
+    cursor = db.cursor()
+    # Get image id
+    image_sql = "SELECT ImageId from Event where id=" + str(id)
+    cursor.execute(image_sql)
+    image_id = cursor.fetchall()[0]
+
     # Delete from events table
     sql = "DELETE FROM Event WHERE id=" + str(id)
-    cursor = db.cursor()
-    cursor.execute(current_table_sql)
     val = cursor.execute(sql)
     cursor.close()
     db.commit()
+
+    imagesRepository.deleteImage(imageId=image_id)
+
     return val == 1
 
 

@@ -116,19 +116,19 @@ def getAllPastEvents():
     return {'events': events}, 200
 # endregion Past Events
 
-@events_blueprint.route("/event", methods=['DELETE'])
-def delete_event():
-    id = request.json.get("id", None)
-    if not id:
+
+@events_blueprint.route("/event/<event_id>", methods=['DELETE'])
+def delete_event(event_id):
+    if not event_id:
         return 'No event id provided', 400
-    events = eventsDomain.delete_event(id)
+    events = eventsDomain.delete_event(event_id)
     if events:
         return 'Successfully deleted the event', 200
     return 'Error encountered during event deletion', 500
 
 
-@events_blueprint.route("/event", methods=['PUT'])
-def edit_event():
+@events_blueprint.route("/event/<event_id>", methods=['PUT'])
+def edit_event(event_id):
     newEvent = EventModel(name=request.form.get('eventName'),
                           eventType=request.form.get('eventType'),
                           longitude=request.form.get('longitude'),
@@ -140,7 +140,6 @@ def edit_event():
                           eventDate=request.form.get('eventDate')
                           )
 
-    event_id=request.form.get('eventId', None)
     if not event_id:
         return 'Event id is required', 400
 
