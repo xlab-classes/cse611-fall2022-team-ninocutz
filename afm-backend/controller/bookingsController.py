@@ -40,9 +40,11 @@ def declineBooking():
     data = request.get_json()
     bookingId = data.get('bookingId', 0)
 
-    bookingId = bookingsDomain.declineBooking(bookingId)
+    updated = bookingsDomain.declineBooking(bookingId)
 
-    return {'Updated': bookingId}, 200
+    if updated:
+        return 'Successfully updated the Booking', 204
+    return 'Error encountered during Booking update', 500
 
 
 @bookings_blueprint.route("/bookings/approve", methods=['PUT'])
@@ -50,5 +52,8 @@ def acceptBooking():
     data = request.get_json()
     bookingId = data.get('bookingId', 0)
 
-    bookingId = bookingsDomain.acceptBooking(bookingId)
-    return {'Updated': bookingId}, 200
+    updated = bookingsDomain.acceptBooking(bookingId)
+
+    if updated:
+        return 'Successfully updated the Booking', 204
+    return 'Error encountered during Booking update', 500

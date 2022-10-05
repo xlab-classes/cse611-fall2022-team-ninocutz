@@ -1,9 +1,8 @@
 from app import Database
 
-db = Database()
-
 
 def insert_image(image_type, url):
+    db = Database()
     cursor = db.cursor()
     sql = "INSERT INTO Image(image_type, url) VALUES (%s, %s)"
     cursor.execute(sql, (image_type, url))
@@ -14,6 +13,7 @@ def insert_image(image_type, url):
 
 
 def getAllGalleryImages():
+    db = Database()
     cursor = db.cursor()
     sql = "SELECT I.Id, I.Url FROM AFM.Image AS I INNER JOIN Image_type AS IT ON I.Image_type = IT.Id WHERE IT.Category = 'Gallery';"
     cursor.execute(sql)
@@ -26,6 +26,7 @@ def getAllGalleryImages():
 
 
 def insertNewGalleryImage(url):
+    db = Database()
     cursor = db.cursor()
     sql = "SELECT Id FROM AFM.Image_type WHERE Category = 'Gallery';"
     cursor.execute(sql)
@@ -41,9 +42,10 @@ def insertNewGalleryImage(url):
 
 
 def deleteImage(imageId):
+    db = Database()
     cursor = db.cursor()
     sql = "DELETE FROM AFM.Image WHERE Id = %s"
-    cursor.execute(sql, (imageId))
+    val = cursor.execute(sql, (imageId))
     cursor.close()
     db.commit()
-    return imageId
+    return val == 1

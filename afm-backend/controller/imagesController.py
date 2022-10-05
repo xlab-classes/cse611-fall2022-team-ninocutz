@@ -1,13 +1,12 @@
+import os
 from flask import request
 from flask import Blueprint
 from werkzeug.utils import secure_filename
 from domain import imagesDomain
 
 images_blueprint = Blueprint('images_blueprint', __name__)
-# bucket = os.environ.get("bucket")
-bucket = 'afm-image-store'
-# IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
-IMAGE_LOCATION = '/tmp/images'
+bucket = os.environ.get("bucket")
+IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 
 
 @images_blueprint.route("/upload/image", methods=['POST'])
@@ -54,8 +53,11 @@ def addNewGalleryImage():
 
 @images_blueprint.route("/images/gallery/<imageId>", methods=['DELETE'])
 def deleteGalleryImage(imageId):
-    imageId = imagesDomain.deleteImage(imageId)
+    deleted = imagesDomain.deleteImage(imageId)
 
-    return {}, 204
+    if deleted:
+        return 'Successfully deleted the iamge', 204
+    return 'Error encountered during deletion of image', 500
+
 
 # endregion Gallery
