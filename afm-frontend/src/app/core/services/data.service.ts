@@ -147,4 +147,25 @@ export class DataService {
     };
     return this.putData('notifications', data);
   }
+
+  editFutureEvent(eventId: string, data: EventRequestModel, file?: File) {
+    const formData = new FormData();
+
+    formData.append('eventId', eventId);
+    formData.append('eventName', data.eventName);
+    formData.append('eventType', data.eventType);
+    formData.append('longitude', data.longitude);
+    formData.append('latitude', data.latitude);
+    formData.append('address', data.address);
+    formData.append('eventDate', data.eventDate);
+    formData.append('zipCode', data.zipCode);
+    formData.append('message', data.message);
+    formData.append('eventTimeSlot', data.eventTimeSlot);
+
+    if (file) {
+      formData.append('file', file, file.name);
+    }
+
+    return this.putData('event', formData);
+  }
 }

@@ -1,12 +1,14 @@
 <div class="root-div">
-  <h2 class="afm-heading-text" style="text-align: center">Add Future Event</h2>
+  <h2 class="afm-heading-text" style="text-align: center">Edit Future Event</h2>
 
   <div class="form-external-box">
     <div class="container">
       <app-afm-blur-background>
         <div class="button-alignment row g-4">
           <div class="col" *ngIf="uploadedFiles || futureEvent.Url">
-            <app-afm-image [src]="futureEvent.Url ?? ''"></app-afm-image>
+            <app-afm-image
+              [src]="futureEvent.Url ?? uploadedFiles.objectURL ?? ''"
+            ></app-afm-image>
           </div>
           <div
             class="col-lg-12 align-self-center"
@@ -14,7 +16,7 @@
           >
             <app-afm-button label="Remove" (click)="clear()"></app-afm-button>
           </div>
-          <div class="col align-self-center">
+          <div class="col-lg-12 align-self-center">
             <p-fileUpload
               #fileUpload
               name="myfile[]"
@@ -28,14 +30,96 @@
             >
             </p-fileUpload>
           </div>
-        </div>
 
-        <br />
-        <br />
+          <div class="row justify-content-center mt-5">
+            <div class="col-12 col-md-12 align-self-center">
+              <div class="row">
+                <div class="col">
+                  <h3 class="afm-label-text">Event Name</h3>
+                  <input
+                    type="text"
+                    pInputText
+                    [(ngModel)]="futureEvent.Name"
+                  />
+                </div>
+                <div class="col-12 col-md-6 mt-5 mt-md-0">
+                  <h3 class="afm-label-text">Event Type</h3>
+                  <p-dropdown
+                    [options]="eventTypes"
+                    [(ngModel)]="selectedEvent"
+                    placeholder="Select a City"
+                    optionLabel="name"
+                    [showClear]="true"
+                  ></p-dropdown>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <div class="row" style="text-align: center">
-          <div class="col">
-            <h5 class="afm-label-text">Description</h5>
+          <div class="row justify-content-center mt-5">
+            <div class="col-12 col-md-12 align-self-center">
+              <div class="row">
+                <div class="col">
+                  <h3 class="afm-label-text">Event Date</h3>
+                  <p-calendar
+                    [(ngModel)]="eventDate"
+                    [showIcon]="true"
+                    inputId="icon"
+                    [minDate]="tomorrowDate"
+                  ></p-calendar>
+                </div>
+                <div class="col-12 col-md-6 mt-5 mt-md-0">
+                  <h3 class="afm-label-text">Event Slot</h3>
+                  <p-calendar
+                    [(ngModel)]="fromTime"
+                    [timeOnly]="true"
+                    [hourFormat]="'24'"
+                    inputId="timeonly"
+                  ></p-calendar>
+                  <p-calendar
+                    [(ngModel)]="toTime"
+                    [timeOnly]="true"
+                    [hourFormat]="'24'"
+                    [minDate]="fromTime"
+                    inputId="timeonly"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 align-self-center mt-5">
+            <div class="row">
+              <div class="col">
+                <h3 class="afm-label-text">Address</h3>
+                <textarea
+                  [(ngModel)]="futureEvent.Address"
+                  [rows]="5"
+                  [cols]="80"
+                  pInputTextarea
+                  [autoResize]="true"
+                  style="max-width: 90%"
+                ></textarea>
+              </div>
+
+              <div class="col mt-5 mt-md-0">
+                <h3 class="afm-label-text">Zip Code</h3>
+                <p-inputNumber
+                  [(ngModel)]="futureEvent.Zipcode"
+                  mode="decimal"
+                  inputId="withoutgrouping"
+                  [useGrouping]="false"
+                >
+                </p-inputNumber>
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <br />
+
+          <div class="col" style="text-align: center">
+            <h5 class="afm-label-text">Message</h5>
             <textarea
               [(ngModel)]="futureEvent.Message"
               [rows]="5"
@@ -45,15 +129,10 @@
               style="max-width: 90%"
             ></textarea>
           </div>
-        </div>
 
-        <br />
-        <br />
-
-        <div class="row" style="text-align: center">
           <app-afm-button
-            label="Submit"
-            (click)="addNewFutureEvent()"
+            label="Update"
+            (click)="editFutureEvent()"
           ></app-afm-button>
         </div>
 

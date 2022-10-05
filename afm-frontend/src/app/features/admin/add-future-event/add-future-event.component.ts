@@ -70,7 +70,7 @@ export class AddFutureEventComponent implements OnInit {
   }
 
   showSuccess() {
-    this.confirmationService.setConfirmation(true);
+    this.confirmationService.setConfirmation('inserted');
     this.router.navigate(['/admin/future-events']);
   }
 }

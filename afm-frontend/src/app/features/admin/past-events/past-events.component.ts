@@ -26,9 +26,10 @@ export class PastEventsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.confirmationService.checkConfirmation()) {
+    const confirmationMessage = this.confirmationService.checkConfirmation();
+    if (confirmationMessage) {
       setTimeout(() => {
-        this.showSuccess();
+        this.showSuccess(confirmationMessage);
       }, 2000);
     }
     this.getAllPastEvents();
@@ -40,11 +41,12 @@ export class PastEventsComponent implements OnInit {
     });
   }
 
-  showSuccess() {
+  showSuccess(confirmationMessage: string) {
     this.messageService.add({
       severity: 'success',
       summary: 'Success',
-      detail: 'Added Event',
+      detail:
+        confirmationMessage === 'inserted' ? 'Added Event' : 'Updated Event',
     });
   }
 
