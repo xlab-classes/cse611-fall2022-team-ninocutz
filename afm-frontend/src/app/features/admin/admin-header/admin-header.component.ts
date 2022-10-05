@@ -35,6 +35,10 @@ export class AdminHeaderComponent implements OnInit {
         routerLink: ['/admin/bookings'],
       },
       {
+        label: 'Notifications',
+        routerLink: ['/admin/notifications'],
+      },
+      {
         label: 'Users',
         routerLink: ['/admin/users'],
       },

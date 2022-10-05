@@ -16,6 +16,8 @@ import { AuthGuardService } from 'src/app/core/auth/auth-gaurd.service';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { EditFutureEventComponent } from './edit-future-event/edit-future-event.component';
 import { AddPastEventComponent } from './add-past-event/add-past-event.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+
 @NgModule({
   declarations: [
     AdminHomeComponent,
@@ -30,6 +32,7 @@ import { AddPastEventComponent } from './add-past-event/add-past-event.component
     AddFutureEventComponent,
     EditFutureEventComponent,
     AddPastEventComponent,
+    NotificationsComponent,
   ],
   imports: [AdminRoutingModule, CommonModule, SharedModule],
   providers: [

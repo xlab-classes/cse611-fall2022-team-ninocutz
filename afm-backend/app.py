@@ -40,7 +40,7 @@ def create_app():
 
 
 class Database:
-    def __init__(self) -> None:
+    def __init__(self):
         self.username = os.environ.get("DB_USERNAME")
         self.password = os.environ.get("DB_PASSWORD")
 
@@ -67,3 +67,8 @@ class Database:
 if __name__ == "__main__":
     app = create_app()
     app.run(host="localhost", port=5555, debug=True)
+
+# Uncomment below to run in Mobile
+# if __name__ == '__main__':
+#     app = create_app()
+#     app.run(host='<ipv4 address>', port=5555, debug=True)
