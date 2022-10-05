@@ -1,6 +1,5 @@
-from datetime import date
-from email import message
 import os
+from email import message
 from unicodedata import name
 from werkzeug.utils import secure_filename
 from flask import Blueprint
@@ -57,9 +56,9 @@ def getAllFutureEvents():
     return {'events': events}, 200
 
 
-@events_blueprint.route("/event/future/getEventById", methods=['GET'])
-def getEventById(ID):
-    event = eventsDomain.getEventById(ID)
+@events_blueprint.route("/event/future/<id>", methods=['GET'])
+def getEventById(id):
+    event = eventsDomain.getEventById(id)
     return {'events': event}, 200
 
 # endregion Future Events

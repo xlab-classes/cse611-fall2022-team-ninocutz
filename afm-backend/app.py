@@ -15,6 +15,7 @@ def create_app():
     from controller.eventController import events_blueprint
     from controller.userController import user_blueprint
     from controller.bookingsController import bookings_blueprint
+    from controller.notificationsContoller import notifications_blueprint
 
     app = Flask(__name__)
 
@@ -35,6 +36,7 @@ def create_app():
     app.register_blueprint(events_blueprint)
     app.register_blueprint(user_blueprint)
     app.register_blueprint(bookings_blueprint)
+    app.register_blueprint(notifications_blueprint)
 
     return app
 
