@@ -123,3 +123,14 @@ def delete_event(id):
     cursor.close()
     db.commit()
     return val == 1
+
+
+def edit_event(newEvent: EventModel, event_id):
+    db = Database()
+    update_string = newEvent.get_update_string()
+    current_table_sql = "UPDATE Event set " + update_string + "where Id = %s"
+    cursor = db.cursor()
+    val = cursor.execute(current_table_sql,(event_id))
+    cursor.close()
+    db.commit()
+    return val == 1
