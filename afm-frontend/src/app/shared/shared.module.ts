@@ -25,6 +25,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { TableModule } from 'primeng/table';
     DropdownModule,
     ToastModule,
     TableModule,
+    CardModule,
   ],
   exports: [
     FooterComponent,
@@ -75,6 +77,7 @@ import { TableModule } from 'primeng/table';
     DropdownModule,
     ToastModule,
     TableModule,
+    CardModule,
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,

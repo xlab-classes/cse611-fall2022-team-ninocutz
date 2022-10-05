@@ -1,1 +1,40 @@
-<p>notifications works!</p>
+<div class="root-div">
+  <h2 class="afm-heading-text" style="text-align: center">Notifications</h2>
+
+  <div class="container">
+    <div class="row">
+      <p-card
+        *ngFor="let notification of notifications"
+        style="margin-top: 20px"
+      >
+        <div class="row">
+          <div class="col-12 col-md-3">
+            <input
+              type="text"
+              pInputText
+              [(ngModel)]="notification.NotificationType"
+              disabled="true"
+            />
+          </div>
+          <div class="col-12 col-md-7 mt-3 mt-md-0">
+            <textarea
+              rows="5"
+              cols="100"
+              pInputTextarea
+              style="max-width: 90%"
+              [(ngModel)]="notification.NotificationTemplate"
+            ></textarea>
+          </div>
+          <div class="col-12 col-md-2 mt-3 mt-md-0">
+            <app-afm-button
+              label="Update"
+              (click)="updateTemplate(notification)"
+            ></app-afm-button>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>
+
+<p-toast></p-toast>
