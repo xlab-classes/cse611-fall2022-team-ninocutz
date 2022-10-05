@@ -4,9 +4,7 @@ from model.EventModel import EventModel
 
 def createEvent(newEvent: EventModel):
     newEvent.eventTypeId = eventsRepo.getEventTypeId(newEvent.eventType)
-
     createdEventId = eventsRepo.createEvent(newEvent)
-
     return createdEventId
 
 
@@ -30,10 +28,20 @@ def createCurrentEvent(event: EventModel):
                           event.latitude, event.address, event.eventDate, event.zipCode, event.message, event.eventTimeSlot)
 
     currentEventId = eventsRepo.addCurrentEvent(eventId)
-
     return currentEventId
 
 
 def getAllPastEvents():
     events = eventsRepo.getAllPastEvents()
     return events
+
+
+def delete_event(id):
+    return eventsRepo.delete_event(id)
+
+
+def edit_event(newEvent: EventModel, event_id):
+    if not newEvent.eventType:
+        newEvent.eventTypeId = eventsRepo.getEventTypeId(newEvent.eventType)
+    event_update = eventsRepo.edit_event(newEvent, event_id)
+    return event_update
