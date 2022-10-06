@@ -14,10 +14,16 @@ def login():
     return userDomain.validate_login(username, password)
 
 @user_blueprint.route("/reset-password", methods=["PUT"])
+@user_blueprint.route("/reset-password/<token>", methods=["PUT"])
 @jwt_required()
-def reset_password():
+def reset_password(token=None):
     # Assumption - right token is passed to this method
     username = get_jwt_identity()
     password = request.json.get("password", None)
     confirmPassword = request.json.get("confirmPassword", None)
     return userDomain.validate_reset_password(username, password, confirmPassword)
+
+@user_blueprint.route("/forgot-password", methods=['POST', 'PUT'])
+def forgot_password():
+    username = request.json.get("username", None)
+    return userDomain.validate_forgot_password(username)

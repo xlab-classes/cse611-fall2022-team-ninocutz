@@ -12,7 +12,7 @@ def login(username, password):
 def check_user_exists(username):
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT * from RV_User where EmailId = %s"
+    sql = "SELECT * FROM RV_User WHERE EmailId = %s"
     cursor.execute(sql, (username))
     res = cursor.fetchall()
     cursor.close()
@@ -21,11 +21,7 @@ def check_user_exists(username):
 def reset_password(username, password):
     db = Database()
     cursor = db.cursor()
-    sql = "update RV_User set Password = %s where EmailID = %s"
+    sql = "UPDATE RV_User SET Password = %s WHERE EmailID = %s"
     cursor.execute(sql, (password, username))
     cursor.close()
     db.commit()
-    
-
-    
-    
