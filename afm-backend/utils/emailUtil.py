@@ -3,8 +3,8 @@ import smtplib
 import ssl
 from email.message import EmailMessage
 import threading
-
 from flask import url_for
+
 
 def email_thread(msg, sender_email, sender_passcode, recipient_email):
     context = ssl.create_default_context()
@@ -24,13 +24,16 @@ def send_email(username, token):
     msg['To'] = msg_recipient_email
     msg['Subject'] = "Password Reset Link"
 
-    reset_url = url_for("user_blueprint.reset_password", token=token, _external=True)
+    # reset_url = url_for("http://localhost:4200/reset-password",
+    #                     token=token, _external=True)
+    reset_url = "http://localhost:4200/reset-password?token=" + token
     msg_body = "Hello, "+"\n"+"Please follow this link to reset your password - {}".format(reset_url)+"\n"\
-                "Note: Please keep in mind the link is valid only for 15 minutes. If link expires, request password reset again from our website."+\
-                "\n"+"\n"+"\n"+"Regards,"+"\n"+"Architect For Men"
+        "Note: Please keep in mind the link is valid only for 15 minutes. If link expires, request password reset again from our website." +\
+        "\n"+"\n"+"\n"+"Regards,"+"\n"+"Architect For Men"
     msg.set_content(msg_body)
 
-    thread = threading.Thread(target=email_thread, args=(msg, msg_sender_email, msg_sender_passcode, msg_recipient_email,))
+    thread = threading.Thread(target=email_thread, args=(
+        msg, msg_sender_email, msg_sender_passcode, msg_recipient_email,))
     thread.start()
     thread.join()
     return 'Email succesfully sent', 200

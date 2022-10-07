@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/core/services/data.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -8,11 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class ForgotPasswordComponent implements OnInit {
   email: string = '';
 
-  constructor() {}
+  constructor(private dataService: DataService) {}
 
   ngOnInit(): void {}
 
   forgotPasswordClicked() {
-    // TODO: Trigger email for forgot password
+    this.dataService.forgotPassword(this.email).subscribe((data) => {
+      console.log('Sent Email for forgot password');
+    });
   }
 }
