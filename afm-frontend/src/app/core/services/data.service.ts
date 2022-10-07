@@ -148,7 +148,11 @@ export class DataService {
     return this.putData('notifications', data);
   }
 
-  editFutureEvent(eventId: string, data: EventRequestModel, file?: File) {
+  editFutureEvent(
+    eventId: string,
+    data: EventRequestModel,
+    file?: File
+  ): Observable<any> {
     const formData = new FormData();
 
     formData.append('eventId', eventId);
@@ -167,5 +171,27 @@ export class DataService {
     }
 
     return this.putData('event', formData);
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    const data = {
+      username: email,
+    };
+    return this.postData('/forgot-password', data);
+  }
+
+  resetPassword(
+    token: string,
+    password: string,
+    confirmPassword: string
+  ): Observable<any> {
+    const data = {
+      password: password,
+      confirmPassword: confirmPassword,
+    };
+    // return this.putData('/reset-password/' + token, data);
+
+    const url = this.apiBaseUrl + '/reset-password/' + token;
+    return this.httpClient.put(url, data, { responseType: 'text' });
   }
 }
