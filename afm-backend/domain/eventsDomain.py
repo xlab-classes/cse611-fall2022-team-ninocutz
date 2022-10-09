@@ -24,8 +24,20 @@ def getCurrentEvent():
 
 
 def createCurrentEvent(event: EventModel):
-    eventId = createEvent(event.imageId, event.name, event.eventType, event.longitude,
-                          event.latitude, event.address, event.eventDate, event.zipCode, event.message, event.eventTimeSlot)
+
+    newEvent = EventModel(name=event.name,
+                          eventType=event.eventType,
+                          longitude=event.longitude,
+                          latitude=event.latitude,
+                          zipCode=event.zipCode,
+                          address=event.address,
+                          message=event.message,
+                          eventTimeSlot=event.eventTimeSlot,
+                          eventDate=event.eventDate,
+                          imageId=event.imageId
+                          )
+
+    eventId = createEvent(newEvent)
 
     currentEventId = eventsRepo.addCurrentEvent(eventId)
     return currentEventId

@@ -1,0 +1,11 @@
+<google-map height="450px" width="50%" [center]="center" [options]="options"
+  ><map-marker
+    [position]="marker.position"
+    [label]="marker.label"
+    [title]="marker.title"
+    [options]="marker.options"
+    (mapDragend)="updateMarkerLocation($event)"
+  >
+  </map-marker
+></google-map>
+<app-afm-button label="Update Location" (click)="updateLocation()"></app-afm-button>
