@@ -17,6 +17,7 @@ import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { EditFutureEventComponent } from './edit-future-event/edit-future-event.component';
 import { AddPastEventComponent } from './add-past-event/add-past-event.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { EditPastEventComponent } from './edit-past-event/edit-past-event.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
     EditFutureEventComponent,
     AddPastEventComponent,
     NotificationsComponent,
+    EditPastEventComponent,
   ],
   imports: [AdminRoutingModule, CommonModule, SharedModule],
   providers: [
