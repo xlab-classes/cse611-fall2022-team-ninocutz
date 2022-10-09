@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { DialogService } from 'primeng/dynamicdialog';
 import { CurrentEventRequestModel } from 'src/app/core/models/current-event-request.model';
 import { DataService } from 'src/app/core/services/data.service';
 import { LocationService } from 'src/app/core/services/location.service';
+import { GoogleMapComponent } from 'src/app/shared/google-map/google-map.component';
 
 @Component({
   selector: 'app-current-event',
   templateUrl: './current-event.component.html',
   styleUrls: ['./current-event.component.scss'],
+  providers: [DialogService],
 })
 export class CurrentEventComponent implements OnInit {
   fromTime: Date;
@@ -22,7 +25,8 @@ export class CurrentEventComponent implements OnInit {
 
   constructor(
     private locationService: LocationService,
-    private dataService: DataService
+    private dataService: DataService,
+    public dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -35,26 +39,43 @@ export class CurrentEventComponent implements OnInit {
   shareLocationClicked() {
     this.loading = true;
     this.locationService.getPosition().then((pos) => {
-      const data: CurrentEventRequestModel = new CurrentEventRequestModel();
+      this.showGoogleMap(pos.lat, pos.lng);
+    });
+  }
 
-      data.eventName = this.eventName;
-      data.eventType = this.selectedEvent.code;
-      data.latitude = '' + pos.lat;
-      data.longitude = '' + pos.lng;
-      data.address = this.address;
-      data.eventDate = moment(Date.now()).format('YYYY-MM-DD');
-      data.zipCode = '' + this.zipCode;
-      data.message = this.message;
-      data.eventTimeSlot =
-        moment(this.fromTime).format('HH:mm') +
-        '-' +
-        moment(this.toTime).format('HH:mm');
+  showGoogleMap(lat: number, lng: number) {
+    const ref = this.dialogService.open(GoogleMapComponent, {
+      header: 'Choose Location',
+      width: '70%',
+      data: {
+        lat: lat,
+        lng: lng,
+      },
+    });
 
+    ref.onClose.subscribe((pos: any) => {
+      if (pos) {
+        this.addCurrentEvent(pos);
+      }
+    });
+  }
+
+  addCurrentEvent(pos: any) {
+    const data: CurrentEventRequestModel = new CurrentEventRequestModel();
+    data.eventName = this.eventName;
+    data.eventType = this.selectedEvent.code;
+    data.latitude = '' + pos.lat;
+    data.longitude = '' + pos.lng;
+    data.address = this.address;
+    data.eventDate = moment(Date.now()).format('YYYY-MM-DD');
+    data.zipCode = '' + this.zipCode;
+    data.message = this.message;
+    data.eventTimeSlot =
+      moment(this.fromTime).format('HH:mm') +
+      '-' +
+      moment(this.toTime).format('HH:mm');
+    this.dataService.addCurrentEvent(data).subscribe((data) => {
       this.loading = false;
-
-      this.dataService.addCurrentEvent(data).subscribe((data) => {
-        debugger;
-      });
     });
   }
 }

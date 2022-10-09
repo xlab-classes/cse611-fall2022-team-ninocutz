@@ -26,6 +26,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
+import { GoogleMapComponent } from './google-map/google-map.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,7 @@ import { CardModule } from 'primeng/card';
     SigninComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    GoogleMapComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +62,8 @@ import { CardModule } from 'primeng/card';
     ToastModule,
     TableModule,
     CardModule,
+    GoogleMapsModule,
+    DynamicDialogModule,
   ],
   exports: [
     FooterComponent,
@@ -78,6 +84,7 @@ import { CardModule } from 'primeng/card';
     ToastModule,
     TableModule,
     CardModule,
+    DynamicDialogModule,
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,
@@ -86,6 +93,7 @@ import { CardModule } from 'primeng/card';
     SigninComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    GoogleMapComponent,
   ],
 })
 export class SharedModule {}

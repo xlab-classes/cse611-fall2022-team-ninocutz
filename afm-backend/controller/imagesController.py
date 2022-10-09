@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from domain import imagesDomain
 
 images_blueprint = Blueprint('images_blueprint', __name__)
-bucket = os.environ.get("bucket")
+bucket = os.environ.get("S3_BUCKET")
 IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 
 
