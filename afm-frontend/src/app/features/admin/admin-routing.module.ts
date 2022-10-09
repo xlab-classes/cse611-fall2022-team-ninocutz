@@ -13,6 +13,7 @@ import { AuthGuardService } from 'src/app/core/auth/auth-gaurd.service';
 import { EditFutureEventComponent } from './edit-future-event/edit-future-event.component';
 import { AddPastEventComponent } from './add-past-event/add-past-event.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { EditPastEventComponent } from './edit-past-event/edit-past-event.component';
 
 const routes: Routes = [
   {
@@ -59,6 +60,11 @@ const routes: Routes = [
       {
         path: 'admin/add-past-event',
         component: AddPastEventComponent,
+        canActivateChild: [AuthGuardService],
+      },
+      {
+        path: 'admin/edit-past-event',
+        component: EditPastEventComponent,
         canActivateChild: [AuthGuardService],
       },
       {

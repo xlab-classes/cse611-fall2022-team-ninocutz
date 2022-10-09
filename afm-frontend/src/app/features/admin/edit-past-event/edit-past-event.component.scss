@@ -1,0 +1,18 @@
+@import "../../../../styles.scss";
+
+.root-div {
+  margin-top: 40px;
+}
+.button-alignment {
+  text-align: center;
+  margin-top: 50px;
+}
+.icon-position {
+  position: absolute;
+  margin-top: -20px;
+  cursor: pointer;
+}
+::ng-deep .p-button.p-fileupload-choose {
+  background-color: black;
+  @extend .afm-font-family;
+}
