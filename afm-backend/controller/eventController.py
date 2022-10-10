@@ -163,3 +163,10 @@ def edit_event():
     if event_status:
         return 'Successfully updated the event', 204
     return 'Error encountered during event update', 500
+
+
+@events_blueprint.route("/event-types", methods=['GET'])
+def getAllEventTypes():
+    eventTypes = eventsDomain.getAllEventTypes()
+
+    return {'eventTypes': eventTypes}, 200

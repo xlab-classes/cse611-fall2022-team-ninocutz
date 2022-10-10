@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { EventRequestModel } from 'src/app/core/models/event-request.model';
+import { EventTypesModel } from 'src/app/core/models/event-types.model';
 import { ConfirmationService } from 'src/app/core/services/confirmation.service';
 import { DataService } from 'src/app/core/services/data.service';
 
@@ -19,8 +20,8 @@ export class AddPastEventComponent implements OnInit {
   address: string;
   message: string;
   zipCode?: number;
-  selectedEvent: any;
-  eventTypes: any[] = [];
+  selectedEvent: EventTypesModel;
+  eventTypes: EventTypesModel[] = [];
   eventName: string;
   fromTime: Date;
   toTime: Date;
@@ -32,10 +33,13 @@ export class AddPastEventComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.eventTypes = [
-      { name: 'Wedding', code: 'Wedding' },
-      { name: 'Club', code: 'Club' },
-    ];
+    this.loadEventTypes();
+  }
+
+  loadEventTypes() {
+    this.dataService.getEventTypes().subscribe((data) => {
+      this.eventTypes = data.eventTypes;
+    });
   }
 
   myUploader(event: any) {
@@ -58,7 +62,7 @@ export class AddPastEventComponent implements OnInit {
     data.longitude = '0.0';
     data.message = this.message;
     data.zipCode = '' + this.zipCode;
-    data.eventType = this.selectedEvent.code;
+    data.eventType = this.selectedEvent.Name;
     data.eventTimeSlot =
       moment(this.fromTime).format('HH:mm') +
       '-' +

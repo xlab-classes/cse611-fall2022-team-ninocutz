@@ -24,8 +24,6 @@ def send_email(username, token):
     msg['To'] = msg_recipient_email
     msg['Subject'] = "Password Reset Link"
 
-    # reset_url = url_for("http://localhost:4200/reset-password",
-    #                     token=token, _external=True)
     reset_url = "http://localhost:4200/reset-password?token=" + token
     msg_body = "Hello, "+"\n"+"Please follow this link to reset your password - {}".format(reset_url)+"\n"\
         "Note: Please keep in mind the link is valid only for 15 minutes. If link expires, request password reset again from our website." +\
