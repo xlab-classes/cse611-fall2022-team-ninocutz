@@ -1,8 +1,7 @@
 import os
-from email import message
-from unicodedata import name
 from werkzeug.utils import secure_filename
 from flask import Blueprint
+from flask_jwt_extended import jwt_required
 from flask_cors import cross_origin
 from flask import request
 from domain import eventsDomain
@@ -17,8 +16,8 @@ IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 
 
 @events_blueprint.route("/event", methods=['POST'])
-@cross_origin(origin='*')
-# @jwt_required() TODO: Check authentication failure from client
+@jwt_required()
+@cross_origin()
 def createEvent():
     newEvent = EventModel(name=request.form.get('eventName'),
                           eventType=request.form.get('eventType'),
@@ -73,8 +72,8 @@ def getCurrentEvent():
 
 
 @events_blueprint.route("/event/current", methods=['POST'])
-@cross_origin(origin='*')
-# @jwt_required() TODO: Check authentication failure from client
+@jwt_required()
+@cross_origin()
 def addCurrentEvent():
 
     newEvent = EventModel(name=request.form.get('eventName'),
@@ -117,6 +116,8 @@ def getAllPastEvents():
 
 
 @events_blueprint.route("/event/<event_id>", methods=['DELETE'])
+@jwt_required()
+@cross_origin()
 def delete_event(event_id):
     if not event_id:
         return 'No event id provided', 400
@@ -127,6 +128,8 @@ def delete_event(event_id):
 
 
 @events_blueprint.route("/event", methods=['PUT'])
+@jwt_required()
+@cross_origin()
 def edit_event():
     newEvent = EventModel(name=request.form.get('eventName'),
                           eventType=request.form.get('eventType'),

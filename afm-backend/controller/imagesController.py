@@ -3,6 +3,8 @@ from flask import request
 from flask import Blueprint
 from werkzeug.utils import secure_filename
 from domain import imagesDomain
+from flask_jwt_extended import jwt_required
+from flask_cors import cross_origin
 
 images_blueprint = Blueprint('images_blueprint', __name__)
 bucket = os.environ.get("S3_BUCKET")
@@ -10,6 +12,8 @@ IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 
 
 @images_blueprint.route("/upload/image", methods=['POST'])
+@jwt_required()
+@cross_origin()
 def upload_image():
     if 'file' not in request.files:
         return 'No file selected', 400
@@ -36,6 +40,8 @@ def getAllGalleryImages():
 
 
 @images_blueprint.route("/images/gallery", methods=['POST'])
+@jwt_required()
+@cross_origin()
 def addNewGalleryImage():
     if 'file' in request.files:
         file = request.files['file']
@@ -52,6 +58,8 @@ def addNewGalleryImage():
 
 
 @images_blueprint.route("/images/gallery/<imageId>", methods=['DELETE'])
+@jwt_required()
+@cross_origin()
 def deleteGalleryImage(imageId):
     deleted = imagesDomain.deleteImage(imageId)
 

@@ -1,6 +1,8 @@
 from flask import request
 from flask import Blueprint
 from domain import bookingsDomain
+from flask_jwt_extended import jwt_required
+from flask_cors import cross_origin
 
 bookings_blueprint = Blueprint('bookings_blueprint', __name__)
 
@@ -24,18 +26,24 @@ def addBooking():
 
 
 @bookings_blueprint.route("/bookings", methods=['GET'])
+@jwt_required()
+@cross_origin()
 def getAllBookings():
     bookings = bookingsDomain.getAllBooking()
     return {'bookings': bookings}, 200
 
 
 @bookings_blueprint.route("/bookings/requested", methods=['GET'])
+@jwt_required()
+@cross_origin()
 def getAllRequestedBookings():
     bookings = bookingsDomain.getAllRequestedBookings()
     return {'bookings': bookings}, 200
 
 
 @bookings_blueprint.route("/bookings/decline", methods=['PUT'])
+@jwt_required()
+@cross_origin()
 def declineBooking():
     data = request.get_json()
     bookingId = data.get('bookingId', 0)
@@ -48,6 +56,8 @@ def declineBooking():
 
 
 @bookings_blueprint.route("/bookings/approve", methods=['PUT'])
+@jwt_required()
+@cross_origin()
 def acceptBooking():
     data = request.get_json()
     bookingId = data.get('bookingId', 0)
