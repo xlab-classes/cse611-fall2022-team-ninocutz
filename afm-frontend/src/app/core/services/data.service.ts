@@ -24,9 +24,22 @@ export class DataService {
     private localStorageService: LocalStorageService
   ) {}
 
-  private getData<T>(apiUrl: string): Observable<T> {
+  private getBearerToken(): string {
+    const token = this.localStorageService.getLocalStorage('token');
+    return `Bearer ${token}`;
+  }
+
+  private getData<T>(apiUrl: string, useAuth = false): Observable<T> {
     const url = this.apiBaseUrl + apiUrl;
-    return this.httpClient.get<T>(url);
+
+    let headers = new HttpHeaders();
+    if (useAuth) {
+      headers = headers.append('Authorization', this.getBearerToken());
+    }
+    const httpOptions = {
+      headers: headers,
+    };
+    return this.httpClient.get<T>(url, httpOptions);
   }
 
   private postData<T>(
@@ -36,25 +49,31 @@ export class DataService {
   ): Observable<T> {
     const url = this.apiBaseUrl + apiUrl;
 
+    let headers = new HttpHeaders();
     if (useAuth) {
-      const token = localStorage.getItem('token');
-      const httpOptions = {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${token}`,
-        }),
-      };
-      return this.httpClient.post<T>(url, data, httpOptions);
+      headers = headers.append('Authorization', this.getBearerToken());
     }
     const httpOptions = {
-      headers: new HttpHeaders(),
+      headers: headers,
     };
 
     return this.httpClient.post<T>(url, data, httpOptions);
   }
 
-  private putData<T>(apiUrl: string, data: any): Observable<T> {
+  private putData<T>(
+    apiUrl: string,
+    data: any,
+    useAuth = false
+  ): Observable<T> {
     const url = this.apiBaseUrl + apiUrl;
-    return this.httpClient.put<T>(url, data);
+    let headers = new HttpHeaders();
+    if (useAuth) {
+      headers = headers.append('Authorization', this.getBearerToken());
+    }
+    const httpOptions = {
+      headers: headers,
+    };
+    return this.httpClient.put<T>(url, data, httpOptions);
   }
 
   getAllFutureEvents(): Observable<FutureEventResponseModel> {
@@ -63,11 +82,10 @@ export class DataService {
 
   getAllPastEvents(): Observable<PastEventsResponseModel> {
     return this.getData<PastEventsResponseModel>('event/past');
-    // return this.getData<FutureEventResponseModel>('/event/future');
   }
 
   getAllGalleryImages(): Observable<GalleryImagesResponseModel> {
-    return this.getData<GalleryImagesResponseModel>('images/gallery');
+    return this.getData<GalleryImagesResponseModel>('images/gallery', true);
   }
 
   createEvent(data: EventRequestModel, file: File): Observable<any> {
@@ -83,11 +101,6 @@ export class DataService {
     formData.append('message', data.message);
     formData.append('eventTimeSlot', data.eventTimeSlot);
     formData.append('file', file, file.name);
-
-    const token = this.localStorageService.getLocalStorage('token');
-    const headers = new Headers({
-      Authorization: `Bearer ${token}`,
-    });
 
     return this.postData('event', formData, true);
   }
@@ -114,11 +127,11 @@ export class DataService {
     formData.append('message', data.message);
     formData.append('eventTimeSlot', data.eventTimeSlot);
 
-    return this.postData('event/current', formData);
+    return this.postData('event/current', formData, true);
   }
 
   getAllBookings(): Observable<BookingsResponseModel> {
-    return this.getData<BookingsResponseModel>('bookings');
+    return this.getData<BookingsResponseModel>('bookings', true);
   }
 
   addNewGalleryImage(file: File): Observable<any> {
@@ -126,17 +139,25 @@ export class DataService {
 
     formData.append('file', file, file.name);
 
-    return this.postData('images/gallery', formData);
+    return this.postData('images/gallery', formData, true);
   }
 
   deleteGalleryImage(imageId: number): Observable<any> {
     const url = this.apiBaseUrl + 'images/gallery/' + imageId;
 
-    return this.httpClient.delete(url);
+    let headers = new HttpHeaders();
+    const token = localStorage.getItem('token');
+
+    headers = headers.append('Authorization', `Bearer ${token}`);
+    const httpOptions = {
+      headers: headers,
+    };
+
+    return this.httpClient.delete(url, httpOptions);
   }
 
   getAllNotifications(): Observable<NotificationsResponseModel> {
-    return this.getData<NotificationsResponseModel>('notifications');
+    return this.getData<NotificationsResponseModel>('notifications', true);
   }
 
   updateNotification(notificationUpdate: NotificationsModel): Observable<any> {
@@ -145,7 +166,7 @@ export class DataService {
       notificationTemplate: notificationUpdate.NotificationTemplate,
       notificationType: notificationUpdate.NotificationType,
     };
-    return this.putData('notifications', data);
+    return this.putData('notifications', data, true);
   }
 
   editFutureEvent(
@@ -170,7 +191,7 @@ export class DataService {
       formData.append('file', file, file.name);
     }
 
-    return this.putData('event', formData);
+    return this.putData('event', formData, true);
   }
 
   forgotPassword(email: string): Observable<any> {
@@ -189,9 +210,13 @@ export class DataService {
       password: password,
       confirmPassword: confirmPassword,
     };
-    // return this.putData('/reset-password/' + token, data);
-
-    const url = this.apiBaseUrl + '/reset-password/' + token;
-    return this.httpClient.put(url, data, { responseType: 'text' });
+    const url = this.apiBaseUrl + '/reset-password';
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', `Bearer ${token}`);
+    debugger;
+    return this.httpClient.put(url, data, {
+      responseType: 'text',
+      headers: headers,
+    });
   }
 }
