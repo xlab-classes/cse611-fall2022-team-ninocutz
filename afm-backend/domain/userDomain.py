@@ -46,7 +46,12 @@ def validate_forgot_password(username):
     access_token = create_access_token(
         identity=username, expires_delta=datetime.timedelta(minutes=15))
 
-    return emailUtil.send_email(username, access_token)
+    res = emailUtil.send_email(username, access_token)
+
+    if res:
+        return 'Email succesfully sent', 200
+
+    return 'Error during sending email', 500
 
 
 def addUser(userName, password):

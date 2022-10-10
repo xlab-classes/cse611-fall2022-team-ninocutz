@@ -147,9 +147,8 @@ export class DataService {
     const url = this.apiBaseUrl + 'images/gallery/' + imageId;
 
     let headers = new HttpHeaders();
-    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', this.getBearerToken());
 
-    headers = headers.append('Authorization', `Bearer ${token}`);
     const httpOptions = {
       headers: headers,
     };
@@ -196,10 +195,15 @@ export class DataService {
   }
 
   forgotPassword(email: string): Observable<any> {
+    const url = this.apiBaseUrl + 'forgot-password';
+
     const data = {
       username: email,
     };
-    return this.postData('/forgot-password', data);
+
+    return this.httpClient.post(url, data, {
+      responseType: 'text',
+    });
   }
 
   resetPassword(
@@ -211,7 +215,7 @@ export class DataService {
       password: password,
       confirmPassword: confirmPassword,
     };
-    const url = this.apiBaseUrl + '/reset-password';
+    const url = this.apiBaseUrl + 'reset-password';
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${token}`);
     return this.httpClient.put(url, data, {

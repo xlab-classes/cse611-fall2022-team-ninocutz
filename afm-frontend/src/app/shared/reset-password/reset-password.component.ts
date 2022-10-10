@@ -44,4 +44,13 @@ export class ResetPasswordComponent implements OnInit {
       return null;
     }
   }
+
+  disableReset(): boolean {
+    return !(
+      this.email?.length > 0 &&
+      this.password?.length > 0 &&
+      this.confirmPassword?.length > 0 &&
+      this.password == this.confirmPassword
+    );
+  }
 }
