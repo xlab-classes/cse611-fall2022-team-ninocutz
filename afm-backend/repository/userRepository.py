@@ -1,27 +1,34 @@
 from app import Database
 
-def login(username, password):
+
+def getUserByEmail(emailId):
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT * FROM RV_User WHERE EmailID = %s AND Password = %s"
-    cursor.execute(sql, (username, password))
-    res = cursor.fetchall()
+    sql = "SELECT * FROM RV_User WHERE EmailID = %s"
+    cursor.execute(sql, (emailId))
+    columns = cursor.description
+    results = [{columns[index][0]:column for index,
+                column in enumerate(value)} for value in cursor.fetchall()]
     cursor.close()
-    return res
 
-def check_user_exists(username):
-    db = Database()
-    cursor = db.cursor()
-    sql = "SELECT * FROM RV_User WHERE EmailId = %s"
-    cursor.execute(sql, (username))
-    res = cursor.fetchall()
-    cursor.close()
-    return res
+    return results
 
-def reset_password(username, password):
+
+def reset_password(username, hashedPassword):
     db = Database()
     cursor = db.cursor()
     sql = "UPDATE RV_User SET Password = %s WHERE EmailID = %s"
-    cursor.execute(sql, (password, username))
+    cursor.execute(sql, (hashedPassword, username))
     cursor.close()
     db.commit()
+
+
+def addUser(userName, hashedPassword):
+    db = Database()
+    cursor = db.cursor()
+    sql = "INSERT INTO `AFM`.`RV_User` (`EmailID`,`Password`) VALUES(%s, %s);"
+    cursor.execute(sql, (userName, hashedPassword))
+    id = cursor.lastrowid
+    cursor.close()
+    db.commit()
+    return id
