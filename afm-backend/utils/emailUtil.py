@@ -34,4 +34,4 @@ def send_email(username, token):
         msg, msg_sender_email, msg_sender_passcode, msg_recipient_email,))
     thread.start()
     thread.join()
-    return 'Email succesfully sent', 200
+    return True
