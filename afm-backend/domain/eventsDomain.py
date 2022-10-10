@@ -57,3 +57,7 @@ def edit_event(newEvent: EventModel, event_id):
         newEvent.eventTypeId = eventsRepo.getEventTypeId(newEvent.eventType)
     event_update = eventsRepo.edit_event(newEvent, event_id)
     return event_update
+
+
+def getAllEventTypes():
+    return eventsRepo.getAllEventTypes()

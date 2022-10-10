@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { BookingsResponseModel } from '../models/bookings-response.model';
 import { NotificationsResponseModel } from '../models/notifications-response.model';
 import { NotificationsModel } from '../models/notifications.model';
+import { EventTypesResponseModel } from '../models/event-types-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -213,10 +214,13 @@ export class DataService {
     const url = this.apiBaseUrl + '/reset-password';
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${token}`);
-    debugger;
     return this.httpClient.put(url, data, {
       responseType: 'text',
       headers: headers,
     });
+  }
+
+  getEventTypes(): Observable<EventTypesResponseModel> {
+    return this.getData<EventTypesResponseModel>('event-types');
   }
 }

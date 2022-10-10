@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CurrentEventRequestModel } from 'src/app/core/models/current-event-request.model';
+import { EventTypesModel } from 'src/app/core/models/event-types.model';
 import { DataService } from 'src/app/core/services/data.service';
 import { LocationService } from 'src/app/core/services/location.service';
 import { GoogleMapComponent } from 'src/app/shared/google-map/google-map.component';
@@ -19,8 +20,8 @@ export class CurrentEventComponent implements OnInit {
   address: string;
   zipCode: number;
   message: string;
-  selectedEvent: any;
-  eventTypes: any[] = [];
+  selectedEvent: EventTypesModel;
+  eventTypes: EventTypesModel[] = [];
   eventName: string;
 
   constructor(
@@ -30,10 +31,13 @@ export class CurrentEventComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.eventTypes = [
-      { name: 'Wedding', code: 'Wedding' },
-      { name: 'Club', code: 'Club' },
-    ];
+    this.loadEventTypes();
+  }
+
+  loadEventTypes() {
+    this.dataService.getEventTypes().subscribe((data) => {
+      this.eventTypes = data.eventTypes;
+    });
   }
 
   shareLocationClicked() {
@@ -75,7 +79,7 @@ export class CurrentEventComponent implements OnInit {
   addCurrentEvent(pos: any) {
     const data: CurrentEventRequestModel = new CurrentEventRequestModel();
     data.eventName = this.eventName;
-    data.eventType = this.selectedEvent.code;
+    data.eventType = this.selectedEvent.Name;
     data.latitude = '' + pos.lat;
     data.longitude = '' + pos.lng;
     data.address = this.address;

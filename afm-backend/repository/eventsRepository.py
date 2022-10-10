@@ -141,3 +141,15 @@ def edit_event(newEvent: EventModel, event_id):
     cursor.close()
     db.commit()
     return val == 1
+
+
+def getAllEventTypes():
+    db = Database()
+    cursor = db.cursor()
+    sql = "SELECT Id, Name from EventType"
+    cursor.execute(sql)
+    columns = cursor.description
+    results = [{columns[index][0]:column for index,
+                column in enumerate(value)} for value in cursor.fetchall()]
+    cursor.close()
+    return results
