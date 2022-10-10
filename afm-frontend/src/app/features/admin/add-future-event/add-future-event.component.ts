@@ -69,6 +69,19 @@ export class AddFutureEventComponent implements OnInit {
     });
   }
 
+  disableSubmit(): boolean {
+    return (
+      !this.eventName ||
+      !this.selectedEvent ||
+      !this.futureEventData ||
+      !this.fromTime ||
+      !this.toTime ||
+      !this.address ||
+      !this.zipCode ||
+      !this.message
+    );
+  }
+
   showSuccess() {
     this.confirmationService.setConfirmation('inserted');
     this.router.navigate(['/admin/future-events']);

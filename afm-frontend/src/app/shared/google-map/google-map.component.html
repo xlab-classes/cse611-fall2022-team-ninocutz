@@ -1,11 +1,26 @@
-<google-map height="450px" width="50%" [center]="center" [options]="options"
-  ><map-marker
-    [position]="marker.position"
-    [label]="marker.label"
-    [title]="marker.title"
-    [options]="marker.options"
-    (mapDragend)="updateMarkerLocation($event)"
-  >
-  </map-marker
-></google-map>
-<app-afm-button label="Update Location" (click)="updateLocation()"></app-afm-button>
+<div class="container">
+  <div class="row">
+    <google-map
+      height="450px"
+      width="100%"
+      [center]="center"
+      [options]="options"
+      ><map-marker
+        [position]="marker.position"
+        [label]="marker.label"
+        [title]="marker.title"
+        [options]="marker.options"
+        (mapDragend)="updateMarkerLocation($event)"
+      >
+      </map-marker
+    ></google-map>
+  </div>
+  <div class="row mt-5">
+    <div class="col text-center">
+      <app-afm-button
+        label="Update Location"
+        (click)="updateLocation()"
+      ></app-afm-button>
+    </div>
+  </div>
+</div>

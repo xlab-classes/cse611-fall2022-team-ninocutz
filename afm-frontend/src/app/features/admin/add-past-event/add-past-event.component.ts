@@ -73,4 +73,17 @@ export class AddPastEventComponent implements OnInit {
     this.confirmationService.setConfirmation('inserted');
     this.router.navigate(['/admin/past-events']);
   }
+
+  disableSubmit(): boolean {
+    return (
+      !this.eventName ||
+      !this.selectedEvent ||
+      !this.pastEventDate ||
+      !this.fromTime ||
+      !this.toTime ||
+      !this.address ||
+      !this.zipCode ||
+      !this.message
+    );
+  }
 }
