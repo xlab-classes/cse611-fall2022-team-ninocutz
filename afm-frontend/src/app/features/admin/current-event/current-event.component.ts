@@ -60,6 +60,18 @@ export class CurrentEventComponent implements OnInit {
     });
   }
 
+  disableSubmit(): boolean {
+    return (
+      !this.eventName ||
+      !this.selectedEvent ||
+      !this.address ||
+      !this.zipCode ||
+      !this.message ||
+      !this.fromTime ||
+      !this.toTime
+    );
+  }
+
   addCurrentEvent(pos: any) {
     const data: CurrentEventRequestModel = new CurrentEventRequestModel();
     data.eventName = this.eventName;

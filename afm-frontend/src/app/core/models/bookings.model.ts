@@ -7,4 +7,5 @@ export class BookingsModel {
   EmailId: string;
   MobileNumber: string;
   BookingStatus: string;
+  NumberOfPeople: number;
 }
