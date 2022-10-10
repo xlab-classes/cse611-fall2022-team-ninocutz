@@ -30,3 +30,12 @@ def reset_password():
 def forgot_password():
     username = request.json.get("username", None)
     return userDomain.validate_forgot_password(username)
+
+
+@user_blueprint.route("/add-user", methods=['POST'])
+def addUser():
+    userName = request.json.get("username", None)
+    password = request.json.get("password", None)
+    id = userDomain.addUser(userName, password)
+
+    return {'userId': id}, 200
