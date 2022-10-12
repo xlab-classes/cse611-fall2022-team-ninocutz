@@ -9,6 +9,7 @@ bookings_blueprint = Blueprint('bookings_blueprint', __name__)
 
 
 @bookings_blueprint.route("/bookings", methods=['POST'])
+@cross_origin()
 def addBooking():
     data = request.get_json()
     firstName = data.get('firstName', '')

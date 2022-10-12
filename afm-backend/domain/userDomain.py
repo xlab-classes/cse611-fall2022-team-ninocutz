@@ -59,3 +59,7 @@ def validate_forgot_password(username):
 def addUser(userName, password):
     hashedPassword = pbkdf2_sha256.hash(password)
     return userRepository.addUser(userName, hashedPassword)
+
+
+def getAllUsers():
+    return userRepository.getAllUsers()
