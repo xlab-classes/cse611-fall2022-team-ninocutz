@@ -4,11 +4,11 @@ import { BookingsModel } from 'src/app/core/models/bookings.model';
 import { DataService } from 'src/app/core/services/data.service';
 
 @Component({
-  selector: 'app-bookings',
-  templateUrl: './bookings.component.html',
-  styleUrls: ['./bookings.component.scss'],
+  selector: 'app-requests',
+  templateUrl: './requests.component.html',
+  styleUrls: ['./requests.component.scss'],
 })
-export class BookingsComponent implements OnInit {
+export class RequestsComponent implements OnInit {
   @ViewChild('requestTable') requestTable: Table;
   bookings: BookingsModel[];
 

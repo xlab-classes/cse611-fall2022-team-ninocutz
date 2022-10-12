@@ -8,7 +8,6 @@ import { CurrentEventComponent } from './current-event/current-event.component';
 import { FutureEventsComponent } from './future-events/future-events.component';
 import { PastEventsComponent } from './past-events/past-events.component';
 import { GalleryComponent } from './gallery/gallery.component';
-import { BookingsComponent } from './bookings/bookings.component';
 import { UsersComponent } from './users/users.component';
 import { AdminComponent } from './admin.component';
 import { AddFutureEventComponent } from './add-future-event/add-future-event.component';
@@ -18,6 +17,7 @@ import { EditFutureEventComponent } from './edit-future-event/edit-future-event.
 import { AddPastEventComponent } from './add-past-event/add-past-event.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { EditPastEventComponent } from './edit-past-event/edit-past-event.component';
+import { RequestsComponent } from './requests/requests.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,6 @@ import { EditPastEventComponent } from './edit-past-event/edit-past-event.compon
     FutureEventsComponent,
     PastEventsComponent,
     GalleryComponent,
-    BookingsComponent,
     UsersComponent,
     AdminComponent,
     AddFutureEventComponent,
@@ -35,6 +34,7 @@ import { EditPastEventComponent } from './edit-past-event/edit-past-event.compon
     AddPastEventComponent,
     NotificationsComponent,
     EditPastEventComponent,
+    RequestsComponent,
   ],
   imports: [AdminRoutingModule, CommonModule, SharedModule],
   providers: [
