@@ -171,7 +171,7 @@ export class DataService {
     return this.putData('notifications', data, true);
   }
 
-  editFutureEvent(
+  editEvent(
     eventId: string,
     data: EventRequestModel,
     file?: File

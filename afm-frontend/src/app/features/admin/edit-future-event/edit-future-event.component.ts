@@ -115,7 +115,7 @@ export class EditFutureEventComponent implements OnInit, OnDestroy {
       moment(this.toTime).format('HH:mm');
 
     this.dataService
-      .editFutureEvent('' + this.futureEvent.Id, data, this.uploadedFiles)
+      .editEvent('' + this.futureEvent.Id, data, this.uploadedFiles)
       .subscribe((data) => {
         this.showSuccess();
       });
