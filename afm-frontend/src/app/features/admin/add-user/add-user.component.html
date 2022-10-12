@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col">
+      <h4 class="afm-label-text">First Name</h4>
+      <input type="text" pInputText [(ngModel)]="user.firstName" />
+    </div>
+    <div class="col mt-md-0 mt-4">
+      <h4 class="afm-label-text">Last Name</h4>
+      <input type="text" pInputText [(ngModel)]="user.lastName" />
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <h4 class="afm-label-text">Email Id</h4>
+      <input type="text" pInputText [(ngModel)]="user.emailId" />
+    </div>
+
+    <div class="col mt-md-0 mt-4">
+      <h4 class="afm-label-text">Mobile Number</h4>
+      <input type="text" pInputText [(ngModel)]="user.mobileNumber" />
+    </div>
+  </div>
+
+  <div class="row mt-4" style="text-align: center">
+    <div class="col">
+      <app-afm-button
+        label="Add"
+        (click)="addUser()"
+        [disable]="disableAddButton()"
+      ></app-afm-button>
+    </div>
+  </div>
+</div>

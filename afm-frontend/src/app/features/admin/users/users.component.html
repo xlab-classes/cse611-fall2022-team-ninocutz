@@ -18,15 +18,25 @@
     >
       <ng-template pTemplate="caption">
         <div class="flex">
-          <span class="p-input-icon-left ml-auto">
-            <i class="pi pi-search"></i>
-            <input
-              pInputText
-              type="text"
-              (input)="applyFilterGlobal($event, 'contains')"
-              placeholder="Search keyword"
-            />
-          </span>
+          <div class="row">
+            <div class="col ms-auto">
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  (input)="applyFilterGlobal($event, 'contains')"
+                  placeholder="Search keyword"
+                />
+              </span>
+            </div>
+            <div class="col text-end">
+              <app-afm-button
+                label="Add User"
+                (click)="addUser()"
+              ></app-afm-button>
+            </div>
+          </div>
         </div>
       </ng-template>
       <ng-template pTemplate="header">
@@ -72,3 +82,5 @@
     </p-table>
   </div>
 </div>
+
+<p-toast></p-toast>
