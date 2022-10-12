@@ -40,19 +40,19 @@ def getAllRequestedBookings():
     return results
 
 
-def declineBooking(bookingId):
+def declineBooking(bookingId, userId):
     cursor = db.cursor()
-    sql = "UPDATE AFM.Booking SET BookingStatus = 'DECLINED' WHERE Id = %s;"
-    val = cursor.execute(sql, (bookingId))
+    sql = "UPDATE AFM.Booking SET BookingStatus = 'DECLINED', ModifiedBy = %s WHERE Id = %s;"
+    val = cursor.execute(sql, (userId, bookingId))
     cursor.close()
     db.commit()
     return val == 1
 
 
-def acceptBooking(bookingId):
+def acceptBooking(bookingId, userId):
     cursor = db.cursor()
-    sql = "UPDATE AFM.Booking SET BookingStatus = 'ACCEPTED' WHERE Id = %s;"
-    val = cursor.execute(sql, (bookingId))
+    sql = "UPDATE AFM.Booking SET BookingStatus = 'ACCEPTED', ModifiedBy = %s WHERE Id = %s;"
+    val = cursor.execute(sql, (userId, bookingId))
     cursor.close()
     db.commit()
     return val == 1

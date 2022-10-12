@@ -2,9 +2,9 @@ from repository import eventsRepository as eventsRepo
 from model.EventModel import EventModel
 
 
-def createEvent(newEvent: EventModel):
+def createEvent(newEvent: EventModel, userId):
     newEvent.eventTypeId = eventsRepo.getEventTypeId(newEvent.eventType)
-    createdEventId = eventsRepo.createEvent(newEvent)
+    createdEventId = eventsRepo.createEvent(newEvent, userId)
     return createdEventId
 
 
@@ -23,7 +23,7 @@ def getCurrentEvent():
     return event
 
 
-def createCurrentEvent(event: EventModel):
+def createCurrentEvent(event: EventModel, userId):
 
     newEvent = EventModel(name=event.name,
                           eventType=event.eventType,
@@ -37,9 +37,9 @@ def createCurrentEvent(event: EventModel):
                           imageId=event.imageId
                           )
 
-    eventId = createEvent(newEvent)
+    eventId = createEvent(newEvent, userId)
 
-    currentEventId = eventsRepo.addCurrentEvent(eventId)
+    currentEventId = eventsRepo.addCurrentEvent(eventId, userId)
     return currentEventId
 
 
@@ -52,10 +52,10 @@ def delete_event(id):
     return eventsRepo.delete_event(id)
 
 
-def edit_event(newEvent: EventModel, event_id):
+def edit_event(newEvent: EventModel, event_id, userId):
     if not newEvent.eventType:
         newEvent.eventTypeId = eventsRepo.getEventTypeId(newEvent.eventType)
-    event_update = eventsRepo.edit_event(newEvent, event_id)
+    event_update = eventsRepo.edit_event(newEvent, event_id, userId)
     return event_update
 
 

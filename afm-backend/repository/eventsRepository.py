@@ -4,18 +4,18 @@ from repository import imagesRepository
 # Future Events
 
 
-def createEvent(newEvent: EventModel):
+def createEvent(newEvent: EventModel, userId):
     db = Database()
 
     sql = "INSERT INTO Event \
         (ImageId, EventTypeId, Name, Longitude, Latitude, \
         Address, EventDate, EventTimeSlot, Zipcode, \
-        Message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        Message, CreatedBy) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
     cursor = db.cursor()
     cursor.execute(sql, (newEvent.imageId, newEvent.eventTypeId, newEvent.name, newEvent.longitude,
                    newEvent.latitude, newEvent.address, newEvent.eventDate, newEvent.eventTimeSlot,
-                         newEvent.zipCode, newEvent.message))
+                         newEvent.zipCode, newEvent.message, userId))
     cursor.close()
     db.commit()
     return cursor.lastrowid
@@ -100,13 +100,13 @@ def getAllPastEvents():
     return results
 
 
-def addCurrentEvent(eventId):
+def addCurrentEvent(eventId, userId):
     db = Database()
     # TODO: Truncate Table and add the new current event, to support only one current event at a time
-    sql = "INSERT INTO CurrentEvent (eventId) VALUES (%s)"
+    sql = "INSERT INTO CurrentEvent (eventId, CreatedBy) VALUES (%s, %s)"
 
     cursor = db.cursor()
-    cursor.execute(sql, (eventId))
+    cursor.execute(sql, (eventId, userId))
     cursor.close()
     db.commit()
     return cursor.lastrowid
@@ -132,12 +132,13 @@ def delete_event(id):
     return val == 1
 
 
-def edit_event(newEvent: EventModel, event_id):
+def edit_event(newEvent: EventModel, event_id, userId):
     db = Database()
     update_string = newEvent.get_update_string()
-    current_table_sql = "UPDATE Event set " + update_string + "where Id = %s"
+    current_table_sql = "UPDATE Event set " + \
+        update_string + ", ModifiedBy = %s WHERE Id = %s"
     cursor = db.cursor()
-    val = cursor.execute(current_table_sql, (event_id))
+    val = cursor.execute(current_table_sql, (userId, event_id))
     cursor.close()
     db.commit()
     return val == 1

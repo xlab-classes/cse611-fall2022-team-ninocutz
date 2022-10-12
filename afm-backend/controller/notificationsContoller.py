@@ -3,6 +3,7 @@ from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from flask_cors import cross_origin
 from domain import notificationsDomain
+from utils.authUtil import getUserId
 
 notifications_blueprint = Blueprint('notifications_blueprint', __name__)
 
@@ -11,12 +12,13 @@ notifications_blueprint = Blueprint('notifications_blueprint', __name__)
 @jwt_required()
 @cross_origin()
 def addNotification():
+    userId = getUserId()
     data = request.get_json()
     notificationType = data.get('notificationType', '')
     template = data.get('notificationTemplate', '')
 
     notificationId = notificationsDomain.insertNotification(
-        notificationType, template)
+        notificationType, template, userId)
 
     return {'id': notificationId}, 201
 
@@ -35,10 +37,11 @@ def getAllNotifications():
 def updateNotification():
     data = request.get_json()
     id = data.get('id', '')
+    userId = getUserId()
     notificationType = data.get('notificationType', '')
     template = data.get('notificationTemplate', '')
     updated = notificationsDomain.updateNotification(
-        id, notificationType, template)
+        id, notificationType, template, userId)
 
     if updated:
         return 'Successfully updated the Notification', 204

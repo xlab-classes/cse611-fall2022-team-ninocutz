@@ -26,22 +26,22 @@ def getIdByNotificationType(notificationType):
     return False
 
 
-def insertNotification(notificationType, template):
+def insertNotification(notificationType, template, userId):
     db = Database()
     cursor = db.cursor()
-    sql = "INSERT INTO AFM.Notification(NotificationType, NotificationTemplate) VALUES (%s, %s)"
-    cursor.execute(sql, (notificationType, template))
+    sql = "INSERT INTO AFM.Notification(NotificationType, NotificationTemplate, CreatedBy) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (notificationType, template, userId))
     id = cursor.lastrowid
     cursor.close()
     db.commit()
     return id
 
 
-def updateNotification(id, notificationType, template):
+def updateNotification(id, notificationType, template, userId):
     db = Database()
     cursor = db.cursor()
-    sql = "UPDATE AFM.Notification SET NotificationType = %s, NotificationTemplate = %s WHERE Id = %s;"
-    val = cursor.execute(sql, (notificationType, template, id))
+    sql = "UPDATE AFM.Notification SET NotificationType = %s, NotificationTemplate = %s, ModifiedBy = %s WHERE Id = %s;"
+    val = cursor.execute(sql, (notificationType, template, userId, id))
     cursor.close()
     db.commit()
     return val == 1

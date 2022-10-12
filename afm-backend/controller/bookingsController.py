@@ -3,6 +3,7 @@ from flask import Blueprint
 from domain import bookingsDomain
 from flask_jwt_extended import jwt_required
 from flask_cors import cross_origin
+from utils.authUtil import getUserId
 
 bookings_blueprint = Blueprint('bookings_blueprint', __name__)
 
@@ -48,7 +49,9 @@ def declineBooking():
     data = request.get_json()
     bookingId = data.get('bookingId', 0)
 
-    updated = bookingsDomain.declineBooking(bookingId)
+    userId = getUserId()
+
+    updated = bookingsDomain.declineBooking(bookingId, userId)
 
     if updated:
         return 'Successfully updated the Booking', 204
@@ -61,8 +64,9 @@ def declineBooking():
 def acceptBooking():
     data = request.get_json()
     bookingId = data.get('bookingId', 0)
+    userId = getUserId()
 
-    updated = bookingsDomain.acceptBooking(bookingId)
+    updated = bookingsDomain.acceptBooking(bookingId, userId)
 
     if updated:
         return 'Successfully updated the Booking', 204
