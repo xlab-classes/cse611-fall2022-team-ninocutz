@@ -16,8 +16,8 @@ import { SharingService } from 'src/app/core/services/sharing.service';
 export class EditPastEventComponent implements OnInit, OnDestroy {
   @ViewChild('fileUpload') fileUpload: any;
 
-  tomorrowDate = moment().add(1, 'day').toDate();
-  futureEvent: FutureEventsModel;
+  yesterdayDate = moment().subtract(1, 'day').toDate();
+  pastEvent: FutureEventsModel;
   eventTypes: any[] = [];
   uploadedFiles: any;
   localStorageKey = 'edit-future-event';
@@ -40,14 +40,14 @@ export class EditPastEventComponent implements OnInit, OnDestroy {
       { name: 'Club', code: 'Club' },
     ];
 
-    this.futureEvent = this.sharingService.getData();
-    if (this.futureEvent) {
+    this.pastEvent = this.sharingService.getData();
+    if (this.pastEvent) {
       this.sessionStorageService.setSessionStorage(
         this.localStorageKey,
-        this.futureEvent
+        this.pastEvent
       );
     } else {
-      this.futureEvent = this.sessionStorageService.getSessionStorage(
+      this.pastEvent = this.sessionStorageService.getSessionStorage(
         this.localStorageKey
       );
     }
@@ -60,12 +60,12 @@ export class EditPastEventComponent implements OnInit, OnDestroy {
 
   updateDisplay() {
     this.selectedEvent = this.eventTypes
-      .filter((x) => x.code === this.futureEvent.EventType)
+      .filter((x) => x.code === this.pastEvent.EventType)
       .shift();
 
-    this.eventDate = new Date(this.futureEvent.EventDate);
+    this.eventDate = new Date(this.pastEvent.EventDate);
 
-    const timeSlot = this.futureEvent.EventTimeSlot?.split('-');
+    const timeSlot = this.pastEvent.EventTimeSlot?.split('-');
     if (timeSlot) {
       const fromTimeTemp = timeSlot[0].split(':');
       this.fromTime.setHours(+fromTimeTemp[0]);
@@ -94,20 +94,20 @@ export class EditPastEventComponent implements OnInit, OnDestroy {
   }
 
   clear() {
-    this.futureEvent.Url = undefined;
+    this.pastEvent.Url = undefined;
     this.fileUpload.clear();
     this.uploadedFiles = undefined;
   }
 
-  editFutureEvent() {
+  editPastEvent() {
     const data: EventRequestModel = new EventRequestModel();
-    data.eventName = this.futureEvent.Name;
-    data.address = this.futureEvent.Address;
+    data.eventName = this.pastEvent.Name;
+    data.address = this.pastEvent.Address;
     data.eventDate = moment(this.eventDate).format('YYYY-MM-DD');
     data.latitude = '0.0';
     data.longitude = '0.0';
-    data.message = this.futureEvent.Message ?? '';
-    data.zipCode = this.futureEvent.Zipcode;
+    data.message = this.pastEvent.Message ?? '';
+    data.zipCode = this.pastEvent.Zipcode;
     data.eventType = this.selectedEvent.code;
     data.eventTimeSlot =
       moment(this.fromTime).format('HH:mm') +
@@ -115,7 +115,7 @@ export class EditPastEventComponent implements OnInit, OnDestroy {
       moment(this.toTime).format('HH:mm');
 
     this.dataService
-      .editFutureEvent('' + this.futureEvent.Id, data, this.uploadedFiles)
+      .editEvent('' + this.pastEvent.Id, data, this.uploadedFiles)
       .subscribe((data) => {
         this.showSuccess();
       });

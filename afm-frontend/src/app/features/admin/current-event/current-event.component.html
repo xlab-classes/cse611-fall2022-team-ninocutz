@@ -7,48 +7,45 @@
     <app-afm-blur-background>
       <div class="container" class="form-internal-box">
         <div class="row">
-          <h5 class="afm-label-text">Event Name</h5>
-          <input type="text" pInputText [(ngModel)]="eventName" />
+          <div class="col">
+            <h5 class="afm-label-text">Event Name</h5>
+            <input type="text" pInputText [(ngModel)]="eventName" />
+          </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-4">
           <h5 class="afm-label-text">Time Slot</h5>
         </div>
 
-        <br />
-
-        <div class="row">
+        <div class="row mt-4">
           <div class="col">
-            <h5 class="afm-label-text">From</h5>
+            <span class="p-float-label">
+              <p-calendar
+                id="fromTime"
+                [(ngModel)]="fromTime"
+                [timeOnly]="true"
+                [hourFormat]="'24'"
+                inputId="timeonly"
+              ></p-calendar>
+              <label for="fromTime">From Time</label>
+            </span>
           </div>
           <div class="col">
-            <h5 class="afm-label-text">To</h5>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <p-calendar
-              [(ngModel)]="fromTime"
-              [timeOnly]="true"
-              [hourFormat]="'24'"
-              inputId="timeonly"
-            ></p-calendar>
-          </div>
-          <div class="col">
-            <p-calendar
-              [(ngModel)]="toTime"
-              [timeOnly]="true"
-              [hourFormat]="'24'"
-              [minDate]="fromTime"
-              inputId="timeonly"
-            ></p-calendar>
+            <span class="p-float-label">
+              <p-calendar
+                id="toime"
+                [(ngModel)]="toTime"
+                [timeOnly]="true"
+                [hourFormat]="'24'"
+                [minDate]="fromTime"
+                inputId="timeonly"
+              ></p-calendar>
+              <label for="toime">To Time</label>
+            </span>
           </div>
         </div>
 
-        <br />
-
-        <div class="row">
+        <div class="row mt-4">
           <div class="col">
             <h5 class="afm-label-text">Message</h5>
             <textarea
@@ -62,8 +59,8 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-12 col-md-6 mt-5 mt-md-0">
+        <div class="row mt-4">
+          <div class="col-12 col-md-6">
             <h3 class="afm-label-text">Event Type</h3>
             <p-dropdown
               [options]="eventTypes"
@@ -75,7 +72,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-4">
           <div class="col">
             <h3 class="afm-label-text">Address</h3>
             <textarea
@@ -87,8 +84,10 @@
               style="max-width: 90%"
             ></textarea>
           </div>
+        </div>
 
-          <div class="col mt-5 mt-md-0">
+        <div class="row mt-4">
+          <div class="col">
             <h3 class="afm-label-text">Zip Code</h3>
             <p-inputNumber
               [(ngModel)]="zipCode"
@@ -99,7 +98,6 @@
             </p-inputNumber>
           </div>
         </div>
-
         <br />
         <br />
 
@@ -111,8 +109,6 @@
           ></app-afm-button>
         </div>
       </div>
-
-      <br />
     </app-afm-blur-background>
   </div>
 </div>

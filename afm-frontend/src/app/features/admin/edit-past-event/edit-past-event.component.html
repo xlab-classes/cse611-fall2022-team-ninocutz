@@ -1,18 +1,18 @@
-<div class="root-div">
+<!-- <div class="root-div">
   <h2 class="afm-heading-text" style="text-align: center">Edit Past Event</h2>
 
   <div class="form-external-box">
     <div class="container">
       <app-afm-blur-background>
         <div class="button-alignment row g-4">
-          <div class="col" *ngIf="uploadedFiles || futureEvent.Url">
+          <div class="col" *ngIf="uploadedFiles || pastEvent.Url">
             <app-afm-image
-              [src]="futureEvent.Url ?? uploadedFiles.objectURL ?? ''"
+              [src]="pastEvent.Url ?? uploadedFiles.objectURL ?? ''"
             ></app-afm-image>
           </div>
           <div
             class="col-lg-12 align-self-center"
-            *ngIf="uploadedFiles || futureEvent.Url"
+            *ngIf="uploadedFiles || pastEvent.Url"
           >
             <app-afm-button label="Remove" (click)="clear()"></app-afm-button>
           </div>
@@ -39,7 +39,7 @@
                   <input
                     type="text"
                     pInputText
-                    [(ngModel)]="futureEvent.Name"
+                    [(ngModel)]="pastEvent.Name"
                   />
                 </div>
                 <div class="col-12 col-md-6 mt-5 mt-md-0">
@@ -93,7 +93,7 @@
               <div class="col">
                 <h3 class="afm-label-text">Address</h3>
                 <textarea
-                  [(ngModel)]="futureEvent.Address"
+                  [(ngModel)]="pastEvent.Address"
                   [rows]="5"
                   [cols]="80"
                   pInputTextarea
@@ -105,7 +105,7 @@
               <div class="col mt-5 mt-md-0">
                 <h3 class="afm-label-text">Zip Code</h3>
                 <p-inputNumber
-                  [(ngModel)]="futureEvent.Zipcode"
+                  [(ngModel)]="pastEvent.Zipcode"
                   mode="decimal"
                   inputId="withoutgrouping"
                   [useGrouping]="false"
@@ -121,7 +121,7 @@
           <div class="col" style="text-align: center">
             <h5 class="afm-label-text">Message</h5>
             <textarea
-              [(ngModel)]="futureEvent.Message"
+              [(ngModel)]="pastEvent.Message"
               [rows]="5"
               [cols]="80"
               pInputTextarea
@@ -143,5 +143,158 @@
 
     <br />
     <br />
+  </div>
+</div> -->
+
+<div class="root-div">
+  <h2 class="afm-heading-text text-align-center">Edit Past Event</h2>
+
+  <div class="form-external-box">
+    <app-afm-blur-background>
+      <div class="container" class="form-internal-box">
+        <div
+          class="row text-align-center"
+          *ngIf="uploadedFiles || pastEvent.Url"
+        >
+          <div class="col">
+            <app-afm-image
+              [src]="pastEvent.Url ?? uploadedFiles.objectURL ?? ''"
+            ></app-afm-image>
+          </div>
+          <div class="col align-self-center mt-4 mt-sm-0">
+            <app-afm-button label="Remove" (click)="clear()"></app-afm-button>
+          </div>
+        </div>
+
+        <div class="row text-align-center mt-4">
+          <div class="col-lg-12 align-self-center">
+            <p-fileUpload
+              #fileUpload
+              name="myfile[]"
+              mode="basic"
+              (uploadHandler)="myUploader($event)"
+              (onUpload)="myUploader($event)"
+              [customUpload]="true"
+              [auto]="true"
+              accept="image/*"
+              chooseLabel="Upload Image"
+            >
+            </p-fileUpload>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h5 class="afm-label-text">Event Name</h5>
+            <input type="text" pInputText [(ngModel)]="pastEvent.Name" />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h3 class="afm-label-text">Event Date</h3>
+            <p-calendar
+              [(ngModel)]="eventDate"
+              [showIcon]="true"
+              inputId="icon"
+              [maxDate]="yesterdayDate"
+            ></p-calendar>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <h5 class="afm-label-text">Time Slot</h5>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <span class="p-float-label">
+              <p-calendar
+                id="fromTime"
+                [(ngModel)]="fromTime"
+                [timeOnly]="true"
+                [hourFormat]="'24'"
+                inputId="timeonly"
+              ></p-calendar>
+              <label for="fromTime">From Time</label>
+            </span>
+          </div>
+          <div class="col">
+            <span class="p-float-label">
+              <p-calendar
+                id="toime"
+                [(ngModel)]="toTime"
+                [timeOnly]="true"
+                [hourFormat]="'24'"
+                [minDate]="fromTime"
+                inputId="timeonly"
+              ></p-calendar>
+              <label for="toime">To Time</label>
+            </span>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h5 class="afm-label-text">Message</h5>
+            <textarea
+              [(ngModel)]="pastEvent.Message"
+              [rows]="5"
+              [cols]="80"
+              pInputTextarea
+              [autoResize]="true"
+              style="max-width: 90%"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h3 class="afm-label-text">Event Type</h3>
+            <p-dropdown
+              [options]="eventTypes"
+              [(ngModel)]="selectedEvent"
+              placeholder="Select a City"
+              optionLabel="name"
+              [showClear]="true"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h3 class="afm-label-text">Address</h3>
+            <textarea
+              [(ngModel)]="pastEvent.Address"
+              [rows]="5"
+              [cols]="80"
+              pInputTextarea
+              [autoResize]="true"
+              style="max-width: 90%"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h3 class="afm-label-text">Zip Code</h3>
+            <p-inputNumber
+              [(ngModel)]="pastEvent.Zipcode"
+              mode="decimal"
+              inputId="withoutgrouping"
+              [useGrouping]="false"
+            >
+            </p-inputNumber>
+          </div>
+        </div>
+
+        <div class="row mt-4 text-align-center">
+          <app-afm-button
+            label="Update"
+            (click)="editPastEvent()"
+          ></app-afm-button>
+        </div>
+      </div>
+    </app-afm-blur-background>
   </div>
 </div>
