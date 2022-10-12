@@ -1,3 +1,9 @@
 .signin-box {
   width: 300px;
 }
+.signin-box-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
