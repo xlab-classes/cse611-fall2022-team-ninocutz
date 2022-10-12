@@ -4,6 +4,7 @@ from flask_cors import cross_origin
 from flask import request
 from flask import Blueprint
 from domain import userDomain
+from utils.authUtil import getUserId
 user_blueprint = Blueprint('user_blueprint', __name__)
 
 
@@ -20,10 +21,11 @@ def login():
 def reset_password():
     # Assumption - right token is passed to this method
     username = get_jwt_identity()
+    userId = getUserId()
     password = request.json.get("password", None)
     confirmPassword = request.json.get("confirmPassword", None)
     return userDomain.validate_reset_password(
-        username, password, confirmPassword)
+        username, password, confirmPassword, userId)
 
 
 @user_blueprint.route("/forgot-password", methods=['POST'])

@@ -9,8 +9,8 @@ SECRET_KEY = os.environ.get("AWS_SECRET_KEY")
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 
-def add_image(image_type, url):
-    image_id = imagesRepository.insert_image(image_type, url)
+def add_image(image_type, url, userId):
+    image_id = imagesRepository.insert_image(image_type, url, userId)
     return image_id
 
 
@@ -44,13 +44,11 @@ def allowed_file(filename):
 
 
 def getAllGalleryImages():
-    images = imagesRepository.getAllGalleryImages()
-    return images
+    return imagesRepository.getAllGalleryImages()
 
 
-def addNewGalleryImage(url):
-    imageId = imagesRepository.insertNewGalleryImage(url)
-    return imageId
+def addNewGalleryImage(url, userId):
+    return imagesRepository.insertNewGalleryImage(url, userId)
 
 
 def deleteImage(imageId):

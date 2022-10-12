@@ -14,16 +14,18 @@ def validate_login(username, password):
 
     hashedPassord = res[0]['Password']
 
+    userId = res[0]["Id"]
+
     if not pbkdf2_sha256.verify(password, hashedPassord):
         return "Invalid username or password", 401
 
     access_token = create_access_token(
-        identity=username, expires_delta=datetime.timedelta(minutes=60))
+        identity=username, expires_delta=datetime.timedelta(minutes=60), additional_claims={"userId": userId})
 
     return jsonify(access_token=access_token)
 
 
-def validate_reset_password(username, password, confirmPassword):
+def validate_reset_password(username, password, confirmPassword, userId):
     if password != confirmPassword:
         return "Passwords do not match", 401
 

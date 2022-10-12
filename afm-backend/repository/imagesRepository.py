@@ -1,11 +1,11 @@
 from app import Database
 
 
-def insert_image(image_type, url):
+def insert_image(image_type, url, userId):
     db = Database()
     cursor = db.cursor()
-    sql = "INSERT INTO Image(image_type, url) VALUES (%s, %s)"
-    cursor.execute(sql, (image_type, url))
+    sql = "INSERT INTO Image(image_type, url, CreatedBy) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (image_type, url, userId))
     id = cursor.lastrowid
     cursor.close()
     db.commit()
@@ -25,7 +25,7 @@ def getAllGalleryImages():
     return results
 
 
-def insertNewGalleryImage(url):
+def insertNewGalleryImage(url, userId):
     db = Database()
     cursor = db.cursor()
     sql = "SELECT Id FROM AFM.Image_type WHERE Category = 'Gallery';"
@@ -33,8 +33,8 @@ def insertNewGalleryImage(url):
     results = cursor.fetchall()
 
     imageTypeId = results[0][0]
-    sql = "INSERT INTO Image(image_type, url) VALUES (%s, %s)"
-    cursor.execute(sql, (imageTypeId, url))
+    sql = "INSERT INTO Image(image_type, url, CreatedBy) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (imageTypeId, url, userId))
     id = cursor.lastrowid
     cursor.close()
     db.commit()

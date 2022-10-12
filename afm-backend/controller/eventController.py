@@ -7,6 +7,7 @@ from flask import request
 from domain import eventsDomain
 from domain import imagesDomain
 from model.EventModel import EventModel
+from utils.authUtil import getUserId
 
 events_blueprint = Blueprint('events_blueprint', __name__)
 bucket = os.environ.get("S3_BUCKET")
@@ -19,6 +20,7 @@ IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 @jwt_required()
 @cross_origin()
 def createEvent():
+    userId = getUserId()
     newEvent = EventModel(name=request.form.get('eventName'),
                           eventType=request.form.get('eventType'),
                           longitude=request.form.get('longitude'),
@@ -41,10 +43,10 @@ def createEvent():
         if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
             return 'Image upload failed', 500
         url = f"https://{bucket}.s3.amazonaws.com/{filename}"
-        imageId = imagesDomain.add_image(image_type, url)
+        imageId = imagesDomain.add_image(image_type, url, userId)
         newEvent.imageId = imageId
 
-    createEventId = eventsDomain.createEvent(newEvent)
+    createEventId = eventsDomain.createEvent(newEvent, userId)
 
     return {'id': createEventId}, 201
 
@@ -71,10 +73,12 @@ def getCurrentEvent():
     return {'events': events}, 200
 
 
-@events_blueprint.route("/event/current", methods=['POST'])
+@events_blueprint.route("/event-current", methods=['POST'])
 @jwt_required()
 @cross_origin()
 def addCurrentEvent():
+    userId = getUserId()
+    print(userId)
 
     newEvent = EventModel(name=request.form.get('eventName'),
                           eventType=request.form.get('eventType'),
@@ -101,7 +105,7 @@ def addCurrentEvent():
     #     url = f"https://{bucket}.s3.amazonaws.com/{filename}"
     #     image_id = imagesDomain.add_image(image_type, url)
 
-    createdCurrentEventId = eventsDomain.createCurrentEvent(newEvent)
+    createdCurrentEventId = eventsDomain.createCurrentEvent(newEvent, userId)
     return {'id': createdCurrentEventId}, 201
 
 # endregion Current Events
@@ -131,6 +135,7 @@ def delete_event(event_id):
 @jwt_required()
 @cross_origin()
 def edit_event():
+    userId = getUserId()
     newEvent = EventModel(name=request.form.get('eventName'),
                           eventType=request.form.get('eventType'),
                           longitude=request.form.get('longitude'),
@@ -156,10 +161,10 @@ def edit_event():
         if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
             return 'Image upload failed', 500
         url = f"https://{bucket}.s3.amazonaws.com/{filename}"
-        image_id = imagesDomain.add_image(image_type, url)
+        image_id = imagesDomain.add_image(image_type, url, userId)
         newEvent.imageId = image_id
 
-    event_status = eventsDomain.edit_event(newEvent, event_id)
+    event_status = eventsDomain.edit_event(newEvent, event_id, userId)
     if event_status:
         return 'Successfully updated the event', 204
     return 'Error encountered during event update', 500

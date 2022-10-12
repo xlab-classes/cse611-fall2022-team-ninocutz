@@ -128,7 +128,7 @@ export class DataService {
     formData.append('message', data.message);
     formData.append('eventTimeSlot', data.eventTimeSlot);
 
-    return this.postData('event/current', formData, true);
+    return this.postData('event-current', formData, true);
   }
 
   getAllBookings(): Observable<BookingsResponseModel> {

@@ -6,6 +6,8 @@ from domain import imagesDomain
 from flask_jwt_extended import jwt_required
 from flask_cors import cross_origin
 
+from utils.authUtil import getUserId
+
 images_blueprint = Blueprint('images_blueprint', __name__)
 bucket = os.environ.get("S3_BUCKET")
 IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
@@ -15,6 +17,9 @@ IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 @jwt_required()
 @cross_origin()
 def upload_image():
+
+    userId = getUserId()
+
     if 'file' not in request.files:
         return 'No file selected', 400
     file = request.files['file']
@@ -27,13 +32,14 @@ def upload_image():
         return 'Image upload failed', 500
     url = f"https://{bucket}.s3.amazonaws.com/{filename}"
 
-    image_id = imagesDomain.add_image(image_type, url)
+    image_id = imagesDomain.add_image(image_type, url, userId)
     return {'id': image_id}, 201
 
 # region Gallery
 
 
 @images_blueprint.route("/images/gallery", methods=['GET'])
+@cross_origin()
 def getAllGalleryImages():
     events = imagesDomain.getAllGalleryImages()
     return {'images': events}, 200
@@ -43,6 +49,7 @@ def getAllGalleryImages():
 @jwt_required()
 @cross_origin()
 def addNewGalleryImage():
+    userId = getUserId()
     if 'file' in request.files:
         file = request.files['file']
         filename = secure_filename(file.filename)
@@ -52,7 +59,7 @@ def addNewGalleryImage():
         if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
             return 'Image upload failed', 500
         url = f"https://{bucket}.s3.amazonaws.com/{filename}"
-        imageId = imagesDomain.addNewGalleryImage(url)
+        imageId = imagesDomain.addNewGalleryImage(url, userId)
 
         return {'Created': imageId}, 201
 

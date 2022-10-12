@@ -26,9 +26,9 @@ def getAllRequestedBookings():
     return bookings
 
 
-def declineBooking(bookingId):
-    return bookingsRepository.declineBooking(bookingId)
+def declineBooking(bookingId, userId):
+    return bookingsRepository.declineBooking(bookingId, userId)
 
 
-def acceptBooking(bookingId):
-    return bookingsRepository.acceptBooking(bookingId)
+def acceptBooking(bookingId, userId):
+    return bookingsRepository.acceptBooking(bookingId, userId)

@@ -14,11 +14,11 @@ def getUserByEmail(emailId):
     return results
 
 
-def reset_password(username, hashedPassword):
+def reset_password(username, hashedPassword, userId):
     db = Database()
     cursor = db.cursor()
-    sql = "UPDATE RV_User SET Password = %s WHERE EmailID = %s"
-    cursor.execute(sql, (hashedPassword, username))
+    sql = "UPDATE RV_User SET Password = %s, ModifiedBy = %s WHERE EmailID = %s"
+    cursor.execute(sql, (hashedPassword, userId, username))
     cursor.close()
     db.commit()
 
