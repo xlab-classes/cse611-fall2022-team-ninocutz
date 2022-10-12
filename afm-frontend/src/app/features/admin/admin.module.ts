@@ -18,6 +18,7 @@ import { AddPastEventComponent } from './add-past-event/add-past-event.component
 import { NotificationsComponent } from './notifications/notifications.component';
 import { EditPastEventComponent } from './edit-past-event/edit-past-event.component';
 import { RequestsComponent } from './requests/requests.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { RequestsComponent } from './requests/requests.component';
     NotificationsComponent,
     EditPastEventComponent,
     RequestsComponent,
+    AddUserComponent,
   ],
   imports: [AdminRoutingModule, CommonModule, SharedModule],
   providers: [

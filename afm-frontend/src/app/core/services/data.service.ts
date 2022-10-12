@@ -14,6 +14,7 @@ import { NotificationsResponseModel } from '../models/notifications-response.mod
 import { NotificationsModel } from '../models/notifications.model';
 import { EventTypesResponseModel } from '../models/event-types-response.model';
 import { UsersResponseModel } from '../models/users-response.model';
+import { UserRequestModel } from '../models/user-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -231,5 +232,22 @@ export class DataService {
 
   getAllUsers(): Observable<UsersResponseModel> {
     return this.getData<UsersResponseModel>('users', true);
+  }
+
+  addUser(user: UserRequestModel) {
+    return this.postData<UserRequestModel>('add-user', user, true);
+  }
+
+  deleteUser(userId: number) {
+    const url = this.apiBaseUrl + 'user/' + userId;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', this.getBearerToken());
+
+    const httpOptions = {
+      headers: headers,
+    };
+
+    return this.httpClient.delete(url, httpOptions);
   }
 }
