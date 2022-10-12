@@ -52,12 +52,14 @@ def createEvent():
 
 
 @events_blueprint.route("/event/future", methods=['GET'])
+@cross_origin()
 def getAllFutureEvents():
     events = eventsDomain.getAllFutureEvents()
     return {'events': events}, 200
 
 
 @events_blueprint.route("/event/future/<id>", methods=['GET'])
+@cross_origin()
 def getEventById(id):
     event = eventsDomain.getEventById(id)
     return {'events': event}, 200
@@ -68,12 +70,13 @@ def getEventById(id):
 
 
 @events_blueprint.route("/event/current", methods=['GET'])
+@cross_origin()
 def getCurrentEvent():
     events = eventsDomain.getCurrentEvent()
     return {'events': events}, 200
 
 
-@events_blueprint.route("/event-current", methods=['POST'])
+@events_blueprint.route("/event/current", methods=['POST'])
 @jwt_required()
 @cross_origin()
 def addCurrentEvent():
@@ -113,6 +116,7 @@ def addCurrentEvent():
 
 # region Past Events
 @events_blueprint.route("/event/past", methods=['GET'])
+@cross_origin()
 def getAllPastEvents():
     events = eventsDomain.getAllPastEvents()
     return {'events': events}, 200
@@ -171,6 +175,7 @@ def edit_event():
 
 
 @events_blueprint.route("/event-types", methods=['GET'])
+@cross_origin()
 def getAllEventTypes():
     eventTypes = eventsDomain.getAllEventTypes()
 

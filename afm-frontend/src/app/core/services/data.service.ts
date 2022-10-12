@@ -13,6 +13,7 @@ import { BookingsResponseModel } from '../models/bookings-response.model';
 import { NotificationsResponseModel } from '../models/notifications-response.model';
 import { NotificationsModel } from '../models/notifications.model';
 import { EventTypesResponseModel } from '../models/event-types-response.model';
+import { UsersResponseModel } from '../models/users-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -128,7 +129,7 @@ export class DataService {
     formData.append('message', data.message);
     formData.append('eventTimeSlot', data.eventTimeSlot);
 
-    return this.postData('event-current', formData, true);
+    return this.postData('event/current', formData, true);
   }
 
   getAllBookings(): Observable<BookingsResponseModel> {
@@ -226,5 +227,9 @@ export class DataService {
 
   getEventTypes(): Observable<EventTypesResponseModel> {
     return this.getData<EventTypesResponseModel>('event-types');
+  }
+
+  getAllUsers(): Observable<UsersResponseModel> {
+    return this.getData<UsersResponseModel>('users', true);
   }
 }

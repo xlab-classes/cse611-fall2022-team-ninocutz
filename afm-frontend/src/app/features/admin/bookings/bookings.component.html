@@ -1,11 +1,35 @@
 <div class="row" style="margin-top: 50px">
   <div class="col-10 mx-auto">
     <p-table
+      #requestTable
       [value]="bookings"
       responsiveLayout="scroll"
       [paginator]="true"
       [rows]="5"
+      [globalFilterFields]="[
+        'FirstName',
+        'LastName',
+        'BookingDate',
+        'BookingTimeSlot',
+        'Address',
+        'EmailId',
+        'MobileNumber',
+        'BookingStatus'
+      ]"
     >
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="applyFilterGlobal($event, 'contains')"
+              placeholder="Search keyword"
+            />
+          </span>
+        </div>
+      </ng-template>
       <ng-template pTemplate="header">
         <tr>
           <th>First Name</th>

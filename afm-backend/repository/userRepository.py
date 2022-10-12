@@ -32,3 +32,16 @@ def addUser(userName, hashedPassword):
     cursor.close()
     db.commit()
     return id
+
+
+def getAllUsers():
+    db = Database()
+    cursor = db.cursor()
+    sql = "SELECT Id, FirstName, LastName, EmailId, MobileNumber, Address, ZipCode FROM RV_User"
+    cursor.execute(sql)
+    columns = cursor.description
+    results = [{columns[index][0]:column for index,
+                column in enumerate(value)} for value in cursor.fetchall()]
+    cursor.close()
+
+    return results
