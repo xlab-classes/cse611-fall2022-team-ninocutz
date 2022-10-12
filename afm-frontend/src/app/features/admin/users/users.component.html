@@ -1,4 +1,6 @@
 <div class="row" style="margin-top: 50px">
+  <h2 class="afm-heading-text" style="text-align: center">Users</h2>
+
   <div class="col-10 mx-auto">
     <p-table
       #usersTable
@@ -29,11 +31,21 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Address</th>
-          <th>Email Id</th>
-          <th>Mobile Number</th>
+          <th pSortableColumn="FirstName">
+            First Name <p-sortIcon field="FirstName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="LastName">
+            Last Name <p-sortIcon field="LastName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="Address">
+            Address <p-sortIcon field="Address"></p-sortIcon>
+          </th>
+          <th pSortableColumn="EmailId">
+            Email Id <p-sortIcon field="EmailId"></p-sortIcon>
+          </th>
+          <th pSortableColumn="MobileNumber">
+            Mobile Number <p-sortIcon field="MobileNumber"></p-sortIcon>
+          </th>
           <th>Delete</th>
         </tr>
       </ng-template>

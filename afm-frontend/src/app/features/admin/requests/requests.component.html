@@ -1,4 +1,6 @@
 <div class="row" style="margin-top: 50px">
+  <h2 class="afm-heading-text" style="text-align: center">Requests</h2>
+
   <div class="col-10 mx-auto">
     <p-table
       #requestTable
@@ -14,6 +16,7 @@
         'Address',
         'EmailId',
         'MobileNumber',
+        'NumberOfPeople',
         'BookingStatus'
       ]"
     >
@@ -32,15 +35,31 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Date</th>
+          <th pSortableColumn="FirstName">
+            First Name <p-sortIcon field="FirstName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="LastName">
+            Last Name <p-sortIcon field="LastName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="BookingDate">
+            Date <p-sortIcon field="BookingDate"></p-sortIcon>
+          </th>
           <th>Time Slot</th>
-          <th>Address</th>
-          <th>Email Id</th>
-          <th>Mobile Number</th>
-          <th>Number Of People</th>
-          <th>Booking Status</th>
+          <th pSortableColumn="Address">
+            Address <p-sortIcon field="Address"></p-sortIcon>
+          </th>
+          <th pSortableColumn="EmailId">
+            Email Id <p-sortIcon field="EmailId"></p-sortIcon>
+          </th>
+          <th pSortableColumn="MobileNumber">
+            Mobile Number <p-sortIcon field="MobileNumber"></p-sortIcon>
+          </th>
+          <th pSortableColumn="NumberOfPeople">
+            Number Of People <p-sortIcon field="NumberOfPeople"></p-sortIcon>
+          </th>
+          <th pSortableColumn="BookingStatus">
+            Booking Status <p-sortIcon field="BookingStatus"></p-sortIcon>
+          </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-booking>
