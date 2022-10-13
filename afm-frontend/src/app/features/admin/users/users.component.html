@@ -1,1 +1,86 @@
-<p>users works!</p>
+<div class="row" style="margin-top: 50px">
+  <h2 class="afm-heading-text" style="text-align: center">Users</h2>
+
+  <div class="col-10 mx-auto">
+    <p-table
+      #usersTable
+      [value]="users"
+      responsiveLayout="scroll"
+      [paginator]="true"
+      [rows]="5"
+      [globalFilterFields]="[
+        'FirstName',
+        'LastName',
+        'Address',
+        'EmailId',
+        'MobileNumber'
+      ]"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <div class="row">
+            <div class="col-sm col-12 text-md-left">
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  (input)="applyFilterGlobal($event, 'contains')"
+                  placeholder="Search keyword"
+                />
+              </span>
+            </div>
+            <div class="col-sm col-12 text-sm-end text-center mt-4 mt-sm-0">
+              <app-afm-button
+                label="Add User"
+                (click)="addUser()"
+              ></app-afm-button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="FirstName">
+            First Name <p-sortIcon field="FirstName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="LastName">
+            Last Name <p-sortIcon field="LastName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="Address">
+            Address <p-sortIcon field="Address"></p-sortIcon>
+          </th>
+          <th pSortableColumn="EmailId">
+            Email Id <p-sortIcon field="EmailId"></p-sortIcon>
+          </th>
+          <th pSortableColumn="MobileNumber">
+            Mobile Number <p-sortIcon field="MobileNumber"></p-sortIcon>
+          </th>
+          <th>Delete</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.FirstName }}</td>
+          <td>{{ user.LastName }}</td>
+          <td class="address-display">
+            {{ user.Address }}
+          </td>
+          <td>{{ user.EmailId }}</td>
+          <td>{{ user.MobileNumber }}</td>
+          <td>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-warning delete-icon"
+              (click)="deleteUser(user)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<p-toast></p-toast>

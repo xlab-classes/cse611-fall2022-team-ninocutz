@@ -13,6 +13,8 @@ import { BookingsResponseModel } from '../models/bookings-response.model';
 import { NotificationsResponseModel } from '../models/notifications-response.model';
 import { NotificationsModel } from '../models/notifications.model';
 import { EventTypesResponseModel } from '../models/event-types-response.model';
+import { UsersResponseModel } from '../models/users-response.model';
+import { UserRequestModel } from '../models/user-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -128,7 +130,7 @@ export class DataService {
     formData.append('message', data.message);
     formData.append('eventTimeSlot', data.eventTimeSlot);
 
-    return this.postData('event-current', formData, true);
+    return this.postData('event/current', formData, true);
   }
 
   getAllBookings(): Observable<BookingsResponseModel> {
@@ -169,7 +171,7 @@ export class DataService {
     return this.putData('notifications', data, true);
   }
 
-  editFutureEvent(
+  editEvent(
     eventId: string,
     data: EventRequestModel,
     file?: File
@@ -226,5 +228,26 @@ export class DataService {
 
   getEventTypes(): Observable<EventTypesResponseModel> {
     return this.getData<EventTypesResponseModel>('event-types');
+  }
+
+  getAllUsers(): Observable<UsersResponseModel> {
+    return this.getData<UsersResponseModel>('users', true);
+  }
+
+  addUser(user: UserRequestModel) {
+    return this.postData<UserRequestModel>('add-user', user, true);
+  }
+
+  deleteUser(userId: number) {
+    const url = this.apiBaseUrl + 'user/' + userId;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', this.getBearerToken());
+
+    const httpOptions = {
+      headers: headers,
+    };
+
+    return this.httpClient.delete(url, httpOptions);
   }
 }

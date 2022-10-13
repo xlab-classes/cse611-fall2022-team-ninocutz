@@ -60,3 +60,6 @@ def addUser(newUser : UserModel):
     hashedPassword = pbkdf2_sha256.hash(newUser.getPassword())
     newUser.putPassword(hashedPassword)
     return userRepository.addUser(newUser)
+
+def getAllUsers():
+    return userRepository.getAllUsers()

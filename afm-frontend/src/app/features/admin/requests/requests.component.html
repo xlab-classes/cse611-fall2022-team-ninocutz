@@ -1,0 +1,82 @@
+<div class="row" style="margin-top: 50px">
+  <h2 class="afm-heading-text" style="text-align: center">Requests</h2>
+
+  <div class="col-10 mx-auto">
+    <p-table
+      #requestTable
+      [value]="bookings"
+      responsiveLayout="scroll"
+      [paginator]="true"
+      [rows]="5"
+      [globalFilterFields]="[
+        'FirstName',
+        'LastName',
+        'BookingDate',
+        'BookingTimeSlot',
+        'Address',
+        'EmailId',
+        'MobileNumber',
+        'NumberOfPeople',
+        'BookingStatus'
+      ]"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="applyFilterGlobal($event, 'contains')"
+              placeholder="Search keyword"
+            />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="FirstName">
+            First Name <p-sortIcon field="FirstName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="LastName">
+            Last Name <p-sortIcon field="LastName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="BookingDate">
+            Date <p-sortIcon field="BookingDate"></p-sortIcon>
+          </th>
+          <th>Time Slot</th>
+          <th pSortableColumn="Address">
+            Address <p-sortIcon field="Address"></p-sortIcon>
+          </th>
+          <th pSortableColumn="EmailId">
+            Email Id <p-sortIcon field="EmailId"></p-sortIcon>
+          </th>
+          <th pSortableColumn="MobileNumber">
+            Mobile Number <p-sortIcon field="MobileNumber"></p-sortIcon>
+          </th>
+          <th pSortableColumn="NumberOfPeople">
+            Number Of People <p-sortIcon field="NumberOfPeople"></p-sortIcon>
+          </th>
+          <th pSortableColumn="BookingStatus">
+            Booking Status <p-sortIcon field="BookingStatus"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-booking>
+        <tr>
+          <td>{{ booking.FirstName }}</td>
+          <td>{{ booking.LastName }}</td>
+          <td>{{ booking.BookingDate }}</td>
+          <td>{{ booking.BookingTimeSlot }}</td>
+          <td class="address-display">
+            {{ booking.Address }}
+          </td>
+          <td>{{ booking.EmailId }}</td>
+          <td>{{ booking.MobileNumber }}</td>
+          <td>{{ booking.NumberOfPeople }}</td>
+          <td>{{ booking.BookingStatus }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
