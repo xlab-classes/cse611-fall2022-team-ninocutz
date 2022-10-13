@@ -57,8 +57,7 @@ def validate_forgot_password(username):
 
 
 def addUser(newUser : UserModel):
-    hashedPassword = pbkdf2_sha256.hash(newUser.getPassword())
-    newUser.putPassword(hashedPassword)
+    newUser.hashedPassword = pbkdf2_sha256.hash(newUser.password)
     return userRepository.addUser(newUser)
 
 def getAllUsers():

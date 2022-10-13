@@ -24,15 +24,14 @@ def reset_password(username, hashedPassword, userId):
     db.commit()
 
 
-def addUser(newUser : UserModel):
+def addUser(newUser: UserModel):
     db = Database()
     cursor = db.cursor()
     sql = "INSERT INTO RV_User (FirstName, LastName, EmailID, \
-           MobileNumber, Address, Password, Zipcode, CreatedOn, \
-           CreatedBy, ModifiedOn, ModifiedBy) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+           MobileNumber, Address, Password, Zipcode, \
+           CreatedBy) VALUES(%s, %s, %s, %s, %s, %s, %s, %s);"
     cursor.execute(sql, (newUser.firstName, newUser.lastName, newUser.emailId, newUser.mobileNumber,
-                         newUser.address, newUser.password, newUser.zipcode, 
-                         newUser.createdOn, newUser.createdBy, newUser.modifiedOn, newUser.modifiedBy))
+                         newUser.address, newUser.hashedPassword, newUser.zipcode, newUser.createdBy))
     id = cursor.lastrowid
     cursor.close()
     db.commit()

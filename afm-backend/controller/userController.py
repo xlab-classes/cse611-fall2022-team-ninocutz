@@ -51,15 +51,13 @@ def forgot_password():
 @jwt_required()
 @cross_origin()
 def addUser():
-    createdOn = datetime.utcnow()
     createdBy = getUserId()
-    modifiedOn = datetime.utcnow()
-    modifiedBy = getUserId()
-    newUser = UserModel(request.json.get("firstName", None), request.json.get("lastName", None), request.json.get("emailId", None), 
-                        request.json.get("mobileNumber", None), request.json.get("address"), request.json.get("password", None), 
-                        request.json.get("zipcode"), createdOn, createdBy, modifiedOn, modifiedBy
-                        )
-                
+    newUser = UserModel(request.json.get("firstName", None), request.json.get("lastName", None),
+                        request.json.get("emailId", None), request.json.get(
+                            "mobileNumber", None),
+                        request.json.get("address"), "defaultPassword", request.json.get(
+                            "zipCode"), createdBy)
+
     id = userDomain.addUser(newUser)
 
     return {'userId': id}, 200
