@@ -15,6 +15,7 @@ import { NotificationsModel } from '../models/notifications.model';
 import { EventTypesResponseModel } from '../models/event-types-response.model';
 import { UsersResponseModel } from '../models/users-response.model';
 import { UserRequestModel } from '../models/user-request.model';
+import { UserModel } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -249,5 +250,9 @@ export class DataService {
     };
 
     return this.httpClient.delete(url, httpOptions);
+  }
+
+  getUserProfile(): Observable<UserModel> {
+    return this.getData<UserModel>('/user', true);
   }
 }

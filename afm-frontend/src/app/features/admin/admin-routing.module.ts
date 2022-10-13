@@ -14,6 +14,7 @@ import { EditFutureEventComponent } from './edit-future-event/edit-future-event.
 import { AddPastEventComponent } from './add-past-event/add-past-event.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { EditPastEventComponent } from './edit-past-event/edit-past-event.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,11 @@ const routes: Routes = [
       {
         path: 'admin/users',
         component: UsersComponent,
+        canActivateChild: [AuthGuardService],
+      },
+      {
+        path: 'admin/profile',
+        component: ProfileComponent,
         canActivateChild: [AuthGuardService],
       },
       {
