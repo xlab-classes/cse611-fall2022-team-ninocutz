@@ -3,4 +3,6 @@ export class UserRequestModel {
   lastName: string;
   emailId: string;
   mobileNumber: string;
+  address: string;
+  zipCode: string;
 }

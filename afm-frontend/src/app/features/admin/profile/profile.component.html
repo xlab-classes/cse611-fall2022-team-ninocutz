@@ -1,0 +1,61 @@
+<div class="root-div">
+  <h2 class="afm-heading-text" style="text-align: center">Profile</h2>
+
+  <div class="form-external-box">
+    <app-afm-blur-background>
+      <div class="container" class="form-internal-box">
+        <div class="row mt-4">
+          <div class="col">
+            <h5 class="afm-label-text">First Name</h5>
+            <input type="text" pInputText [(ngModel)]="user.FirstName" />
+          </div>
+
+          <div class="col mt-sm-0 mt-4">
+            <h5 class="afm-label-text">Last Name</h5>
+            <input type="text" pInputText [(ngModel)]="user.LastName" />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h5 class="afm-label-text">Email Id</h5>
+            <input type="text" pInputText [(ngModel)]="user.EmailId" />
+          </div>
+
+          <div class="col mt-sm-0 mt-4">
+            <h5 class="afm-label-text">Mobile Number</h5>
+            <input type="text" pInputText [(ngModel)]="user.MobileNumber" />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h5 class="afm-label-text">Address</h5>
+            <textarea
+              [(ngModel)]="user.Address"
+              [rows]="5"
+              [cols]="80"
+              pInputTextarea
+              [autoResize]="true"
+              style="max-width: 90%"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h5 class="afm-label-text">Zip Code</h5>
+            <input type="text" pInputText [(ngModel)]="user.ZipCode" />
+          </div>
+        </div>
+
+        <div class="row mt-4" style="text-align: center">
+          <app-afm-button
+            label="Update"
+            (click)="updateProfile()"
+          ></app-afm-button>
+        </div>
+      </div>
+    </app-afm-blur-background>
+  </div>
+</div>
