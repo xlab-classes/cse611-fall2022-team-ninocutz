@@ -51,7 +51,7 @@ def validate_forgot_password(username):
         identity=username, expires_delta=datetime.timedelta(minutes=15),
         additional_claims={"userId": res[0]['Id']})
 
-    res = emailUtil.send_email(username, access_token)
+    res = emailUtil.resetPasswordEmail(username, access_token)
 
     if res:
         return 'Email succesfully sent', 200
@@ -67,7 +67,7 @@ def addUser(newUser: UserModel):
         identity=newUser.emailId, expires_delta=datetime.timedelta(minutes=15),
         additional_claims={"userId": newUserId})
 
-    res = emailUtil.send_email(newUser.emailId, access_token)
+    res = emailUtil.resetPasswordEmail(newUser.emailId, access_token)
 
     if res:
         return newUserId
