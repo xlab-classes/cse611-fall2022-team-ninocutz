@@ -18,3 +18,13 @@
 .form-internal-box {
   padding: 50px;
 }
+.delete-button {
+  background-color: black;
+  border-color: black;
+}
+.p-button:hover {
+  background: #0b3197;
+}
+::ng-deep .p-button.p-fileupload-choose:hover {
+  background: #0b3197;
+}

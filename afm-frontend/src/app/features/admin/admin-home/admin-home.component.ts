@@ -7,11 +7,13 @@ import { FutureEventsModel } from 'src/app/core/models/future-events.model';
 import { PastEventsModel } from 'src/app/core/models/past-events.model';
 import { GalleryImagesModel } from 'src/app/core/models/gallery-images.model';
 import { SharingService } from 'src/app/core/services/sharing.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.scss'],
+  providers: [MessageService],
 })
 export class AdminHomeComponent implements OnInit {
   test: ImageCarouselModel[] = [];
@@ -24,8 +26,9 @@ export class AdminHomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private dateService: DataService,
-    private sharingService: SharingService
+    private dataService: DataService,
+    private sharingService: SharingService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -35,19 +38,19 @@ export class AdminHomeComponent implements OnInit {
   }
 
   retrieveFutureEventsData() {
-    this.dateService.getAllFutureEvents().subscribe((data) => {
+    this.dataService.getAllFutureEvents().subscribe((data) => {
       this.futureEvents = data.events;
     });
   }
 
   retrievePastEventsData() {
-    this.dateService.getAllPastEvents().subscribe((data) => {
+    this.dataService.getAllPastEvents().subscribe((data) => {
       this.pastEvents = data.events;
     });
   }
 
   retrieveGalleryData() {
-    this.dateService.getAllGalleryImages().subscribe((data) => {
+    this.dataService.getAllGalleryImages().subscribe((data) => {
       this.galleryImages = data.images;
     });
   }
@@ -74,5 +77,23 @@ export class AdminHomeComponent implements OnInit {
     this.router.navigate(['/admin/edit-future-event']);
   }
 
-  pastEventClicked(event: ImageCarouselModel) {}
+  pastEventClicked(event: ImageCarouselModel) {
+    this.sharingService.setData(event);
+    this.router.navigate(['/admin/edit-past-event']);
+  }
+
+  deleteGalleryImage(event: ImageCarouselModel) {
+    this.dataService.deleteGalleryImage(event.Id).subscribe((data) => {
+      this.showDeleteSuccess();
+      this.retrieveGalleryData();
+    });
+  }
+
+  showDeleteSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Deleted Image',
+    });
+  }
 }

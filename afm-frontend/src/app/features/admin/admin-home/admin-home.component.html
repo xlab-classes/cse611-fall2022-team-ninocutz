@@ -1,25 +1,3 @@
-<!-- <p>admin-home works!</p>
-
-<app-afm-blur-background>
-  <app-afm-button
-    buttonText="test"
-    (buttonClicked)="buttonClicked()"
-  ></app-afm-button>
-
-  <h2 class="afm-heading-text">abcd</h2>
-
-  <span class="afm-label-text">abcd</span>
-
-  <br />
-
-  <app-afm-image src="assets/logo-mark-black-sm.png"></app-afm-image>
-
-  <br />
-
-  <app-afm-image-carousel [data]="test"></app-afm-image-carousel>
-</app-afm-blur-background>
--->
-
 <div class="container-fluid">
   <div class="row justify-content-center" style="height: 250px">
     <div class="align-self-center col-auto">
@@ -125,6 +103,7 @@
           <app-afm-image-carousel
             [data]="galleryImages"
             [displayIcon]="true"
+            (imageClick)="deleteGalleryImage($event)"
             [faIcon]="faTrash"
           ></app-afm-image-carousel>
         </div>
@@ -132,3 +111,5 @@
     </div>
   </app-afm-blur-background>
 </div>
+
+<p-toast></p-toast>

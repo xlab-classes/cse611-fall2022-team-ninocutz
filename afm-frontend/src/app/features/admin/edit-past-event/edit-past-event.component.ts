@@ -1,5 +1,7 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
 import { EventRequestModel } from 'src/app/core/models/event-request.model';
 import { FutureEventsModel } from 'src/app/core/models/future-events.model';
@@ -15,7 +17,7 @@ import { SharingService } from 'src/app/core/services/sharing.service';
 })
 export class EditPastEventComponent implements OnInit, OnDestroy {
   @ViewChild('fileUpload') fileUpload: any;
-
+  faTrash = faTrash;
   yesterdayDate = moment().subtract(1, 'day').toDate();
   pastEvent: FutureEventsModel;
   eventTypes: any[] = [];
@@ -122,7 +124,14 @@ export class EditPastEventComponent implements OnInit, OnDestroy {
   }
 
   showSuccess() {
-    this.confirmationService.setConfirmation('edited');
+    this.confirmationService.setConfirmation('Event Edited');
     this.router.navigate(['/admin/past-events']);
+  }
+
+  deleteEvent() {
+    this.dataService.deleteEvent(this.pastEvent.Id).subscribe((data) => {
+      this.confirmationService.setConfirmation('Event Deleted');
+      this.router.navigate(['/admin/past-events']);
+    });
   }
 }

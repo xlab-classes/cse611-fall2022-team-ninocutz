@@ -74,7 +74,7 @@ export class AddPastEventComponent implements OnInit {
   }
 
   showSuccess() {
-    this.confirmationService.setConfirmation('inserted');
+    this.confirmationService.setConfirmation('Event Added');
     this.router.navigate(['/admin/past-events']);
   }
 

@@ -3,27 +3,39 @@
 
   <div class="form-external-box">
     <div class="button-alignment">
-      <div class="col" *ngIf="uploadedFiles">
-        <app-afm-image [src]="uploadedFiles.objectURL"></app-afm-image>
+      <div class="row text-align-center" *ngIf="uploadedFiles">
+        <div class="col">
+          <app-afm-image [src]="uploadedFiles.objectURL"></app-afm-image>
+        </div>
+        <div class="col align-self-center mt-4 mt-sm-0">
+          <app-afm-button label="Remove" (click)="clear()"></app-afm-button>
+        </div>
       </div>
-      <div class="col-lg-12 align-self-center" *ngIf="uploadedFiles">
-        <app-afm-button label="Remove" (click)="clear()"></app-afm-button>
+
+      <div class="row text-align-center mt-4">
+        <div class="col-lg-12 align-self-center">
+          <div *ngIf="uploadedFiles">
+            <app-afm-button
+              label="Submit"
+              (click)="uploadImage()"
+            ></app-afm-button>
+          </div>
+          <div [hidden]="uploadedFiles">
+            <p-fileUpload
+              #fileUpload
+              name="myfile[]"
+              mode="basic"
+              (uploadHandler)="myUploader($event)"
+              (onUpload)="myUploader($event)"
+              [customUpload]="true"
+              [auto]="true"
+              accept="image/*"
+              chooseLabel="Upload Image"
+            >
+            </p-fileUpload>
+          </div>
+        </div>
       </div>
-      <div class="col-lg-12 align-self-center" *ngIf="uploadedFiles">
-        <app-afm-button label="Submit" (click)="uploadImage()"></app-afm-button>
-      </div>
-      <p-fileUpload
-        #fileUpload
-        name="myfile[]"
-        mode="basic"
-        (uploadHandler)="myUploader($event)"
-        (onUpload)="myUploader($event)"
-        [customUpload]="true"
-        [auto]="true"
-        accept="image/*"
-        chooseLabel="Upload Image"
-      >
-      </p-fileUpload>
     </div>
 
     <div class="container">
