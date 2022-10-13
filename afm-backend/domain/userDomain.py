@@ -6,6 +6,7 @@ from utils import emailUtil
 from passlib.hash import pbkdf2_sha256
 from model.UserModel import UserModel
 
+
 def validate_login(username, password):
     res = userRepository.getUserByEmail(username)
 
@@ -20,7 +21,8 @@ def validate_login(username, password):
         return "Invalid username or password", 401
 
     access_token = create_access_token(
-        identity=username, expires_delta=datetime.timedelta(minutes=60), additional_claims={"userId": userId})
+        identity=username, expires_delta=datetime.timedelta(minutes=60),
+        additional_claims={"userId": userId})
 
     return jsonify(access_token=access_token)
 
@@ -35,7 +37,7 @@ def validate_reset_password(username, password, confirmPassword, userId):
         return 'User does not exist', 401
     else:
         hashedPassword = pbkdf2_sha256.hash(password)
-        userRepository.reset_password(username, hashedPassword)
+        userRepository.reset_password(username, hashedPassword, userId)
         return 'Password changed succesfully', 200
 
 
@@ -46,9 +48,10 @@ def validate_forgot_password(username):
         return 'User does not exist', 401
 
     access_token = create_access_token(
-        identity=username, expires_delta=datetime.timedelta(minutes=15))
+        identity=username, expires_delta=datetime.timedelta(minutes=15),
+        additional_claims={"userId": res[0]['Id']})
 
-    res = emailUtil.send_email(username, access_token)
+    res = emailUtil.resetPasswordEmail(username, access_token)
 
     if res:
         return 'Email succesfully sent', 200
@@ -56,9 +59,21 @@ def validate_forgot_password(username):
     return 'Error during sending email', 500
 
 
-def addUser(newUser : UserModel):
+def addUser(newUser: UserModel):
     newUser.hashedPassword = pbkdf2_sha256.hash(newUser.password)
-    return userRepository.addUser(newUser)
+    newUserId = userRepository.addUser(newUser)
+
+    access_token = create_access_token(
+        identity=newUser.emailId, expires_delta=datetime.timedelta(minutes=15),
+        additional_claims={"userId": newUserId})
+
+    res = emailUtil.resetPasswordEmail(newUser.emailId, access_token)
+
+    if res:
+        return newUserId
+
+    return 'Error during sending email', 500
+
 
 def getAllUsers():
     return userRepository.getAllUsers()

@@ -3,7 +3,6 @@ import smtplib
 import ssl
 from email.message import EmailMessage
 import threading
-from flask import url_for
 
 
 def email_thread(msg, sender_email, sender_passcode, recipient_email):
@@ -13,7 +12,7 @@ def email_thread(msg, sender_email, sender_passcode, recipient_email):
         smtp.sendmail(sender_email, recipient_email, msg.as_string())
 
 
-def send_email(username, token):
+def resetPasswordEmail(username, token):
     msg = EmailMessage()
 
     msg_sender_email = os.environ.get("EMAIL_SENDER")
