@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from flask import request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_cors import cross_origin
@@ -5,6 +6,8 @@ from flask import request
 from flask import Blueprint
 from domain import userDomain
 from utils.authUtil import getUserId
+from model.UserModel import UserModel
+from datetime import datetime
 user_blueprint = Blueprint('user_blueprint', __name__)
 
 
@@ -35,9 +38,18 @@ def forgot_password():
 
 
 @user_blueprint.route("/add-user", methods=['POST'])
+@jwt_required()
+@cross_origin()
 def addUser():
-    userName = request.json.get("username", None)
-    password = request.json.get("password", None)
-    id = userDomain.addUser(userName, password)
+    createdOn = datetime.utcnow()
+    createdBy = getUserId()
+    modifiedOn = datetime.utcnow()
+    modifiedBy = getUserId()
+    newUser = UserModel(request.json.get("firstName", None), request.json.get("lastName", None), request.json.get("emailId", None), 
+                        request.json.get("mobileNumber", None), request.json.get("address"), request.json.get("password", None), 
+                        request.json.get("zipcode"), createdOn, createdBy, modifiedOn, modifiedBy
+                        )
+                
+    id = userDomain.addUser(newUser)
 
     return {'userId': id}, 200

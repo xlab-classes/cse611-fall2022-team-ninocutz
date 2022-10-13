@@ -1,4 +1,5 @@
 from app import Database
+from model.UserModel import UserModel
 
 
 def getUserByEmail(emailId):
@@ -23,11 +24,15 @@ def reset_password(username, hashedPassword, userId):
     db.commit()
 
 
-def addUser(userName, hashedPassword):
+def addUser(newUser : UserModel):
     db = Database()
     cursor = db.cursor()
-    sql = "INSERT INTO `AFM`.`RV_User` (`EmailID`,`Password`) VALUES(%s, %s);"
-    cursor.execute(sql, (userName, hashedPassword))
+    sql = "INSERT INTO RV_User (FirstName, LastName, EmailID, \
+           MobileNumber, Address, Password, Zipcode, CreatedOn, \
+           CreatedBy, ModifiedOn, ModifiedBy) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+    cursor.execute(sql, (newUser.firstName, newUser.lastName, newUser.emailId, newUser.mobileNumber,
+                         newUser.address, newUser.password, newUser.zipcode, 
+                         newUser.createdOn, newUser.createdBy, newUser.modifiedOn, newUser.modifiedBy))
     id = cursor.lastrowid
     cursor.close()
     db.commit()
