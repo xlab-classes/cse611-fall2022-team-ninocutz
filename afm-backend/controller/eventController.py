@@ -131,7 +131,7 @@ def delete_event(event_id):
         return 'No event id provided', 400
     events = eventsDomain.delete_event(event_id)
     if events:
-        return 'Successfully deleted the event', 200
+        return 'Successfully deleted the event', 204
     return 'Error encountered during event deletion', 500
 
 

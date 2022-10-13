@@ -122,7 +122,14 @@ export class EditFutureEventComponent implements OnInit, OnDestroy {
   }
 
   showSuccess() {
-    this.confirmationService.setConfirmation('edited');
+    this.confirmationService.setConfirmation('Event Edited');
     this.router.navigate(['/admin/future-events']);
+  }
+
+  deleteEvent() {
+    this.dataService.deleteEvent(this.futureEvent.Id).subscribe((data) => {
+      this.confirmationService.setConfirmation('Event Deleted');
+      this.router.navigate(['/admin/future-events']);
+    });
   }
 }

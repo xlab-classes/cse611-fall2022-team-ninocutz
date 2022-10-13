@@ -4,8 +4,22 @@
   <div class="form-external-box">
     <app-afm-blur-background>
       <div class="container" class="form-internal-box">
+        <div class="row">
+          <div class="col text-align-center">
+            <button
+              #btn
+              type="button"
+              class="delete-button"
+              pButton
+              icon="pi pi-trash"
+              label="Delete Event"
+              (click)="deleteEvent()"
+            ></button>
+          </div>
+        </div>
+
         <div
-          class="row text-align-center"
+          class="row text-align-center mt-4"
           *ngIf="uploadedFiles || pastEvent.Url"
         >
           <div class="col">

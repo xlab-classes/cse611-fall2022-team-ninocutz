@@ -80,6 +80,19 @@ export class DataService {
     return this.httpClient.put<T>(url, data, httpOptions);
   }
 
+  private deleteData<T>(apiUrl: string, useAuth = false) {
+    const url = this.apiBaseUrl + apiUrl;
+
+    let headers = new HttpHeaders();
+    if (useAuth) {
+      headers = headers.append('Authorization', this.getBearerToken());
+    }
+    const httpOptions = {
+      headers: headers,
+    };
+    return this.httpClient.delete(url, httpOptions);
+  }
+
   getAllFutureEvents(): Observable<FutureEventResponseModel> {
     return this.getData<FutureEventResponseModel>('event/future');
   }
@@ -147,16 +160,9 @@ export class DataService {
   }
 
   deleteGalleryImage(imageId: number): Observable<any> {
-    const url = this.apiBaseUrl + 'images/gallery/' + imageId;
+    const url = 'images/gallery/' + imageId;
 
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', this.getBearerToken());
-
-    const httpOptions = {
-      headers: headers,
-    };
-
-    return this.httpClient.delete(url, httpOptions);
+    return this.deleteData(url, true);
   }
 
   getAllNotifications(): Observable<NotificationsResponseModel> {
@@ -240,19 +246,18 @@ export class DataService {
   }
 
   deleteUser(userId: number) {
-    const url = this.apiBaseUrl + 'user/' + userId;
+    const url = 'user/' + userId;
 
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', this.getBearerToken());
-
-    const httpOptions = {
-      headers: headers,
-    };
-
-    return this.httpClient.delete(url, httpOptions);
+    return this.deleteData(url, true);
   }
 
   getUserProfile(): Observable<UserModel> {
     return this.getData<UserModel>('/user', true);
+  }
+
+  deleteEvent(eventId: number) {
+    const url = 'event/' + eventId;
+
+    return this.deleteData(url, true);
   }
 }

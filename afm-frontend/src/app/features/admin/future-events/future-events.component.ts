@@ -31,7 +31,7 @@ export class FutureEventsComponent implements OnInit {
     if (confirmationMessage) {
       setTimeout(() => {
         this.showSuccess(confirmationMessage);
-      }, 2000);
+      }, 1000);
     }
     this.fetchFutureEvents();
   }
@@ -40,8 +40,7 @@ export class FutureEventsComponent implements OnInit {
     this.messageService.add({
       severity: 'success',
       summary: 'Success',
-      detail:
-        confirmationMessage === 'inserted' ? 'Added Event' : 'Updated Event',
+      detail: confirmationMessage,
     });
   }
 
