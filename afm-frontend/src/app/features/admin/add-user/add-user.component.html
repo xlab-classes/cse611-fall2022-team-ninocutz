@@ -41,6 +41,34 @@
     </div>
   </div>
 
+  <div class="row mt-4">
+    <div class="col">
+      <h3 class="afm-label-text">Address</h3>
+      <textarea
+        [(ngModel)]="user.address"
+        [rows]="5"
+        [cols]="50"
+        pInputTextarea
+        [autoResize]="true"
+        style="max-width: 90%"
+      ></textarea>
+    </div>
+
+    <div class="col mt-md-0 mt-4">
+      <h3 class="afm-label-text">Zip Code</h3>
+      <p-inputNumber
+        class="input-box"
+        [style]="{ 'max-width': '100%' }"
+        [inputStyle]="{ 'max-width': '100%' }"
+        [(ngModel)]="user.zipCode"
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+      >
+      </p-inputNumber>
+    </div>
+  </div>
+
   <div class="row mt-4" style="text-align: center">
     <div class="col">
       <app-afm-button
