@@ -4,7 +4,7 @@ from flask_jwt_extended import create_access_token
 from repository import userRepository
 from utils import emailUtil
 from passlib.hash import pbkdf2_sha256
-
+from model.UserModel import UserModel
 
 def validate_login(username, password):
     res = userRepository.getUserByEmail(username)
@@ -56,10 +56,9 @@ def validate_forgot_password(username):
     return 'Error during sending email', 500
 
 
-def addUser(userName, password):
-    hashedPassword = pbkdf2_sha256.hash(password)
-    return userRepository.addUser(userName, hashedPassword)
-
+def addUser(newUser : UserModel):
+    newUser.hashedPassword = pbkdf2_sha256.hash(newUser.password)
+    return userRepository.addUser(newUser)
 
 def getAllUsers():
     return userRepository.getAllUsers()
