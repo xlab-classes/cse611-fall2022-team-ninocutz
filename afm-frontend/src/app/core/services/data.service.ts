@@ -143,6 +143,7 @@ export class DataService {
     formData.append('zipCode', data.zipCode);
     formData.append('message', data.message);
     formData.append('eventTimeSlot', data.eventTimeSlot);
+    formData.append('emailTrigger', '' + data.emailTrigger);
 
     return this.postData('event/current', formData, true);
   }
