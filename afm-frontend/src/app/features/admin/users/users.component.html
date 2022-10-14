@@ -75,6 +75,7 @@
               icon="pi pi-trash"
               class="p-button-rounded p-button-warning delete-icon"
               (click)="deleteUser(user)"
+              [disabled]="disableDelete(user)"
             ></button>
           </td>
         </tr>

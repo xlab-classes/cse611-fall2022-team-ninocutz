@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { UserModel } from 'src/app/core/models/user.model';
 import { DataService } from 'src/app/core/services/data.service';
 
@@ -6,32 +7,46 @@ import { DataService } from 'src/app/core/services/data.service';
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
+  providers: [MessageService],
 })
 export class ProfileComponent implements OnInit {
   user: UserModel;
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
+    this.user = {
+      FirstName: '',
+      LastName: '',
+      Address: '',
+      MobileNumber: '',
+      EmailID: '',
+      ZipCode: '',
+      Id: 0,
+    };
     this.getUserProfile();
   }
 
   getUserProfile() {
-    this.user = {
-      Id: 1,
-      FirstName: 'test',
-      LastName: 'test',
-      EmailId: 'test@test.com',
-      MobileNumber: '123434',
-      Address: 'test 3q4',
-      ZipCode: '14214',
-    };
-    // this.dataService.getUserProfile().subscribe((data) => {
-    //   this.user = data;
-    // });
+    this.dataService.getUserProfile().subscribe((data) => {
+      this.user = data.user;
+    });
   }
 
   updateProfile() {
-    // TODO: update Profile on submit
+    this.dataService.updateUserProfile(this.user).subscribe((data) => {
+      this.showSuccess();
+    });
+  }
+
+  showSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Profile Updated',
+    });
   }
 }

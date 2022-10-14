@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from flask import request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_cors import cross_origin
@@ -47,33 +46,45 @@ def forgot_password():
     return userDomain.validate_forgot_password(username)
 
 
-@user_blueprint.route("/add-user", methods=['POST'])
+@user_blueprint.route("/user", methods=['POST'])
 @jwt_required()
 @cross_origin()
 def addUser():
     createdBy = getUserId()
-    newUser = UserModel(request.json.get("firstName", None), request.json.get("lastName", None),
-                        request.json.get("emailId", None), request.json.get("mobileNumber", None),
-                        request.json.get("address"), "defaultPassword", request.json.get("zipCode"), createdBy)
+    newUser = UserModel(request.json.get("firstName", None), request.json.get("lastName", None), request.json.get("emailId", None),
+                        request.json.get("mobileNumber", None), request.json.get("address"), "defaultPassword", request.json.get("zipCode"), createdBy)
 
     id = userDomain.addUser(newUser)
 
     return {'userId': id}, 200
 
-@user_blueprint.route("/delete-user", methods=['POST'])
+
+@user_blueprint.route("/user/<userId>", methods=['DELETE'])
 @jwt_required()
 @cross_origin()
-def deleteUser():
-    userId = request.json.get("userId")
+def deleteUser(userId):
     return userDomain.deleteUser(userId)
 
-@user_blueprint.route("/update-user", methods=["POST", "PUT"])
+
+@user_blueprint.route("/user", methods=["PUT"])
 @jwt_required()
 @cross_origin()
 def updateUser():
-    userId = request.json.get("userId")
+    userId = getUserId()
     modifiedBy = getUserId()
-    updatedUser = UserModel(request.json.get("firstName", None), request.json.get("lastName", None),
-                        request.json.get("emailId", None), request.json.get("mobileNumber", None),
-                        request.json.get("address"), None, request.json.get("zipCode"), None, modifiedBy)
+    updatedUser = UserModel(request.json.get("firstName", None), request.json.get("lastName", None), request.json.get("emailId", None),
+                            request.json.get("mobileNumber", None), request.json.get("address"), None, request.json.get("zipCode"), None, modifiedBy)
     return userDomain.updateUser(userId, updatedUser)
+
+
+@user_blueprint.route("/user", methods=["GET"])
+@jwt_required()
+@cross_origin()
+def getUser():
+    userId = getUserId()
+    user = userDomain.getUserById(userId)
+
+    if not user:
+        return "User does not exist", 404
+
+    return {'user': user}, 200

@@ -15,6 +15,7 @@ import { NotificationsModel } from '../models/notifications.model';
 import { EventTypesResponseModel } from '../models/event-types-response.model';
 import { UsersResponseModel } from '../models/users-response.model';
 import { UserRequestModel } from '../models/user-request.model';
+import { UserProfileResponseModel } from '../models/user-profile-response.model';
 import { UserModel } from '../models/user.model';
 
 @Injectable({
@@ -243,7 +244,7 @@ export class DataService {
   }
 
   addUser(user: UserRequestModel) {
-    return this.postData<UserRequestModel>('add-user', user, true);
+    return this.postData<UserRequestModel>('user', user, true);
   }
 
   deleteUser(userId: number) {
@@ -252,8 +253,21 @@ export class DataService {
     return this.deleteData(url, true);
   }
 
-  getUserProfile(): Observable<UserModel> {
-    return this.getData<UserModel>('/user', true);
+  getUserProfile(): Observable<UserProfileResponseModel> {
+    return this.getData<UserProfileResponseModel>('user', true);
+  }
+
+  updateUserProfile(userProfile: UserModel): Observable<any> {
+    const data = {
+      id: userProfile.Id,
+      firstName: userProfile.FirstName,
+      lastName: userProfile.LastName,
+      emailId: userProfile.EmailID,
+      mobileNumber: userProfile.MobileNumber,
+      address: userProfile.Address,
+      zipCode: userProfile.ZipCode,
+    };
+    return this.putData<UserModel>('user', data, true);
   }
 
   deleteEvent(eventId: number) {

@@ -4,6 +4,6 @@ export class UserModel {
   LastName: string;
   Address: string;
   ZipCode: string;
-  EmailId: string;
+  EmailID: string;
   MobileNumber: string;
 }
