@@ -1,9 +1,8 @@
 from app import Database
 
-db = Database()
-
 
 def addBooking(customerId, numberOfPeople, bookingDate, bookingTimeSlot):
+    db = Database()
     cursor = db.cursor()
     sql = "INSERT INTO Booking(CustomerId, NumberOfPeople, BookingDate, BookingTimeSlot, BookingStatus) VALUES (%s, %s, %s, %s, %s)"
     cursor.execute(sql, (customerId, numberOfPeople,
@@ -15,6 +14,7 @@ def addBooking(customerId, numberOfPeople, bookingDate, bookingTimeSlot):
 
 
 def getAllBookings():
+    db = Database()
     cursor = db.cursor()
     sql = "SELECT C.FirstName, C.LastName, B.NumberOfPeople, B.BookingDate, B.BookingTimeSlot, C.Address, C.EmailId, C.MobileNumber, B.BookingStatus \
         FROM AFM.Booking AS B LEFT JOIN AFM.Customer AS C ON B.CustomerId = C.Id"
@@ -28,6 +28,7 @@ def getAllBookings():
 
 
 def getAllRequestedBookings():
+    db = Database()
     cursor = db.cursor()
     sql = "SELECT C.FirstName, C.LastName, B.NumberOfPeople, B.BookingDate, B.BookingTimeSlot, C.Address, C.EmailId, C.MobileNumber \
         FROM AFM.Booking AS B LEFT JOIN AFM.Customer AS C ON B.CustomerId = C.Id WHERE BookingStatus = 'REQUESTED'"
@@ -41,6 +42,7 @@ def getAllRequestedBookings():
 
 
 def declineBooking(bookingId, userId):
+    db = Database()
     cursor = db.cursor()
     sql = "UPDATE AFM.Booking SET BookingStatus = 'DECLINED', ModifiedBy = %s WHERE Id = %s;"
     val = cursor.execute(sql, (userId, bookingId))
@@ -50,6 +52,7 @@ def declineBooking(bookingId, userId):
 
 
 def acceptBooking(bookingId, userId):
+    db = Database()
     cursor = db.cursor()
     sql = "UPDATE AFM.Booking SET BookingStatus = 'ACCEPTED', ModifiedBy = %s WHERE Id = %s;"
     val = cursor.execute(sql, (userId, bookingId))

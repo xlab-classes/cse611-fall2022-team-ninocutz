@@ -4,9 +4,8 @@ from repository import customerRepository
 
 def addBooking(firstName, lastName, numberOfPeople, bookingDate, bookingTimeSlot, address, zipCode, emailId, mobileNumber):
     customer = customerRepository.getCustomerByMobileNumber(mobileNumber)
-
     if customer:
-        customerId = customer[0]
+        customerId = customer['Id']
     else:
         customerId = customerRepository.addNewCustomer(
             firstName, lastName, emailId, mobileNumber, address, zipCode)
