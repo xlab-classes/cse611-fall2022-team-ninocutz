@@ -5,25 +5,32 @@ from model.UserModel import UserModel
 def getUserByEmail(emailId):
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT * FROM RV_User WHERE EmailID = %s"
+    sql = "SELECT Id, FirstName, LastName, EmailID, Password, MobileNumber, Address, ZipCode FROM RV_User WHERE EmailID = %s"
     cursor.execute(sql, (emailId))
     columns = cursor.description
     results = [{columns[index][0]:column for index,
                 column in enumerate(value)} for value in cursor.fetchall()]
     cursor.close()
 
-    return results
+    if results:
+        return results[0]
+
+    return None
+
 
 def getUserById(userId):
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT * FROM RV_User WHERE Id = %s"
+    sql = "SELECT Id, FirstName, LastName, EmailID, MobileNumber, Address, ZipCode FROM RV_User WHERE Id = %s"
     cursor.execute(sql, (userId))
     columns = cursor.description
     results = [{columns[index][0]:column for index,
                 column in enumerate(value)} for value in cursor.fetchall()]
     cursor.close()
-    return results
+    if results:
+        return results[0]
+
+    return None
 
 
 def reset_password(username, hashedPassword, userId):
@@ -52,7 +59,7 @@ def addUser(newUser: UserModel):
 def getAllUsers():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT Id, FirstName, LastName, EmailId, MobileNumber, Address, ZipCode FROM RV_User"
+    sql = "SELECT Id, FirstName, LastName, EmailID, MobileNumber, Address, ZipCode FROM RV_User"
     cursor.execute(sql)
     columns = cursor.description
     results = [{columns[index][0]:column for index,
@@ -61,18 +68,22 @@ def getAllUsers():
 
     return results
 
+
 def deleteUser(userId):
     db = Database()
     cursor = db.cursor()
     sql = "DELETE FROM RV_User WHERE Id = %s"
-    cursor.execute(sql, (userId))
+    val = cursor.execute(sql, (userId))
     cursor.close()
     db.commit()
+    return val == 1
+
 
 def updateUser(userId, update_statement):
     db = Database()
     cursor = db.cursor()
     sql = "UPDATE RV_User SET " + update_statement + "WHERE Id = %s"
-    cursor.execute(sql, (userId))
+    val = cursor.execute(sql, (userId))
     cursor.close()
     db.commit()
+    return val == 1

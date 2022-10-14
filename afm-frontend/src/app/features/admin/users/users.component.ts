@@ -5,6 +5,8 @@ import { Table } from 'primeng/table';
 import { UserModel } from 'src/app/core/models/user.model';
 import { DataService } from 'src/app/core/services/data.service';
 import { AddUserComponent } from '../add-user/add-user.component';
+import jwt_decode from 'jwt-decode';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 
 @Component({
   selector: 'app-users',
@@ -15,14 +17,17 @@ import { AddUserComponent } from '../add-user/add-user.component';
 export class UsersComponent implements OnInit {
   @ViewChild('usersTable') usersTable: Table;
   users: UserModel[] = [];
+  token: string;
 
   constructor(
     private dataService: DataService,
     public dialogService: DialogService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
+    this.token = this.localStorageService.getLocalStorage('token');
     this.getAllUsers();
   }
 
@@ -62,9 +67,24 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(user: UserModel) {
-    this.dataService.deleteUser(user.Id).subscribe((data) => {
+    this.dataService.deleteUser(user.Id).subscribe(() => {
       this.getAllUsers();
       this.showSuccess('User deleted');
     });
+  }
+
+  disableDelete(user: UserModel) {
+    const jwt = this.getDecodedAccessToken();
+    const id = jwt.userId;
+
+    return user.Id == id;
+  }
+
+  getDecodedAccessToken(): any {
+    try {
+      return jwt_decode(this.token);
+    } catch (Error) {
+      return null;
+    }
   }
 }

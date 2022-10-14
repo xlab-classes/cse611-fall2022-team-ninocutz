@@ -5,18 +5,17 @@ from repository import userRepository
 from utils import emailUtil
 from passlib.hash import pbkdf2_sha256
 from model.UserModel import UserModel
-import itertools
 
 
 def validate_login(username, password):
     res = userRepository.getUserByEmail(username)
 
-    if len(res) == 0:
+    if not res:
         return "Invalid username or password", 401
 
-    hashedPassord = res[0]['Password']
+    hashedPassord = res['Password']
 
-    userId = res[0]["Id"]
+    userId = res["Id"]
 
     if not pbkdf2_sha256.verify(password, hashedPassord):
         return "Invalid username or password", 401
@@ -34,7 +33,7 @@ def validate_reset_password(username, password, confirmPassword, userId):
 
     res = userRepository.getUserByEmail(username)
 
-    if len(res) != 1:
+    if not res:
         return 'User does not exist', 401
     else:
         hashedPassword = pbkdf2_sha256.hash(password)
@@ -45,12 +44,12 @@ def validate_reset_password(username, password, confirmPassword, userId):
 def validate_forgot_password(username):
     res = userRepository.getUserByEmail(username)
 
-    if len(res) != 1:
-        return 'User does not exist', 401
+    if not res:
+        return 'User does not exist', 404
 
     access_token = create_access_token(
         identity=username, expires_delta=datetime.timedelta(minutes=15),
-        additional_claims={"userId": res[0]['Id']})
+        additional_claims={"userId": res['Id']})
 
     res = emailUtil.resetPasswordEmail(username, access_token)
 
@@ -75,30 +74,43 @@ def addUser(newUser: UserModel):
 
     return 'Error during sending email', 500
 
+
 def deleteUser(userId):
     res = userRepository.getUserById(userId)
-    if len(res) != 1:
-        return 'User does not exist', 401
-    userRepository.deleteUser(userId)
-    return "User deleted succesfully", 200
+    if not res:
+        return 'User does not exist', 404
+    res = userRepository.deleteUser(userId)
+
+    if res:
+        return "User deleted succesfully", 204
+    return "Error encountered during user update", 500
+
 
 def updateUser(userId, updatedUser):
     res = userRepository.getUserById(userId)
-    if len(res) != 1:
-        return 'User does not exist', 401
-    
-    mutable_fields_dict = {'FirstName' : updatedUser.__dict__['firstName'], 'LastName' : updatedUser.__dict__['lastName'],
-                           'EmailId' : updatedUser.__dict__['emailId'], 'MobileNumber' : updatedUser.__dict__['mobileNumber'], 
-                           'Address' : updatedUser.__dict__['address'], 'ZipCode' :updatedUser.__dict__['zipcode']}
+
+    if not res:
+        return 'User does not exist', 404
+
+    mutable_fields_dict = {'FirstName': updatedUser.__dict__['firstName'], 'LastName': updatedUser.__dict__['lastName'],
+                           'EmailId': updatedUser.__dict__['emailId'], 'MobileNumber': updatedUser.__dict__['mobileNumber'],
+                           'Address': updatedUser.__dict__['address'], 'ZipCode': updatedUser.__dict__['zipcode']}
     update_statement = ""
     for x, y in zip(mutable_fields_dict.keys(), mutable_fields_dict.values()):
         if mutable_fields_dict[x] != None:
             update_statement += "{} = \"{}\" ,".format(x, y)
-    
+
     update_statement += "ModifiedBy = {} ".format(updatedUser.modifiedBy)
-    userRepository.updateUser(userId, update_statement)
-    return "User updated succesfully", 200
+
+    res = userRepository.updateUser(userId, update_statement)
+    if res:
+        return "User updated succesfully", 204
+    return "Error encountered during user update", 500
 
 
 def getAllUsers():
     return userRepository.getAllUsers()
+
+
+def getUserById(userId):
+    return userRepository.getUserById(userId)
