@@ -53,11 +53,27 @@ def forgot_password():
 def addUser():
     createdBy = getUserId()
     newUser = UserModel(request.json.get("firstName", None), request.json.get("lastName", None),
-                        request.json.get("emailId", None), request.json.get(
-                            "mobileNumber", None),
-                        request.json.get("address"), "defaultPassword", request.json.get(
-                            "zipCode"), createdBy)
+                        request.json.get("emailId", None), request.json.get("mobileNumber", None),
+                        request.json.get("address"), "defaultPassword", request.json.get("zipCode"), createdBy)
 
     id = userDomain.addUser(newUser)
 
     return {'userId': id}, 200
+
+@user_blueprint.route("/delete-user", methods=['POST'])
+@jwt_required()
+@cross_origin()
+def deleteUser():
+    userId = request.json.get("userId")
+    return userDomain.deleteUser(userId)
+
+@user_blueprint.route("/update-user", methods=["POST", "PUT"])
+@jwt_required()
+@cross_origin()
+def updateUser():
+    userId = request.json.get("userId")
+    modifiedBy = getUserId()
+    updatedUser = UserModel(request.json.get("firstName", None), request.json.get("lastName", None),
+                        request.json.get("emailId", None), request.json.get("mobileNumber", None),
+                        request.json.get("address"), None, request.json.get("zipCode"), None, modifiedBy)
+    return userDomain.updateUser(userId, updatedUser)

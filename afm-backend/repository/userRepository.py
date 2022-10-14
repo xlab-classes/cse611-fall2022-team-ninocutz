@@ -14,6 +14,17 @@ def getUserByEmail(emailId):
 
     return results
 
+def getUserById(userId):
+    db = Database()
+    cursor = db.cursor()
+    sql = "SELECT * FROM RV_User WHERE Id = %s"
+    cursor.execute(sql, (userId))
+    columns = cursor.description
+    results = [{columns[index][0]:column for index,
+                column in enumerate(value)} for value in cursor.fetchall()]
+    cursor.close()
+    return results
+
 
 def reset_password(username, hashedPassword, userId):
     db = Database()
@@ -49,3 +60,19 @@ def getAllUsers():
     cursor.close()
 
     return results
+
+def deleteUser(userId):
+    db = Database()
+    cursor = db.cursor()
+    sql = "DELETE FROM RV_User WHERE Id = %s"
+    cursor.execute(sql, (userId))
+    cursor.close()
+    db.commit()
+
+def updateUser(userId, update_statement):
+    db = Database()
+    cursor = db.cursor()
+    sql = "UPDATE RV_User SET " + update_statement + "WHERE Id = %s"
+    cursor.execute(sql, (userId))
+    cursor.close()
+    db.commit()
