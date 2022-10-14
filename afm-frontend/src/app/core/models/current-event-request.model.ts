@@ -8,4 +8,5 @@ export class CurrentEventRequestModel {
   zipCode: string;
   message: string;
   eventTimeSlot: string;
+  emailTrigger: boolean;
 }

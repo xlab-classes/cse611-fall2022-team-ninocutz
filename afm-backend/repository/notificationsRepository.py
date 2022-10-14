@@ -14,18 +14,6 @@ def getAllNotifications():
     return results
 
 
-def getIdByNotificationType(notificationType):
-    db = Database()
-    cursor = db.cursor()
-    sql = "SELECT Id FROM AFM.Notification WHERE NotificationType = %s;"
-    cursor.execute(sql, (notificationType))
-    results = cursor.fetchall()
-
-    if results and results[0]:
-        return results[0][0]
-    return False
-
-
 def insertNotification(notificationType, template, userId):
     db = Database()
     cursor = db.cursor()
@@ -55,3 +43,16 @@ def deleteNotification(id):
     cursor.close()
     db.commit()
     return val == 1
+
+
+def getNotificationByType(notificationType):
+    db = Database()
+    cursor = db.cursor()
+    sql = "SELECT * FROM AFM.Notification WHERE NotificationType = %s;"
+    cursor.execute(sql, (notificationType))
+    columns = cursor.description
+    results = [{columns[index][0]:column for index,
+                column in enumerate(value)} for value in cursor.fetchall()]
+
+    cursor.close()
+    return results

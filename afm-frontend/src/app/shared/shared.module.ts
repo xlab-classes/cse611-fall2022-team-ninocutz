@@ -29,6 +29,7 @@ import { CardModule } from 'primeng/card';
 import { GoogleMapComponent } from './google-map/google-map.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     CardModule,
     GoogleMapsModule,
     DynamicDialogModule,
+    InputSwitchModule,
   ],
   exports: [
     FooterComponent,
@@ -85,6 +87,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     TableModule,
     CardModule,
     DynamicDialogModule,
+    InputSwitchModule,
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,

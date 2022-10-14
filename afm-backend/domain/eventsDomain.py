@@ -1,5 +1,8 @@
 from repository import eventsRepository as eventsRepo
+from repository import customerRepository
+from domain import notificationsDomain
 from model.EventModel import EventModel
+from utils import emailUtil
 
 
 def createEvent(newEvent: EventModel, userId):
@@ -23,7 +26,7 @@ def getCurrentEvent():
     return event
 
 
-def createCurrentEvent(event: EventModel, userId):
+def createCurrentEvent(event: EventModel, userId, emailTrigger=False):
 
     newEvent = EventModel(name=event.name,
                           eventType=event.eventType,
@@ -40,7 +43,14 @@ def createCurrentEvent(event: EventModel, userId):
     eventId = createEvent(newEvent, userId)
 
     currentEventId = eventsRepo.addCurrentEvent(eventId, userId)
-    return currentEventId
+    if emailTrigger:
+        notification = notificationsDomain.getNotificationByType('Email')
+        template = notification[0]['NotificationTemplate']
+
+        customers = customerRepository.getCustomersByZipCode(event.zipCode)
+        emailIds = [p['EmailId'] for p in customers]
+        emailUtil.triggerNotificationEmail(template, emailIds)
+        return currentEventId
 
 
 def getAllPastEvents():

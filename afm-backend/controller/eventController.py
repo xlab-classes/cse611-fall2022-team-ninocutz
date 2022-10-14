@@ -81,7 +81,6 @@ def getCurrentEvent():
 @cross_origin()
 def addCurrentEvent():
     userId = getUserId()
-    print(userId)
 
     newEvent = EventModel(name=request.form.get('eventName'),
                           eventType=request.form.get('eventType'),
@@ -94,6 +93,7 @@ def addCurrentEvent():
                           eventDate=request.form.get('eventDate')
                           )
 
+    emailTrigger = request.form.get('emailTrigger', False)
     # TODO: Check if image is needed
     # if 'file' in request.files:
     #     file = request.files['file']
@@ -108,7 +108,8 @@ def addCurrentEvent():
     #     url = f"https://{bucket}.s3.amazonaws.com/{filename}"
     #     image_id = imagesDomain.add_image(image_type, url)
 
-    createdCurrentEventId = eventsDomain.createCurrentEvent(newEvent, userId)
+    createdCurrentEventId = eventsDomain.createCurrentEvent(
+        newEvent, userId, emailTrigger)
     return {'id': createdCurrentEventId}, 201
 
 # endregion Current Events
