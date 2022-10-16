@@ -8,4 +8,7 @@ export class EventRequestModel {
   zipCode: string;
   message: string;
   eventTimeSlot: string;
+  postToInstagram: boolean;
+  postToFacebook: boolean;
+  facebookToken: string;
 }

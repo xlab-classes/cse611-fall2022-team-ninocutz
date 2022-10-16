@@ -9,6 +9,11 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './core/auth/auth-gaurd.service';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import {
+  FacebookLoginProvider,
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+} from 'angularx-social-login';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,9 +25,22 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     CustomerModule,
     SharedModule,
     HttpClientModule,
+    SocialLoginModule,
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('1164434450813223'),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
     JwtHelperService,
     AuthGuardService,
   ],

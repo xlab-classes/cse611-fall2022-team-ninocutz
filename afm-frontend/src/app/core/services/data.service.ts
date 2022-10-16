@@ -118,6 +118,9 @@ export class DataService {
     formData.append('zipCode', data.zipCode);
     formData.append('message', data.message);
     formData.append('eventTimeSlot', data.eventTimeSlot);
+    formData.append('postToInstagram', '' + data.postToInstagram);
+    formData.append('postToFacebook', '' + data.postToFacebook);
+    formData.append('facebookToken', data.facebookToken);
     formData.append('file', file, file.name);
 
     return this.postData('event', formData, true);
