@@ -135,10 +135,28 @@
           </div>
         </div>
 
+        <div class="row mt-4">
+          <div class="col">
+            <h3 class="afm-label-text">Trigger Instagram</h3>
+          </div>
+          <div class="col">
+            <p-inputSwitch [(ngModel)]="instagramTrigger"></p-inputSwitch>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h3 class="afm-label-text">Trigger Facebook</h3>
+          </div>
+          <div class="col">
+            <p-inputSwitch [(ngModel)]="facebookTrigger"></p-inputSwitch>
+          </div>
+        </div>
+
         <div class="row mt-4 text-align-center">
           <app-afm-button
             label="Submit"
-            (click)="addNewFutureEvent()"
+            (click)="submitClicked()"
             [disable]="disableSubmit()"
           ></app-afm-button>
         </div>

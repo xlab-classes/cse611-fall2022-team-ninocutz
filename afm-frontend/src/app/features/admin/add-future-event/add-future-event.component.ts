@@ -5,6 +5,10 @@ import * as moment from 'moment';
 import { ConfirmationService } from 'src/app/core/services/confirmation.service';
 import { Router } from '@angular/router';
 import { EventTypesModel } from 'src/app/core/models/event-types.model';
+import {
+  FacebookLoginProvider,
+  SocialAuthService,
+} from 'angularx-social-login';
 
 @Component({
   selector: 'app-add-future-event',
@@ -25,15 +29,27 @@ export class AddFutureEventComponent implements OnInit {
   eventName: string;
   fromTime: Date;
   toTime: Date;
+  instagramTrigger: boolean;
+  facebookTrigger: boolean;
+  facebookAuthToken: string;
 
   constructor(
     private dataService: DataService,
     private confirmationService: ConfirmationService,
-    private router: Router
+    private router: Router,
+    private socialAuthService: SocialAuthService
   ) {}
 
   ngOnInit(): void {
     this.loadEventTypes();
+    this.loadFaceBookAuthToken();
+  }
+
+  loadFaceBookAuthToken() {
+    this.socialAuthService.authState.subscribe((user) => {
+      this.facebookAuthToken = user.authToken;
+      this.addNewFutureEvent();
+    });
   }
 
   loadEventTypes() {
@@ -53,6 +69,14 @@ export class AddFutureEventComponent implements OnInit {
     this.uploadedFiles = undefined;
   }
 
+  facebookSignIn() {
+    if (!this.facebookAuthToken) {
+      this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    } else {
+      this.addNewFutureEvent();
+    }
+  }
+
   addNewFutureEvent() {
     const data: EventRequestModel = new EventRequestModel();
     data.eventName = this.eventName;
@@ -68,9 +92,21 @@ export class AddFutureEventComponent implements OnInit {
       '-' +
       moment(this.toTime).format('HH:mm');
 
+    data.postToInstagram = this.instagramTrigger;
+    data.postToFacebook = this.facebookTrigger;
+    data.facebookToken = this.facebookAuthToken;
+
     this.dataService.createEvent(data, this.uploadedFiles).subscribe((data) => {
       this.showSuccess();
     });
+  }
+
+  submitClicked() {
+    if (this.instagramTrigger || this.facebookTrigger) {
+      this.facebookSignIn();
+    } else {
+      this.addNewFutureEvent();
+    }
   }
 
   disableSubmit(): boolean {
