@@ -6,6 +6,7 @@ from flask_cors import cross_origin
 from flask import request
 from domain import eventsDomain
 from domain import imagesDomain
+from domain import socialmediaDomain
 from model.EventModel import EventModel
 from utils.authUtil import getUserId
 
@@ -31,6 +32,10 @@ def createEvent():
                           eventTimeSlot=request.form.get('eventTimeSlot'),
                           eventDate=request.form.get('eventDate')
                           )
+    postToInstagram = request.form.get('postToInstagram', False)
+    postToFacebook = request.form.get('postToFacebook', False)
+    if postToInstagram or postToFacebook:
+        facebookToken = request.form.get('facebookToken', False)
 
     if 'file' in request.files:
         file = request.files['file']
@@ -47,6 +52,8 @@ def createEvent():
         newEvent.imageId = imageId
 
     createEventId = eventsDomain.createEvent(newEvent, userId)
+    if postToInstagram:
+        socialmediaDomain.postToInstagram(facebookToken)
 
     return {'id': createEventId}, 201
 
