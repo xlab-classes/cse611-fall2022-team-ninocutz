@@ -52,8 +52,8 @@ def createEvent():
         newEvent.imageId = imageId
 
     createEventId = eventsDomain.createEvent(newEvent, userId)
-    if postToInstagram:
-        socialmediaDomain.postToInstagram(facebookToken)
+    if postToInstagram and 'file' in request.files:
+        socialmediaDomain.postToInstagram(facebookToken, url)
 
     return {'id': createEventId}, 201
 
