@@ -7,8 +7,6 @@ client_id = os.environ.get('FB_CLIENT_ID')
 
 
 def postToInstagram(access_token, image_url):
-    '''
-    '''
     long_access_token = generate_long_lived_token(access_token)
     instagram_id = get_instagram_id(long_access_token)
     if not instagram_id:
