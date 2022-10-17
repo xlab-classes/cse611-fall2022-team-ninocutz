@@ -53,7 +53,9 @@ def createEvent():
 
     createEventId = eventsDomain.createEvent(newEvent, userId)
     if postToInstagram and 'file' in request.files:
-        socialmediaDomain.postToInstagram(facebookToken, url)
+        socialmediaDomain.postToInstagram(facebookToken, url, newEvent.message)
+    if postToFacebook and 'file' in request.files:
+        socialmediaDomain.postToFacebook(facebookToken, url, newEvent.message)
 
     return {'id': createEventId}, 201
 
