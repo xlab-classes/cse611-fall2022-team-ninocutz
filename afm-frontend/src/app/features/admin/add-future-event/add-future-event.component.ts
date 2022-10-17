@@ -31,6 +31,7 @@ export class AddFutureEventComponent implements OnInit {
   toTime: Date;
   instagramTrigger: boolean;
   facebookTrigger: boolean;
+  twitterTrigger: boolean;
   facebookAuthToken: string;
 
   constructor(
@@ -95,6 +96,7 @@ export class AddFutureEventComponent implements OnInit {
     data.postToInstagram = this.instagramTrigger;
     data.postToFacebook = this.facebookTrigger;
     data.facebookToken = this.facebookAuthToken;
+    data.postToTwitter = this.twitterTrigger;
 
     this.dataService.createEvent(data, this.uploadedFiles).subscribe((data) => {
       this.showSuccess();
