@@ -8,6 +8,7 @@ from domain import imagesDomain
 from domain import socialmediaDomain
 from model.EventModel import EventModel
 from utils.authUtil import getUserId
+from utils.generalUtil import getBoolValue
 
 events_blueprint = Blueprint('events_blueprint', __name__)
 IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
@@ -30,12 +31,12 @@ def createEvent():
                           eventTimeSlot=request.form.get('eventTimeSlot'),
                           eventDate=request.form.get('eventDate')
                           )
-    postToInstagram = request.form.get('postToInstagram', False)
-    postToFacebook = request.form.get('postToFacebook', False)
-    postToTwitter = request.form.get('postToTwitter', False)
+    postToInstagram = getBoolValue(request.form.get('postToInstagram', False))
+    postToFacebook = getBoolValue(request.form.get('postToFacebook', False))
+    postToTwitter = getBoolValue(request.form.get('postToTwitter', False))
 
     if postToInstagram or postToFacebook:
-        facebookToken = request.form.get('facebookToken', False)
+        facebookToken = request.form.get('facebookToken', '')
 
     if 'file' in request.files:
         file = request.files['file']
@@ -105,7 +106,7 @@ def addCurrentEvent():
                           eventDate=request.form.get('eventDate')
                           )
 
-    emailTrigger = request.form.get('emailTrigger', False)
+    emailTrigger = getBoolValue(request.form.get('emailTrigger', False))
     # TODO: Check if image is needed
 
     createdCurrentEventId = eventsDomain.createCurrentEvent(
