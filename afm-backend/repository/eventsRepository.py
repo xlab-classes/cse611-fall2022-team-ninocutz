@@ -104,7 +104,7 @@ def getAllPastEvents():
 def addCurrentEvent(eventId, userId):
     db = Database()
     # TODO: Truncate Table and add the new current event, to support only one current event at a time
-    sql = "INSERT INTO AFM.CurrentEvent (eventId, CreatedBy) VALUES (%s, %s)"
+    sql = "INSERT INTO AFM.CurrentEvent (EventId, CreatedBy) VALUES (%s, %s)"
 
     cursor = db.cursor()
     cursor.execute(sql, (eventId, userId))
@@ -122,7 +122,7 @@ def delete_event(id):
     image_id = cursor.fetchall()[0]
 
     # Delete from events table
-    sql = "DELETE FROM AFM.Event WHERE id=" + str(id)
+    sql = "DELETE FROM AFM.Event WHERE Id=" + str(id)
     val = cursor.execute(sql)
     cursor.close()
     db.commit()
@@ -136,7 +136,7 @@ def delete_event(id):
 def edit_event(newEvent: EventModel, event_id, userId):
     db = Database()
     update_string = newEvent.get_update_string()
-    current_table_sql = "UPDATE AFM.Event set " + \
+    current_table_sql = "UPDATE AFM.Event SET " + \
         update_string + ", ModifiedBy = %s WHERE Id = %s"
     cursor = db.cursor()
     val = cursor.execute(current_table_sql, (userId, event_id))

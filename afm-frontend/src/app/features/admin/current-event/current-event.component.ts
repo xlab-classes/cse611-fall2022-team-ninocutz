@@ -23,7 +23,7 @@ export class CurrentEventComponent implements OnInit {
   selectedEvent: EventTypesModel;
   eventTypes: EventTypesModel[] = [];
   eventName: string;
-  emailTrigger: boolean;
+  emailTrigger: boolean = false;
 
   constructor(
     private locationService: LocationService,

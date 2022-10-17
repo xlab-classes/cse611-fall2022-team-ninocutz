@@ -29,9 +29,9 @@ export class AddFutureEventComponent implements OnInit {
   eventName: string;
   fromTime: Date;
   toTime: Date;
-  instagramTrigger: boolean;
-  facebookTrigger: boolean;
-  twitterTrigger: boolean;
+  instagramTrigger: boolean = false;
+  facebookTrigger: boolean = false;
+  twitterTrigger: boolean = false;
   facebookAuthToken: string;
 
   constructor(
