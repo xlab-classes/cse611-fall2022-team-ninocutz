@@ -10,5 +10,6 @@ export class EventRequestModel {
   eventTimeSlot: string;
   postToInstagram: boolean;
   postToFacebook: boolean;
+  postToTwitter: boolean;
   facebookToken: string;
 }

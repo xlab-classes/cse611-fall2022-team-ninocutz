@@ -120,6 +120,7 @@ export class DataService {
     formData.append('eventTimeSlot', data.eventTimeSlot);
     formData.append('postToInstagram', '' + data.postToInstagram);
     formData.append('postToFacebook', '' + data.postToFacebook);
+    formData.append('postToTwitter', '' + data.postToTwitter);
     formData.append('facebookToken', data.facebookToken);
     formData.append('file', file, file.name);
 
