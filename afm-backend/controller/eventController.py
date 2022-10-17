@@ -34,6 +34,8 @@ def createEvent():
                           )
     postToInstagram = request.form.get('postToInstagram', False)
     postToFacebook = request.form.get('postToFacebook', False)
+    postToTwitter = request.form.get('postToTwitter', False)
+
     if postToInstagram or postToFacebook:
         facebookToken = request.form.get('facebookToken', False)
 
@@ -53,7 +55,11 @@ def createEvent():
 
     createEventId = eventsDomain.createEvent(newEvent, userId)
     if postToInstagram and 'file' in request.files:
-        socialmediaDomain.postToInstagram(facebookToken, url)
+        socialmediaDomain.postToInstagram(facebookToken, url, newEvent.message)
+    if postToFacebook and 'file' in request.files:
+        socialmediaDomain.postToFacebook(facebookToken, url, newEvent.message)
+    if postToTwitter and 'file' in request.files:
+        socialmediaDomain.postToTwitter(IMAGE_LOCATION + "/" + filename, newEvent.message)
 
     return {'id': createEventId}, 201
 
