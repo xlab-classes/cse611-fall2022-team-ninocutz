@@ -1,13 +1,14 @@
 from app import Database
 from model.EventModel import EventModel
 from repository import imagesRepository
+
 # Future Events
 
 
 def createEvent(newEvent: EventModel, userId):
     db = Database()
 
-    sql = "INSERT INTO Event \
+    sql = "INSERT INTO AFM.Event \
         (ImageId, EventTypeId, Name, Longitude, Latitude, \
         Address, EventDate, EventTimeSlot, Zipcode, \
         Message, CreatedBy) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
@@ -24,7 +25,7 @@ def createEvent(newEvent: EventModel, userId):
 def getEventTypeId(event_type):
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT id from EventType where name = '" + \
+    sql = "SELECT Id from AFM.EventType WHERE name = '" + \
         str(event_type).strip() + "'"
     cursor.execute(sql)
     results = cursor.fetchall()
@@ -35,8 +36,8 @@ def getEventTypeId(event_type):
 def getAllEvents():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
-        "FROM Event AS E INNER JOIN Image AS I ON E.ImageId = I.Id FROM Event"
+    sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url \
+        FROM AFM.Event AS E INNER JOIN AFM.Image AS I ON E.ImageId = I.Id"
     cursor.execute(sql)
     results = cursor.fetchall()
     cursor.close()
@@ -46,9 +47,9 @@ def getAllEvents():
 def getEventById(id):
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
-        "FROM Event AS E INNER JOIN Image AS I ON E.ImageId = I.Id where E.Id=" + id
-    cursor.execute(sql)
+    sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url \
+        FROM AFM.Event AS E INNER JOIN AFM.Image AS I ON E.ImageId = I.Id WHERE E.Id= %s"
+    cursor.execute(sql, (id))
     columns = cursor.description
     results = [{columns[index][0]:column for index,
                 column in enumerate(value)} for value in cursor.fetchall()]
@@ -59,8 +60,8 @@ def getEventById(id):
 def getAllFutureEvents():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT E.Id, E.Name, ET.Name AS EventType, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
-        "FROM Event AS E LEFT JOIN Image AS I ON E.ImageId = I.Id LEFT JOIN EventType AS ET ON E.EventTypeId = ET.Id where E.EventDate > CURDATE();"
+    sql = "SELECT E.Id, E.Name, ET.Name AS EventType, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url \
+        FROM AFM.Event AS E LEFT JOIN Image AS I ON E.ImageId = I.Id LEFT JOIN AFM.EventType AS ET ON E.EventTypeId = ET.Id WHERE E.EventDate > CURDATE();"
     cursor.execute(sql)
     # results = cursor.fetchall()
     columns = cursor.description
@@ -74,8 +75,8 @@ def getAllFutureEvents():
 def getCurrentEvent():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
-        "FROM CurrentEvent AS C LEFT JOIN Event AS E ON C.EventId = E.Id"
+    sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message \
+        FROM AFM.CurrentEvent AS C LEFT JOIN AFM.Event AS E ON C.EventId = E.Id ORDER BY ID DESC LIMIT 1"
     cursor.execute(sql)
     columns = cursor.description
     results = [{columns[index][0]:column for index,
@@ -88,8 +89,8 @@ def getCurrentEvent():
 def getAllPastEvents():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url " + \
-        "FROM Event AS E LEFT JOIN Image AS I ON E.ImageId = I.Id where E.EventDate < CURDATE();"
+    sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url \
+        FROM AFM.Event AS E LEFT JOIN AFM.Image AS I ON E.ImageId = I.Id WHERE E.EventDate < CURDATE();"
     cursor.execute(sql)
     # results = cursor.fetchall()
     columns = cursor.description
@@ -103,7 +104,7 @@ def getAllPastEvents():
 def addCurrentEvent(eventId, userId):
     db = Database()
     # TODO: Truncate Table and add the new current event, to support only one current event at a time
-    sql = "INSERT INTO CurrentEvent (eventId, CreatedBy) VALUES (%s, %s)"
+    sql = "INSERT INTO AFM.CurrentEvent (eventId, CreatedBy) VALUES (%s, %s)"
 
     cursor = db.cursor()
     cursor.execute(sql, (eventId, userId))
@@ -116,12 +117,12 @@ def delete_event(id):
     db = Database()
     cursor = db.cursor()
     # Get image id
-    image_sql = "SELECT ImageId from Event where id=" + str(id)
+    image_sql = "SELECT ImageId from AFM.Event WHERE id=" + str(id)
     cursor.execute(image_sql)
     image_id = cursor.fetchall()[0]
 
     # Delete from events table
-    sql = "DELETE FROM Event WHERE id=" + str(id)
+    sql = "DELETE FROM AFM.Event WHERE id=" + str(id)
     val = cursor.execute(sql)
     cursor.close()
     db.commit()
@@ -135,7 +136,7 @@ def delete_event(id):
 def edit_event(newEvent: EventModel, event_id, userId):
     db = Database()
     update_string = newEvent.get_update_string()
-    current_table_sql = "UPDATE Event set " + \
+    current_table_sql = "UPDATE AFM.Event set " + \
         update_string + ", ModifiedBy = %s WHERE Id = %s"
     cursor = db.cursor()
     val = cursor.execute(current_table_sql, (userId, event_id))
@@ -147,7 +148,7 @@ def edit_event(newEvent: EventModel, event_id, userId):
 def getAllEventTypes():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT Id, Name from EventType"
+    sql = "SELECT Id, Name FROM AFM.EventType"
     cursor.execute(sql)
     columns = cursor.description
     results = [{columns[index][0]:column for index,

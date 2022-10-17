@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { LocationService } from 'src/app/core/services/location.service';
 
 @Component({
   selector: 'app-google-map',
@@ -10,7 +9,7 @@ import { LocationService } from 'src/app/core/services/location.service';
 export class GoogleMapComponent implements OnInit {
   center: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
-    scrollwheel: false,
+    scrollwheel: true,
     disableDoubleClickZoom: true,
     maxZoom: 30,
     minZoom: 8,

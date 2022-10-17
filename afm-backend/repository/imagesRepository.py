@@ -4,7 +4,7 @@ from app import Database
 def insert_image(image_type, url, userId):
     db = Database()
     cursor = db.cursor()
-    sql = "INSERT INTO Image(image_type, url, CreatedBy) VALUES (%s, %s, %s)"
+    sql = "INSERT INTO AFM.Image (image_type, url, CreatedBy) VALUES (%s, %s, %s)"
     cursor.execute(sql, (image_type, url, userId))
     id = cursor.lastrowid
     cursor.close()
@@ -15,7 +15,7 @@ def insert_image(image_type, url, userId):
 def getAllGalleryImages():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT I.Id, I.Url FROM AFM.Image AS I INNER JOIN Image_type AS IT ON I.Image_type = IT.Id WHERE IT.Category = 'Gallery';"
+    sql = "SELECT I.Id, I.Url FROM AFM.Image AS I INNER JOIN AFM.Image_type AS IT ON I.Image_type = IT.Id WHERE IT.Category = 'Gallery';"
     cursor.execute(sql)
     columns = cursor.description
     results = [{columns[index][0]:column for index,
@@ -33,7 +33,7 @@ def insertNewGalleryImage(url, userId):
     results = cursor.fetchall()
 
     imageTypeId = results[0][0]
-    sql = "INSERT INTO Image(image_type, url, CreatedBy) VALUES (%s, %s, %s)"
+    sql = "INSERT INTO AFM.Image(image_type, url, CreatedBy) VALUES (%s, %s, %s)"
     cursor.execute(sql, (imageTypeId, url, userId))
     id = cursor.lastrowid
     cursor.close()

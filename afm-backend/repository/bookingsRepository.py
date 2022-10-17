@@ -4,7 +4,7 @@ from app import Database
 def addBooking(customerId, numberOfPeople, bookingDate, bookingTimeSlot):
     db = Database()
     cursor = db.cursor()
-    sql = "INSERT INTO Booking(CustomerId, NumberOfPeople, BookingDate, BookingTimeSlot, BookingStatus) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO AFM.Booking (CustomerId, NumberOfPeople, BookingDate, BookingTimeSlot, BookingStatus) VALUES (%s, %s, %s, %s, %s)"
     cursor.execute(sql, (customerId, numberOfPeople,
                    bookingDate, bookingTimeSlot, 'REQUESTED'))
     id = cursor.lastrowid

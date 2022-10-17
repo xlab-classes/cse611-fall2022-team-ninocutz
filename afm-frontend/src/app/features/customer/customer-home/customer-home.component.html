@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="align-self-center col-auto" style="padding: 0">
+      <div *ngIf="currentEvent" class="map-display">
+        <app-current-location
+          [latitude]="+currentEvent.Latitude"
+          [longitude]="+currentEvent.Longitude"
+        ></app-current-location>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast></p-toast>

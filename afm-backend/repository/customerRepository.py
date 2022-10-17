@@ -4,7 +4,7 @@ from app import Database
 def addNewCustomer(firstName, lastName, emailId, mobileNumber, address, zipCode, sendPromotion=False):
     db = Database()
     cursor = db.cursor()
-    sql = "INSERT INTO AFM.Customer(FirstName, LastName, EmailId, MobileNumber, Address, ZipCode, SendPromotion) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO AFM.Customer (FirstName, LastName, EmailId, MobileNumber, Address, ZipCode, SendPromotion) VALUES (%s, %s, %s, %s, %s, %s, %s)"
     cursor.execute(sql, (firstName, lastName, emailId,
                    mobileNumber, address, zipCode, sendPromotion))
     id = cursor.lastrowid

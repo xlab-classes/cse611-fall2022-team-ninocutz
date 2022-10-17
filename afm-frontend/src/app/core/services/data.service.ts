@@ -17,6 +17,7 @@ import { UsersResponseModel } from '../models/users-response.model';
 import { UserRequestModel } from '../models/user-request.model';
 import { UserProfileResponseModel } from '../models/user-profile-response.model';
 import { UserModel } from '../models/user.model';
+import { CurrentEventReposponseModel } from '../models/current-event-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -278,5 +279,9 @@ export class DataService {
     const url = 'event/' + eventId;
 
     return this.deleteData(url, true);
+  }
+
+  getCurrentLocation(): Observable<CurrentEventReposponseModel> {
+    return this.getData<CurrentEventReposponseModel>('event/current');
   }
 }
