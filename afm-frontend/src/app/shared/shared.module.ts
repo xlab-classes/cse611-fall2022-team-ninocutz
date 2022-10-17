@@ -88,6 +88,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     CardModule,
     DynamicDialogModule,
     InputSwitchModule,
+    GoogleMapsModule,
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,

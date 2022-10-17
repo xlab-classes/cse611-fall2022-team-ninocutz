@@ -9,6 +9,7 @@ import { CustomerFutureEventsComponent } from './customer-future-events/customer
 import { CustomerPastEventsComponent } from './customer-past-events/customer-past-events.component';
 import { RequestRvComponent } from './request-rv/request-rv.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { CurrentLocationComponent } from './current-location/current-location.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     CustomerPastEventsComponent,
     RequestRvComponent,
     SignUpComponent,
+    CurrentLocationComponent,
   ],
   imports: [CustomerRoutingModule, CommonModule, SharedModule],
 })

@@ -5,7 +5,7 @@ from model.UserModel import UserModel
 def getUserByEmail(emailId):
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT Id, FirstName, LastName, EmailID, Password, MobileNumber, Address, ZipCode FROM RV_User WHERE EmailID = %s"
+    sql = "SELECT Id, FirstName, LastName, EmailID, Password, MobileNumber, Address, ZipCode FROM AFM.RV_User WHERE EmailID = %s"
     cursor.execute(sql, (emailId))
     columns = cursor.description
     results = [{columns[index][0]:column for index,
@@ -21,7 +21,7 @@ def getUserByEmail(emailId):
 def getUserById(userId):
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT Id, FirstName, LastName, EmailID, MobileNumber, Address, ZipCode FROM RV_User WHERE Id = %s"
+    sql = "SELECT Id, FirstName, LastName, EmailID, MobileNumber, Address, ZipCode FROM AFM.RV_User WHERE Id = %s"
     cursor.execute(sql, (userId))
     columns = cursor.description
     results = [{columns[index][0]:column for index,
@@ -36,7 +36,7 @@ def getUserById(userId):
 def reset_password(username, hashedPassword, userId):
     db = Database()
     cursor = db.cursor()
-    sql = "UPDATE RV_User SET Password = %s, ModifiedBy = %s WHERE EmailID = %s"
+    sql = "UPDATE AFM.RV_User SET Password = %s, ModifiedBy = %s WHERE EmailID = %s"
     cursor.execute(sql, (hashedPassword, userId, username))
     cursor.close()
     db.commit()
@@ -45,7 +45,7 @@ def reset_password(username, hashedPassword, userId):
 def addUser(newUser: UserModel):
     db = Database()
     cursor = db.cursor()
-    sql = "INSERT INTO RV_User (FirstName, LastName, EmailID, \
+    sql = "INSERT INTO AFM.RV_User (FirstName, LastName, EmailID, \
            MobileNumber, Address, Password, Zipcode, \
            CreatedBy) VALUES(%s, %s, %s, %s, %s, %s, %s, %s);"
     cursor.execute(sql, (newUser.firstName, newUser.lastName, newUser.emailId, newUser.mobileNumber,
@@ -59,7 +59,7 @@ def addUser(newUser: UserModel):
 def getAllUsers():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT Id, FirstName, LastName, EmailID, MobileNumber, Address, ZipCode FROM RV_User"
+    sql = "SELECT Id, FirstName, LastName, EmailID, MobileNumber, Address, ZipCode FROM AFM.RV_User"
     cursor.execute(sql)
     columns = cursor.description
     results = [{columns[index][0]:column for index,
@@ -72,7 +72,7 @@ def getAllUsers():
 def deleteUser(userId):
     db = Database()
     cursor = db.cursor()
-    sql = "DELETE FROM RV_User WHERE Id = %s"
+    sql = "DELETE FROM AFM.RV_User WHERE Id = %s"
     val = cursor.execute(sql, (userId))
     cursor.close()
     db.commit()
@@ -82,7 +82,7 @@ def deleteUser(userId):
 def updateUser(userId, update_statement):
     db = Database()
     cursor = db.cursor()
-    sql = "UPDATE RV_User SET " + update_statement + "WHERE Id = %s"
+    sql = "UPDATE AFM.RV_User SET " + update_statement + "WHERE Id = %s"
     val = cursor.execute(sql, (userId))
     cursor.close()
     db.commit()

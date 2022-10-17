@@ -17,7 +17,7 @@ def getAllNotifications():
 def insertNotification(notificationType, template, userId):
     db = Database()
     cursor = db.cursor()
-    sql = "INSERT INTO AFM.Notification(NotificationType, NotificationTemplate, CreatedBy) VALUES (%s, %s, %s)"
+    sql = "INSERT INTO AFM.Notification (NotificationType, NotificationTemplate, CreatedBy) VALUES (%s, %s, %s)"
     cursor.execute(sql, (notificationType, template, userId))
     id = cursor.lastrowid
     cursor.close()
