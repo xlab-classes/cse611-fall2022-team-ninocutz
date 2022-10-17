@@ -1,10 +1,14 @@
 import requests
 import os
+import tweepy
 
 facebook_id = os.environ.get("FB_ID")
 client_secret = os.environ.get("FB_SECRET")
 client_id = os.environ.get('FB_CLIENT_ID')
-
+consumer_key = os.environ.get('CONSUMER_KEY')
+consumer_secret_key = os.environ.get('CONSUMER_SECRET_KEY')
+access_token = os.environ.get('TWITTER_ACCESS_TOKEN')
+access_token_secret = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
 
 def postToInstagram(access_token, image_url, message):
     long_access_token = generate_long_lived_token(access_token)
@@ -85,3 +89,13 @@ def get_facebook_page_id_token(access_token):
         page_id = response.json()['data'][0]['id']
         access_token = response.json()['data'][0]['access_token']
     return page_id, access_token
+
+
+def postToTwitter(image_path, message):
+    auth=tweepy.OAuthHandler(consumer_key,consumer_secret_key)
+    auth.set_access_token(access_token,access_token_secret)
+    api=tweepy.API(auth)
+    status = api.update_status_with_media(filename=image_path, status=message)
+    if not status.id:
+        return False
+    return True
