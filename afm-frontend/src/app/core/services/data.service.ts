@@ -18,6 +18,7 @@ import { UserRequestModel } from '../models/user-request.model';
 import { UserProfileResponseModel } from '../models/user-profile-response.model';
 import { UserModel } from '../models/user.model';
 import { CurrentEventReposponseModel } from '../models/current-event-response.model';
+import { RVRequestModel } from '../models/rv-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -283,5 +284,9 @@ export class DataService {
 
   getCurrentLocation(): Observable<CurrentEventReposponseModel> {
     return this.getData<CurrentEventReposponseModel>('event/current');
+  }
+
+  requestRV(rvRequest: RVRequestModel) {
+    return this.postData('/bookings', rvRequest);
   }
 }
