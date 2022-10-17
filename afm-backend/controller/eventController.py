@@ -1,5 +1,4 @@
 import os
-from werkzeug.utils import secure_filename
 from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from flask_cors import cross_origin
@@ -11,7 +10,6 @@ from model.EventModel import EventModel
 from utils.authUtil import getUserId
 
 events_blueprint = Blueprint('events_blueprint', __name__)
-bucket = os.environ.get("S3_BUCKET")
 IMAGE_LOCATION = os.environ.get("IMAGE_LOCATION")
 
 # region Future Events
@@ -41,25 +39,26 @@ def createEvent():
 
     if 'file' in request.files:
         file = request.files['file']
-        filename = secure_filename(file.filename)
-        image_type = request.args.get('image_type', None)
-        if not imagesDomain.get_file(file, IMAGE_LOCATION, filename):
-            return 'Invalid file', 400
+        imageType = request.args.get('image_type', None)
 
-        image_type = request.args.get('image_type', None)
-        if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
-            return 'Image upload failed', 500
-        url = f"https://{bucket}.s3.amazonaws.com/{filename}"
-        imageId = imagesDomain.add_image(image_type, url, userId)
+        urlResult = imagesDomain.saveImageAndUploadToAws(file)
+        if not isinstance(urlResult, str):
+            return urlResult
+
+        imageId = imagesDomain.add_image(imageType, urlResult, userId)
         newEvent.imageId = imageId
 
     createEventId = eventsDomain.createEvent(newEvent, userId)
+
     if postToInstagram and 'file' in request.files:
-        socialmediaDomain.postToInstagram(facebookToken, url, newEvent.message)
+        socialmediaDomain.postToInstagram(
+            facebookToken, urlResult, newEvent.message)
     if postToFacebook and 'file' in request.files:
-        socialmediaDomain.postToFacebook(facebookToken, url, newEvent.message)
+        socialmediaDomain.postToFacebook(
+            facebookToken, urlResult, newEvent.message)
     if postToTwitter and 'file' in request.files:
-        socialmediaDomain.postToTwitter(IMAGE_LOCATION + "/" + filename, newEvent.message)
+        savedFilePath = IMAGE_LOCATION + "/" + urlResult.split('/')[-1]
+        socialmediaDomain.postToTwitter(savedFilePath, newEvent.message)
 
     return {'id': createEventId}, 201
 
@@ -108,18 +107,6 @@ def addCurrentEvent():
 
     emailTrigger = request.form.get('emailTrigger', False)
     # TODO: Check if image is needed
-    # if 'file' in request.files:
-    #     file = request.files['file']
-    #     filename = secure_filename(file.filename)
-    #     image_type = request.args.get('image_type', None)
-    #     if not imagesDomain.get_file(file, IMAGE_LOCATION, filename):
-    #         return 'Invalid file', 400
-
-    #     image_type = request.args.get('image_type', None)
-    #     if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
-    #         return 'Image upload failed', 500
-    #     url = f"https://{bucket}.s3.amazonaws.com/{filename}"
-    #     image_id = imagesDomain.add_image(image_type, url)
 
     createdCurrentEventId = eventsDomain.createCurrentEvent(
         newEvent, userId, emailTrigger)
@@ -170,16 +157,13 @@ def edit_event():
 
     if 'file' in request.files:
         file = request.files['file']
-        filename = secure_filename(file.filename)
         image_type = request.args.get('image_type', None)
-        if not imagesDomain.get_file(file, IMAGE_LOCATION, filename):
-            return 'Invalid file', 400
 
-        image_type = request.args.get('image_type', None)
-        if not imagesDomain.upload_to_aws(IMAGE_LOCATION + "/" + filename, bucket, filename):
-            return 'Image upload failed', 500
-        url = f"https://{bucket}.s3.amazonaws.com/{filename}"
-        image_id = imagesDomain.add_image(image_type, url, userId)
+        urlResult = imagesDomain.saveImageAndUploadToAws(file)
+        if not isinstance(urlResult, str):
+            return urlResult
+
+        image_id = imagesDomain.add_image(image_type, urlResult, userId)
         newEvent.imageId = image_id
 
     event_status = eventsDomain.edit_event(newEvent, event_id, userId)
