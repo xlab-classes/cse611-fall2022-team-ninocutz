@@ -1,1 +1,131 @@
-<p>request-rv works!</p>
+<div class="root-div">
+  <h2 class="afm-heading-text text-align-center">Request RV</h2>
+
+  <div class="form-external-box">
+    <app-afm-blur-background>
+      <div class="container" class="form-internal-box">
+        <div class="row mt-4">
+          <div class="col">
+            <h5 class="afm-label-text">First Name</h5>
+            <input type="text" pInputText [(ngModel)]="rvRequest.firstName" />
+          </div>
+
+          <div class="col mt-sm-0 mt-4">
+            <h5 class="afm-label-text">Last Name</h5>
+            <input type="text" pInputText [(ngModel)]="rvRequest.lastName" />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12 col-sm-6">
+            <h3 class="afm-label-text">No Of People</h3>
+            <p-inputNumber
+              [(ngModel)]="rvRequest.numberOfPeople"
+              mode="decimal"
+              inputId="withoutgrouping"
+              [useGrouping]="false"
+            >
+            </p-inputNumber>
+          </div>
+
+          <div class="col-12 col-sm-6 mt-sm-0 mt-4">
+            <h3 class="afm-label-text">Date</h3>
+            <p-calendar
+              [(ngModel)]="bookingDate"
+              [showIcon]="true"
+              inputId="icon"
+              [minDate]="todayDate"
+            ></p-calendar>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <h5 class="afm-label-text">Time Slot</h5>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <span class="p-float-label">
+              <p-calendar
+                id="fromTime"
+                [(ngModel)]="fromTime"
+                [timeOnly]="true"
+                [hourFormat]="'24'"
+                inputId="timeonly"
+              ></p-calendar>
+              <label for="fromTime">From Time</label>
+            </span>
+          </div>
+          <div class="col">
+            <span class="p-float-label">
+              <p-calendar
+                id="toime"
+                [(ngModel)]="toTime"
+                [timeOnly]="true"
+                [hourFormat]="'24'"
+                [minDate]="fromTime"
+                inputId="timeonly"
+              ></p-calendar>
+              <label for="toime">To Time</label>
+            </span>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h3 class="afm-label-text">Address</h3>
+            <textarea
+              [(ngModel)]="rvRequest.address"
+              [rows]="5"
+              [cols]="80"
+              pInputTextarea
+              [autoResize]="true"
+              style="max-width: 90%"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h3 class="afm-label-text">Zip Code</h3>
+            <p-inputNumber
+              [(ngModel)]="rvRequest.zipCode"
+              mode="decimal"
+              inputId="withoutgrouping"
+              [useGrouping]="false"
+            >
+            </p-inputNumber>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h5 class="afm-label-text">Email Id</h5>
+            <input type="text" pInputText [(ngModel)]="rvRequest.emailId" />
+          </div>
+
+          <div class="col mt-sm-0 mt-4">
+            <h5 class="afm-label-text">Mobile Number</h5>
+            <p-inputNumber
+              [(ngModel)]="rvRequest.mobileNumber"
+              mode="decimal"
+              inputId="withoutgrouping"
+              [useGrouping]="false"
+            >
+            </p-inputNumber>
+          </div>
+        </div>
+
+        <div class="row mt-4"></div>
+
+        <div class="row mt-4 text-align-center">
+          <app-afm-button
+            label="Submit"
+            (click)="submitClicked()"
+            [disable]="disableSubmit()"
+          ></app-afm-button>
+        </div>
+      </div>
+    </app-afm-blur-background>
+  </div>
+</div>

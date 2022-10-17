@@ -1,0 +1,20 @@
+@import "../../../../styles.scss";
+
+.root-div {
+  margin: auto;
+  margin-top: 40px;
+  max-width: 800px;
+}
+.text-align-center {
+  text-align: center;
+}
+::ng-deep .p-button.p-fileupload-choose {
+  background-color: black;
+  @extend .afm-font-family;
+}
+.form-external-box {
+  margin-top: 40px;
+}
+.form-internal-box {
+  padding: 50px;
+}
