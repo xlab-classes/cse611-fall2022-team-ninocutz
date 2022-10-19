@@ -27,37 +27,41 @@
         <h2 class="afm-heading-text">Future Events</h2>
       </div>
       <div class="container-fluid">
-        <p-galleria
-          [value]="futureEvents"
-          [numVisible]="5"
-          [circular]="true"
-          [showItemNavigators]="true"
-          [showThumbnails]="false"
-          [showIndicators]="true"
-          [showItemNavigatorsOnHover]="true"
-          [showIndicatorsOnItem]="true"
-          [responsiveOptions]="responsiveOptions"
+        <swiper
+          [slidesPerView]="1"
+          [navigation]="true"
+          [pagination]="{
+            dynamicBullets: true
+          }"
+          [centeredSlides]="true"
+          [keyboard]="{
+            enabled: true
+          }"
+          [autoplay]="{
+            delay: 3000,
+            disableOnInteraction: false
+          }"
+          class="my-swiper"
         >
-          <ng-template pTemplate="item" let-item>
-            <div class="image-container">
-              <img class="gallery-image" [src]="item.Url" />
+          <ng-template swiperSlide *ngFor="let futureEvent of futureEvents">
+            <div class="swiper-slide-container">
+              <div>
+                <h4 style="color: black">
+                  {{ futureEvent.Name }}
+                </h4>
+                <p style="margin-bottom: 2.5rem; color: black">
+                  {{ futureEvent.Message }}
+                </p>
+              </div>
+              <img class="gallery-image" [src]="futureEvent.Url" />
+              <p style="margin-bottom: 2.5rem; color: white">
+                {{ futureEvent.Message }}
+              </p>
             </div>
           </ng-template>
-          <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-nogutter justify-content-center">
-              <img [src]="item.Url" style="display: block" />
-            </div>
-          </ng-template>
-          <ng-template pTemplate="caption" let-item>
-            <h4 style="color: #ffffff">
-              {{ item.Name }}
-            </h4>
-            <p style="margin-bottom: 2.5rem; color: #ffffff">
-              {{ item.Message }}
-            </p>
-          </ng-template>
-        </p-galleria>
+        </swiper>
       </div>
+      <br />
     </app-afm-blur-background>
   </div>
 
@@ -67,37 +71,41 @@
         <h2 class="afm-heading-text">Past Events</h2>
       </div>
       <div class="container-fluid">
-        <p-galleria
-          [value]="pastEvents"
-          [numVisible]="5"
-          [circular]="true"
-          [showItemNavigators]="true"
-          [showThumbnails]="false"
-          [showIndicators]="true"
-          [showItemNavigatorsOnHover]="true"
-          [showIndicatorsOnItem]="true"
-          [responsiveOptions]="responsiveOptions"
+        <swiper
+          [slidesPerView]="1"
+          [navigation]="true"
+          [pagination]="{
+            dynamicBullets: true
+          }"
+          [centeredSlides]="true"
+          [keyboard]="{
+            enabled: true
+          }"
+          [autoplay]="{
+            delay: 3000,
+            disableOnInteraction: false
+          }"
+          class="my-swiper"
         >
-          <ng-template pTemplate="item" let-item>
-            <div class="image-container">
-              <img class="gallery-image" [src]="item.Url" />
+          <ng-template swiperSlide *ngFor="let pastEvent of pastEvents">
+            <div class="swiper-slide-container">
+              <div>
+                <h4 style="color: black">
+                  {{ pastEvent.Name }}
+                </h4>
+                <p style="margin-bottom: 2.5rem; color: black">
+                  {{ pastEvent.Message }}
+                </p>
+              </div>
+              <img class="gallery-image" [src]="pastEvent.Url" />
+              <p style="margin-bottom: 2.5rem; color: white">
+                {{ pastEvent.Message }}
+              </p>
             </div>
           </ng-template>
-          <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-nogutter justify-content-center">
-              <img [src]="item.Url" style="display: block" />
-            </div>
-          </ng-template>
-          <ng-template pTemplate="caption" let-item>
-            <h4 style="color: #ffffff">
-              {{ item.Name }}
-            </h4>
-            <p style="margin-bottom: 2.5rem; color: #ffffff">
-              {{ item.Message }}
-            </p>
-          </ng-template>
-        </p-galleria>
+        </swiper>
       </div>
+      <br />
     </app-afm-blur-background>
   </div>
 
@@ -107,31 +115,32 @@
         <h2 class="afm-heading-text">Gallery</h2>
       </div>
       <div class="container-fluid">
-        <p-galleria
-          [value]="images"
-          [numVisible]="5"
-          [circular]="true"
-          [showItemNavigators]="true"
-          [showThumbnails]="false"
-          [showIndicators]="true"
-          [showItemNavigatorsOnHover]="true"
-          [showIndicatorsOnItem]="true"
-          [autoPlay]="true"
-          [transitionInterval]="3000"
+        <swiper
+          [slidesPerView]="1"
+          [navigation]="true"
+          [pagination]="{
+            dynamicBullets: true
+          }"
+          [centeredSlides]="true"
+          [keyboard]="{
+            enabled: true
+          }"
+          [autoplay]="{
+            delay: 3000,
+            disableOnInteraction: false
+          }"
+          class="my-swiper"
         >
-          <ng-template pTemplate="item" let-item>
-            <div class="image-container">
-              <img class="gallery-image" [src]="item.Url" />
+          <ng-template swiperSlide *ngFor="let galleryImage of galleryImages">
+            <div class="swiper-slide-container">
+              <img class="gallery-image" [src]="galleryImage.Url" />
             </div>
           </ng-template>
-          <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-nogutter justify-content-center">
-              <img [src]="item.Url" style="display: block" />
-            </div>
-          </ng-template>
-        </p-galleria>
+        </swiper>
       </div>
+      <br />
     </app-afm-blur-background>
   </div>
 </div>
+
 <p-toast></p-toast>

@@ -30,7 +30,7 @@ import { GoogleMapComponent } from './google-map/google-map.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { GalleriaModule } from 'primeng/galleria';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,7 @@ import { GalleriaModule } from 'primeng/galleria';
     GoogleMapsModule,
     DynamicDialogModule,
     InputSwitchModule,
-    GalleriaModule,
+    SwiperModule,
   ],
   exports: [
     FooterComponent,
@@ -91,7 +91,7 @@ import { GalleriaModule } from 'primeng/galleria';
     DynamicDialogModule,
     InputSwitchModule,
     GoogleMapsModule,
-    GalleriaModule,
+    SwiperModule,
     AfmButtonComponent,
     AfmBlurBackgroundComponent,
     AfmImageComponent,

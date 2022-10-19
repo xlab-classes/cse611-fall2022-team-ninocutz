@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CurrentEventModel } from 'src/app/core/models/current-event.model';
@@ -6,17 +12,20 @@ import { FutureEventsModel } from 'src/app/core/models/future-events.model';
 import { GalleryImagesModel } from 'src/app/core/models/gallery-images.model';
 import { PastEventsModel } from 'src/app/core/models/past-events.model';
 import { DataService } from 'src/app/core/services/data.service';
+import SwiperCore, { Keyboard, Pagination, Navigation, Autoplay } from 'swiper';
 
+SwiperCore.use([Keyboard, Pagination, Navigation, Autoplay]);
 @Component({
   selector: 'app-customer-home',
   templateUrl: './customer-home.component.html',
   styleUrls: ['./customer-home.component.scss'],
   providers: [MessageService],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CustomerHomeComponent implements OnInit {
   @ViewChild('parentContainer') container: ElementRef<HTMLElement>;
   currentEvent: CurrentEventModel | undefined;
-  images: GalleryImagesModel[] = [];
+  galleryImages: GalleryImagesModel[] = [];
   pastEvents: PastEventsModel[] = [];
   futureEvents: FutureEventsModel[] = [];
   responsiveOptions: any[] = [
@@ -74,7 +83,7 @@ export class CustomerHomeComponent implements OnInit {
 
   getGalleryImages() {
     this.dataService.getAllGalleryImages().subscribe((data) => {
-      this.images = data.images;
+      this.galleryImages = data.images;
     });
   }
 
