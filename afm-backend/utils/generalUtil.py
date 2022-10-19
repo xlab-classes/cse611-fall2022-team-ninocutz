@@ -1,4 +1,7 @@
 def getBoolValue(s):
+    if not s or s == 'undefined':
+        return False
+
     if isinstance(s, bool):
         return s
 
