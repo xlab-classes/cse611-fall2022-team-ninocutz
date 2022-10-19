@@ -1,56 +1,137 @@
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="align-self-center col-auto" style="padding: 0">
-      <div *ngIf="currentEvent" class="map-display">
-        <app-current-location
-          [latitude]="+currentEvent.Latitude"
-          [longitude]="+currentEvent.Longitude"
-        ></app-current-location>
+<div #parentContainer>
+  <div class="container-fluid" *ngIf="currentEvent">
+    <div class="row justify-content-center">
+      <div class="align-self-center col-auto" style="padding: 0">
+        <div class="map-display">
+          <app-current-location
+            [latitude]="+currentEvent.Latitude"
+            [longitude]="+currentEvent.Longitude"
+          ></app-current-location>
+        </div>
       </div>
-    </div>
 
-    <div class="row justify-content-center" style="margin-top: 25px">
-      <div class="align-self-center col-auto">
-        <app-afm-button
-          label="Book now"
-          (click)="bookNowClicked()"
-        ></app-afm-button>
+      <div class="row justify-content-center" style="margin-top: 25px">
+        <div class="align-self-center col-auto">
+          <app-afm-button
+            label="Book now"
+            (click)="bookNowClicked()"
+          ></app-afm-button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="gallery-corousel">
-  <app-afm-blur-background>
-    <div style="padding-top: 10px; padding-bottom: 10px">
-      <h2 class="afm-heading-text">Gallery</h2>
-    </div>
-    <div class="container-fluid">
-      <p-galleria
-        [value]="images"
-        [numVisible]="5"
-        [circular]="true"
-        [showItemNavigators]="true"
-        [showThumbnails]="false"
-        [showIndicators]="true"
-        [showItemNavigatorsOnHover]="true"
-        [showIndicatorsOnItem]="true"
-        [autoPlay]="true"
-        [transitionInterval]="3000"
-      >
-        <ng-template pTemplate="item" let-item>
-          <div class="image-container">
-            <img class="gallery-image" [src]="item.Url" />
-          </div>
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-          <div class="grid grid-nogutter justify-content-center">
-            <img [src]="item.Url" style="display: block" />
-          </div>
-        </ng-template>
-      </p-galleria>
-    </div>
-  </app-afm-blur-background>
-</div>
+  <div class="gallery-corousel" id="futureEventsDisplay">
+    <app-afm-blur-background>
+      <div style="padding-top: 10px; padding-bottom: 10px">
+        <h2 class="afm-heading-text">Future Events</h2>
+      </div>
+      <div class="container-fluid">
+        <p-galleria
+          [value]="futureEvents"
+          [numVisible]="5"
+          [circular]="true"
+          [showItemNavigators]="true"
+          [showThumbnails]="false"
+          [showIndicators]="true"
+          [showItemNavigatorsOnHover]="true"
+          [showIndicatorsOnItem]="true"
+          [responsiveOptions]="responsiveOptions"
+        >
+          <ng-template pTemplate="item" let-item>
+            <div class="image-container">
+              <img class="gallery-image" [src]="item.Url" />
+            </div>
+          </ng-template>
+          <ng-template pTemplate="thumbnail" let-item>
+            <div class="grid grid-nogutter justify-content-center">
+              <img [src]="item.Url" style="display: block" />
+            </div>
+          </ng-template>
+          <ng-template pTemplate="caption" let-item>
+            <h4 style="color: #ffffff">
+              {{ item.Name }}
+            </h4>
+            <p style="margin-bottom: 2.5rem; color: #ffffff">
+              {{ item.Message }}
+            </p>
+          </ng-template>
+        </p-galleria>
+      </div>
+    </app-afm-blur-background>
+  </div>
 
+  <div class="gallery-corousel" id="pastEventsDisplay">
+    <app-afm-blur-background>
+      <div style="padding-top: 10px; padding-bottom: 10px">
+        <h2 class="afm-heading-text">Past Events</h2>
+      </div>
+      <div class="container-fluid">
+        <p-galleria
+          [value]="pastEvents"
+          [numVisible]="5"
+          [circular]="true"
+          [showItemNavigators]="true"
+          [showThumbnails]="false"
+          [showIndicators]="true"
+          [showItemNavigatorsOnHover]="true"
+          [showIndicatorsOnItem]="true"
+          [responsiveOptions]="responsiveOptions"
+        >
+          <ng-template pTemplate="item" let-item>
+            <div class="image-container">
+              <img class="gallery-image" [src]="item.Url" />
+            </div>
+          </ng-template>
+          <ng-template pTemplate="thumbnail" let-item>
+            <div class="grid grid-nogutter justify-content-center">
+              <img [src]="item.Url" style="display: block" />
+            </div>
+          </ng-template>
+          <ng-template pTemplate="caption" let-item>
+            <h4 style="color: #ffffff">
+              {{ item.Name }}
+            </h4>
+            <p style="margin-bottom: 2.5rem; color: #ffffff">
+              {{ item.Message }}
+            </p>
+          </ng-template>
+        </p-galleria>
+      </div>
+    </app-afm-blur-background>
+  </div>
+
+  <div class="gallery-corousel" id="galleryDisplay">
+    <app-afm-blur-background>
+      <div style="padding-top: 10px; padding-bottom: 10px">
+        <h2 class="afm-heading-text">Gallery</h2>
+      </div>
+      <div class="container-fluid">
+        <p-galleria
+          [value]="images"
+          [numVisible]="5"
+          [circular]="true"
+          [showItemNavigators]="true"
+          [showThumbnails]="false"
+          [showIndicators]="true"
+          [showItemNavigatorsOnHover]="true"
+          [showIndicatorsOnItem]="true"
+          [autoPlay]="true"
+          [transitionInterval]="3000"
+        >
+          <ng-template pTemplate="item" let-item>
+            <div class="image-container">
+              <img class="gallery-image" [src]="item.Url" />
+            </div>
+          </ng-template>
+          <ng-template pTemplate="thumbnail" let-item>
+            <div class="grid grid-nogutter justify-content-center">
+              <img [src]="item.Url" style="display: block" />
+            </div>
+          </ng-template>
+        </p-galleria>
+      </div>
+    </app-afm-blur-background>
+  </div>
+</div>
 <p-toast></p-toast>

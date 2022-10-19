@@ -16,11 +16,15 @@ export class CustomerHeaderComponent implements OnInit {
     this.items = [
       {
         label: 'Future Events',
-        routerLink: ['/future-events'],
+        routerLink: ['/home', { pageSec: 'futureEventsDisplay' }],
       },
       {
         label: 'Past Events',
-        routerLink: ['/past-events'],
+        routerLink: ['/home', { pageSec: 'pastEventsDisplay' }],
+      },
+      {
+        label: 'Gallery',
+        routerLink: ['/home', { pageSec: 'galleryDisplay' }],
       },
       {
         label: 'Request RV',
