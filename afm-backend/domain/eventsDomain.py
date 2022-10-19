@@ -47,7 +47,8 @@ def createCurrentEvent(event: EventModel, userId, emailTrigger=False):
         notification = notificationsDomain.getNotificationByType('Email')
         template = notification[0]['NotificationTemplate']
 
-        customers = customerRepository.getCustomersByZipCode(event.zipCode)
+        customers = customerRepository.getCustomersByZipCode(
+            event.zipCode, True)
         emailIds = [p['EmailId'] for p in customers]
         emailUtil.triggerNotificationEmail(template, emailIds)
         return currentEventId

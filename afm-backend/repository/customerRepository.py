@@ -29,11 +29,11 @@ def getCustomerByMobileNumber(mobileNumber):
     return None
 
 
-def getCustomersByZipCode(zipCode):
+def getCustomersByZipCode(zipCode, sendPromotion=False):
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT Id, FirstName, EmailId, MobileNumber, Address, ZipCode FROM AFM.Customer WHERE ZipCode = %s"
-    cursor.execute(sql, (zipCode))
+    sql = "SELECT Id, FirstName, EmailId, MobileNumber, Address, ZipCode FROM AFM.Customer WHERE ZipCode = %s AND SendPromotion = %s"
+    cursor.execute(sql, (zipCode, sendPromotion))
     columns = cursor.description
     results = [{columns[index][0]:column for index,
                 column in enumerate(value)} for value in cursor.fetchall()]
