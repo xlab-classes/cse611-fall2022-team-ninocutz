@@ -8,7 +8,49 @@
         ></app-current-location>
       </div>
     </div>
+
+    <div class="row justify-content-center" style="margin-top: 25px">
+      <div class="align-self-center col-auto">
+        <app-afm-button
+          label="Book now"
+          (click)="bookNowClicked()"
+        ></app-afm-button>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="gallery-corousel">
+  <app-afm-blur-background>
+    <div style="padding-top: 10px; padding-bottom: 10px">
+      <h2 class="afm-heading-text">Gallery</h2>
+    </div>
+    <div class="container-fluid">
+      <p-galleria
+        [value]="images"
+        [numVisible]="5"
+        [circular]="true"
+        [showItemNavigators]="true"
+        [showThumbnails]="false"
+        [showIndicators]="true"
+        [showItemNavigatorsOnHover]="true"
+        [showIndicatorsOnItem]="true"
+        [autoPlay]="true"
+        [transitionInterval]="3000"
+      >
+        <ng-template pTemplate="item" let-item>
+          <div class="image-container">
+            <img class="gallery-image" [src]="item.Url" />
+          </div>
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+          <div class="grid grid-nogutter justify-content-center">
+            <img [src]="item.Url" style="display: block" />
+          </div>
+        </ng-template>
+      </p-galleria>
+    </div>
+  </app-afm-blur-background>
 </div>
 
 <p-toast></p-toast>
