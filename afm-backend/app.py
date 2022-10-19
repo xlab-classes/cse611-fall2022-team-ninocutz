@@ -16,6 +16,7 @@ def create_app():
     from controller.userController import user_blueprint
     from controller.bookingsController import bookings_blueprint
     from controller.notificationsContoller import notifications_blueprint
+    from controller.customerContoller import customer_blueprint
 
     app = Flask(__name__)
 
@@ -37,6 +38,7 @@ def create_app():
     app.register_blueprint(user_blueprint)
     app.register_blueprint(bookings_blueprint)
     app.register_blueprint(notifications_blueprint)
+    app.register_blueprint(customer_blueprint)
 
     return app
 

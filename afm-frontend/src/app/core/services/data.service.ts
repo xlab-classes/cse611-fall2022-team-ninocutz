@@ -19,6 +19,7 @@ import { UserProfileResponseModel } from '../models/user-profile-response.model'
 import { UserModel } from '../models/user.model';
 import { CurrentEventReposponseModel } from '../models/current-event-response.model';
 import { RVRequestModel } from '../models/rv-request.model';
+import { CustomerSignupModel } from '../models/customer-signup.model';
 
 @Injectable({
   providedIn: 'root',
@@ -287,6 +288,10 @@ export class DataService {
   }
 
   requestRV(rvRequest: RVRequestModel) {
-    return this.postData('/bookings', rvRequest);
+    return this.postData('bookings', rvRequest);
+  }
+
+  customerSignup(customer: CustomerSignupModel): Observable<any> {
+    return this.postData('customer', customer);
   }
 }
