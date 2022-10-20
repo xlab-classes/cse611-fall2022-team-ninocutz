@@ -33,6 +33,7 @@ export class AddFutureEventComponent implements OnInit {
   facebookTrigger: boolean = false;
   twitterTrigger: boolean = false;
   facebookAuthToken: string;
+  loading = false;
 
   constructor(
     private dataService: DataService,
@@ -79,6 +80,7 @@ export class AddFutureEventComponent implements OnInit {
   }
 
   addNewFutureEvent() {
+    this.loading = true;
     const data: EventRequestModel = new EventRequestModel();
     data.eventName = this.eventName;
     data.address = this.address;
@@ -99,6 +101,7 @@ export class AddFutureEventComponent implements OnInit {
     data.postToTwitter = this.twitterTrigger;
 
     this.dataService.createEvent(data, this.uploadedFiles).subscribe((data) => {
+      this.loading = false;
       this.showSuccess();
     });
   }

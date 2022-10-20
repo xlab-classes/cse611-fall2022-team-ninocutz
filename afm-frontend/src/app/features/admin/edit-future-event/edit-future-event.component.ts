@@ -25,6 +25,7 @@ export class EditFutureEventComponent implements OnInit, OnDestroy {
   fromTime: Date = new Date();
   toTime: Date = new Date();
   eventDate: Date = new Date();
+  loading = false;
 
   constructor(
     private sharingService: SharingService,
@@ -100,6 +101,7 @@ export class EditFutureEventComponent implements OnInit, OnDestroy {
   }
 
   editFutureEvent() {
+    this.loading = true;
     const data: EventRequestModel = new EventRequestModel();
     data.eventName = this.futureEvent.Name;
     data.address = this.futureEvent.Address;
@@ -117,6 +119,7 @@ export class EditFutureEventComponent implements OnInit, OnDestroy {
     this.dataService
       .editEvent('' + this.futureEvent.Id, data, this.uploadedFiles)
       .subscribe((data) => {
+        this.loading = false;
         this.showSuccess();
       });
   }

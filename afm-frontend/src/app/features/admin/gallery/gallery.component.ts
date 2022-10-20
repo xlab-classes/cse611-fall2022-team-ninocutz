@@ -15,6 +15,7 @@ export class GalleryComponent implements OnInit {
   faTrash = faTrash;
   galleryImages: GalleryImagesModel[] = [];
   uploadedFiles: any;
+  loading = false;
 
   constructor(
     private dataService: DataService,
@@ -47,10 +48,12 @@ export class GalleryComponent implements OnInit {
   }
 
   uploadImage() {
+    this.loading = true;
     this.dataService
       .addNewGalleryImage(this.uploadedFiles)
       .subscribe((data) => {
         this.clear();
+        this.loading = false;
         this.loadGalleryImages();
         this.showAddSuccess();
       });
