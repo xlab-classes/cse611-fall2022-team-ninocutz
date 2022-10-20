@@ -27,7 +27,7 @@ def createEvent():
                           latitude=request.form.get('latitude'),
                           zipCode=request.form.get('zipCode'),
                           address=request.form.get('address'),
-                          message=request.form.get('message'),
+                          message=request.form.get('message', None),
                           eventTimeSlot=request.form.get('eventTimeSlot'),
                           eventDate=request.form.get('eventDate')
                           )
