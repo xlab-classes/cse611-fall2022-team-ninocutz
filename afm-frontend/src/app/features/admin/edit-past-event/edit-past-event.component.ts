@@ -27,6 +27,7 @@ export class EditPastEventComponent implements OnInit, OnDestroy {
   fromTime: Date = new Date();
   toTime: Date = new Date();
   eventDate: Date = new Date();
+  loading = false;
 
   constructor(
     private sharingService: SharingService,
@@ -102,6 +103,7 @@ export class EditPastEventComponent implements OnInit, OnDestroy {
   }
 
   editPastEvent() {
+    this.loading = true;
     const data: EventRequestModel = new EventRequestModel();
     data.eventName = this.pastEvent.Name;
     data.address = this.pastEvent.Address;
@@ -119,6 +121,7 @@ export class EditPastEventComponent implements OnInit, OnDestroy {
     this.dataService
       .editEvent('' + this.pastEvent.Id, data, this.uploadedFiles)
       .subscribe((data) => {
+        this.loading = false;
         this.showSuccess();
       });
   }

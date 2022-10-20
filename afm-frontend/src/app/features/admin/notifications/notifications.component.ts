@@ -11,6 +11,7 @@ import { DataService } from 'src/app/core/services/data.service';
 })
 export class NotificationsComponent implements OnInit {
   notifications: NotificationsModel[] = [];
+  loading = false;
 
   constructor(
     private dataService: DataService,
@@ -28,7 +29,9 @@ export class NotificationsComponent implements OnInit {
   }
 
   updateTemplate(template: NotificationsModel) {
+    this.loading = true;
     this.dataService.updateNotification(template).subscribe((data) => {
+      this.loading = false;
       this.showSuccess();
     });
   }

@@ -25,6 +25,7 @@ export class AddPastEventComponent implements OnInit {
   eventName: string;
   fromTime: Date;
   toTime: Date;
+  loading = false;
 
   constructor(
     private dataService: DataService,
@@ -54,6 +55,7 @@ export class AddPastEventComponent implements OnInit {
   }
 
   addNewPastEvent() {
+    this.loading = true;
     const data: EventRequestModel = new EventRequestModel();
     data.eventName = this.eventName;
     data.address = this.address;
@@ -69,6 +71,7 @@ export class AddPastEventComponent implements OnInit {
       moment(this.toTime).format('HH:mm');
 
     this.dataService.createEvent(data, this.uploadedFiles).subscribe((data) => {
+      this.loading = false;
       this.showSuccess();
     });
   }
