@@ -53,6 +53,8 @@ def createCurrentEvent(event: EventModel, userId, emailTrigger=False):
         emailUtil.triggerNotificationEmail(template, emailIds)
         return currentEventId
 
+    return currentEventId
+
 
 def getAllPastEvents():
     events = eventsRepo.getAllPastEvents()
