@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AfmImageComponent implements OnInit {
   @Input() src: string;
   @Input() width = '250';
+  @Input() maxWidth = '100%';
 
   constructor() {}
 

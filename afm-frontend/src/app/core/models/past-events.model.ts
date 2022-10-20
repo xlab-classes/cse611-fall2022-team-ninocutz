@@ -4,7 +4,7 @@ export class PastEventsModel extends ImageCarouselModel {
   Name: string;
   Address: string;
   EventDate: string;
-  EventTImeSlot: string;
+  EventTimeSlot: string;
   Latitude: string;
   Longitude: string;
   Zipcode: string;

@@ -39,12 +39,16 @@
           }"
           [autoplay]="{
             delay: 3000,
-            disableOnInteraction: false
+            disableOnInteraction: true
           }"
           class="my-swiper"
         >
           <ng-template swiperSlide *ngFor="let futureEvent of futureEvents">
-            <div class="swiper-slide-container">
+            <div
+              class="swiper-slide-container"
+              (click)="futureEventClicked(futureEvent)"
+              style="cursor: pointer"
+            >
               <div>
                 <h4 style="color: black">
                   {{ futureEvent.Name }}
@@ -64,6 +68,27 @@
       <br />
     </app-afm-blur-background>
   </div>
+  <!-- <div class="gallery-corousel" id="futureEventsDisplay">
+    <app-afm-blur-background>
+      <div style="padding-top: 10px; padding-bottom: 10px">
+        <h2 class="afm-heading-text">Future Events</h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <div *ngIf="futureEvents.length == 0">
+            <p-progressSpinner></p-progressSpinner>
+          </div>
+          <div *ngIf="futureEvents.length > 0">
+            <app-afm-image-carousel
+              [data]="futureEvents"
+              (imageClick)="futureEventClicked($event)"
+              [displayIcon]="false"
+            ></app-afm-image-carousel>
+          </div>
+        </div>
+      </div>
+    </app-afm-blur-background>
+  </div> -->
 
   <div class="gallery-corousel" id="pastEventsDisplay">
     <app-afm-blur-background>
@@ -83,12 +108,16 @@
           }"
           [autoplay]="{
             delay: 3000,
-            disableOnInteraction: false
+            disableOnInteraction: true
           }"
           class="my-swiper"
         >
           <ng-template swiperSlide *ngFor="let pastEvent of pastEvents">
-            <div class="swiper-slide-container">
+            <div
+              class="swiper-slide-container"
+              (click)="pastEventClicked(pastEvent)"
+              style="cursor: pointer"
+            >
               <div>
                 <h4 style="color: black">
                   {{ pastEvent.Name }}
@@ -127,7 +156,7 @@
           }"
           [autoplay]="{
             delay: 3000,
-            disableOnInteraction: false
+            disableOnInteraction: true
           }"
           class="my-swiper"
         >
