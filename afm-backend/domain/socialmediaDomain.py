@@ -1,6 +1,7 @@
 import requests
 import os
 import tweepy
+from repository import notificationsRepository
 
 facebook_id = os.environ.get("FB_ID")
 client_secret = os.environ.get("FB_SECRET")
@@ -11,6 +12,8 @@ access_token = os.environ.get('TWITTER_ACCESS_TOKEN')
 access_token_secret = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
 
 def postToInstagram(access_token, image_url, message):
+    if not message or not message.strip():
+        message = notificationsRepository.getNotificationByType('Instagram')[0]['NotificationTemplate']
     long_access_token = generate_long_lived_token(access_token)
     instagram_id = get_instagram_id(long_access_token)
     if not instagram_id:
@@ -63,6 +66,8 @@ def generate_long_lived_token(access_token):
 
 
 def postToFacebook(access_token, image_url, message):
+    if not message or not message.strip():
+        message = notificationsRepository.getNotificationByType('Facebook')[0]['NotificationTemplate']
     page_id, page_access_token = get_facebook_page_id_token(access_token)
     if not page_id and not page_access_token:
         return False
@@ -92,6 +97,8 @@ def get_facebook_page_id_token(access_token):
 
 
 def postToTwitter(image_path, message):
+    if not message or not message.strip():
+        message = notificationsRepository.getNotificationByType('Twitter')[0]['NotificationTemplate']
     auth=tweepy.OAuthHandler(consumer_key,consumer_secret_key)
     auth.set_access_token(access_token,access_token_secret)
     api=tweepy.API(auth)
