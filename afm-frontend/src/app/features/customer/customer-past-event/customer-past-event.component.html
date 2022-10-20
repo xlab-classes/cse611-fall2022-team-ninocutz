@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="align-self-center col-auto">
+      <app-afm-image
+        [src]="pastEvent.Url ?? ''"
+        maxWidth="100%"
+      ></app-afm-image>
+    </div>
+  </div>
+
+  <div class="row">
+    <h4 class="afm-label-text">Name : {{ pastEvent.Name }}</h4>
+  </div>
+
+  <div class="row">
+    <h4 class="afm-label-text">Date : {{ eventDate }}</h4>
+  </div>
+
+  <div class="row">
+    <h4 class="afm-label-text">Time : {{ pastEvent.EventTimeSlot }}</h4>
+  </div>
+
+  <div class="row">
+    <h4 class="afm-label-text">Message : {{ pastEvent.Message }}</h4>
+  </div>
+
+  <div class="row">
+    <h4 class="afm-label-text">Address : {{ pastEvent.Address }}</h4>
+  </div>
+
+  <div class="row">
+    <h4 class="afm-label-text">Zipcode : {{ pastEvent.Zipcode }}</h4>
+  </div>
+</div>

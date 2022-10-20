@@ -5,22 +5,22 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CustomerComponent } from './customer.component';
 import { CustomerHeaderComponent } from './customer-header/customer-header.component';
-import { CustomerFutureEventsComponent } from './customer-future-events/customer-future-events.component';
-import { CustomerPastEventsComponent } from './customer-past-events/customer-past-events.component';
 import { RequestRvComponent } from './request-rv/request-rv.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { CurrentLocationComponent } from './current-location/current-location.component';
+import { CustomerPastEventComponent } from './customer-past-event/customer-past-event.component';
+import { CustomerFutureEventComponent } from './customer-future-event/customer-future-event.component';
 
 @NgModule({
   declarations: [
     CustomerHomeComponent,
     CustomerComponent,
     CustomerHeaderComponent,
-    CustomerFutureEventsComponent,
-    CustomerPastEventsComponent,
     RequestRvComponent,
     SignUpComponent,
     CurrentLocationComponent,
+    CustomerPastEventComponent,
+    CustomerFutureEventComponent,
   ],
   imports: [CustomerRoutingModule, CommonModule, SharedModule],
 })
