@@ -101,9 +101,38 @@ def getAllPastEvents():
     return results
 
 
-def addCurrentEvent(eventId, userId):
+def deleteAllCurrentEvents():
     db = Database()
-    # TODO: Truncate Table and add the new current event, to support only one current event at a time
+
+    currentEventsSql = "SELECT EventId FROM AFM.CurrentEvent"
+    cursor = db.cursor()
+    cursor.execute(currentEventsSql)
+    results = cursor.fetchall()
+
+    eventIds = []
+
+    for res in results:
+        if res[0] is not None:
+            eventIds.append(res[0])
+
+    deleteAllCurrentEventsSql = "TRUNCATE TABLE AFM.CurrentEvent"
+    cursor = db.cursor()
+    cursor.execute(deleteAllCurrentEventsSql)
+    cursor.close()
+    db.commit()
+
+    if eventIds:
+        deleteMultipleEvents(eventIds)
+
+    return True
+
+
+def addCurrentEvent(eventId, userId):
+
+    deleteAllCurrentEvents()
+
+    db = Database()
+
     sql = "INSERT INTO AFM.CurrentEvent (EventId, CreatedBy) VALUES (%s, %s)"
 
     cursor = db.cursor()
@@ -111,6 +140,36 @@ def addCurrentEvent(eventId, userId):
     cursor.close()
     db.commit()
     return cursor.lastrowid
+
+
+def deleteMultipleEvents(eventIds):
+    db = Database()
+    cursor = db.cursor()
+
+    eventIdsList = list(map(str, eventIds))
+
+    eventIdsString = '(' + ','.join(eventIdsList) + ')'
+    # Get image id
+    image_sql = "SELECT ImageId from AFM.Event WHERE Id IN " + \
+        str(eventIdsString)
+    cursor.execute(image_sql)
+    results = cursor.fetchall()
+
+    imageIds = []
+    for res in results:
+        if res[0] is not None:
+            imageIds.append(res[0])
+
+    # Delete from events table
+    sql = "DELETE FROM AFM.Event WHERE Id IN " + str(eventIdsString)
+    val = cursor.execute(sql)
+    cursor.close()
+    db.commit()
+
+    if imageIds:
+        imagesRepository.deleteMultipleImages(imageIds)
+
+    return val >= 1
 
 
 def delete_event(id):

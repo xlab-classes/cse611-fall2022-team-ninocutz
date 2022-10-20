@@ -49,3 +49,19 @@ def deleteImage(imageId):
     cursor.close()
     db.commit()
     return val == 1
+
+
+def deleteMultipleImages(imageIds):
+    db = Database()
+    cursor = db.cursor()
+
+    imageIdsList = list(map(str, imageIds))
+
+    imageIdsString = '(' + ','.join(imageIdsList) + ')'
+
+    sql = "DELETE FROM AFM.Image WHERE Id IN " + str(imageIdsString)
+
+    val = cursor.execute(sql)
+    cursor.close()
+    db.commit()
+    return val >= 1
