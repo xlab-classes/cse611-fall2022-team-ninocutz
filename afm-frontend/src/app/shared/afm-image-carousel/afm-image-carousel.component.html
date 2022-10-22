@@ -23,7 +23,7 @@
                       <p-image
                         [src]="image.Url"
                         alt="Image"
-                        width="200"
+                        [width]="imageWidth"
                       ></p-image>
                     </div>
                     <div class="col-2" *ngIf="displayIcon">
@@ -33,9 +33,13 @@
                 </div>
               </div>
               <div>
-                <h4 class="afm-label-text message-break">
-                  {{ image.Message }}
+                <h4 class="afm-label-text event-name">
+                  {{ image.Name }}
                 </h4>
+
+                <p class="afm-heading-text message-break">
+                  {{ image.Message }}
+                </p>
               </div>
             </div>
           </div>

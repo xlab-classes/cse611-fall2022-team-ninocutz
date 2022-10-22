@@ -21,7 +21,51 @@
     </div>
   </div>
 
-  <div class="gallery-corousel" id="futureEventsDisplay">
+  <div id="futureEventsDisplay" class="gallery-corousel">
+    <app-afm-blur-background>
+      <div style="padding-top: 10px">
+        <h2 class="afm-heading-text">Future Events</h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <div *ngIf="futureEvents.length == 0">
+            <p-progressSpinner></p-progressSpinner>
+          </div>
+          <div *ngIf="futureEvents.length > 0">
+            <app-afm-image-carousel
+              [data]="futureEvents"
+              (imageClick)="futureEventClicked($event)"
+              [displayIcon]="false"
+            ></app-afm-image-carousel>
+          </div>
+        </div>
+      </div>
+    </app-afm-blur-background>
+  </div>
+
+  <div id="pastEventsDisplay" class="gallery-corousel">
+    <app-afm-blur-background>
+      <div style="padding-top: 10px">
+        <h2 class="afm-heading-text">Past Events</h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <div *ngIf="pastEvents.length == 0">
+            <p-progressSpinner></p-progressSpinner>
+          </div>
+          <div *ngIf="pastEvents.length > 0">
+            <app-afm-image-carousel
+              [data]="pastEvents"
+              (imageClick)="pastEventClicked($event)"
+              [displayIcon]="false"
+            ></app-afm-image-carousel>
+          </div>
+        </div>
+      </div>
+    </app-afm-blur-background>
+  </div>
+
+  <!-- <div class="gallery-corousel" id="futureEventsDisplay">
     <app-afm-blur-background>
       <div style="padding-top: 10px; padding-bottom: 10px">
         <h2 class="afm-heading-text">Future Events</h2>
@@ -67,30 +111,9 @@
       </div>
       <br />
     </app-afm-blur-background>
-  </div>
-  <!-- <div class="gallery-corousel" id="futureEventsDisplay">
-    <app-afm-blur-background>
-      <div style="padding-top: 10px; padding-bottom: 10px">
-        <h2 class="afm-heading-text">Future Events</h2>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-auto">
-          <div *ngIf="futureEvents.length == 0">
-            <p-progressSpinner></p-progressSpinner>
-          </div>
-          <div *ngIf="futureEvents.length > 0">
-            <app-afm-image-carousel
-              [data]="futureEvents"
-              (imageClick)="futureEventClicked($event)"
-              [displayIcon]="false"
-            ></app-afm-image-carousel>
-          </div>
-        </div>
-      </div>
-    </app-afm-blur-background>
   </div> -->
 
-  <div class="gallery-corousel" id="pastEventsDisplay">
+  <!-- <div class="gallery-corousel" id="pastEventsDisplay">
     <app-afm-blur-background>
       <div style="padding-top: 10px; padding-bottom: 10px">
         <h2 class="afm-heading-text">Past Events</h2>
@@ -136,7 +159,7 @@
       </div>
       <br />
     </app-afm-blur-background>
-  </div>
+  </div> -->
 
   <div class="gallery-corousel" id="galleryDisplay">
     <app-afm-blur-background>
