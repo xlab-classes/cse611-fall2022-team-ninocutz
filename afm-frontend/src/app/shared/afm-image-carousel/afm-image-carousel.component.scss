@@ -17,3 +17,7 @@
   overflow-wrap: break-word;
   max-width: 400px;
 }
+.event-name {
+  @extend .message-break;
+  font-weight: 900;
+}

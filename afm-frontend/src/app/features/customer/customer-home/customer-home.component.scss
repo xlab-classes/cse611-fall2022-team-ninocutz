@@ -1,7 +1,3 @@
-// @import "../../../../../node_modules/swiper/swiper.scss";
-// @import "../../../../../node_modules/swiper/modules/navigation/navigation.scss";
-// @import "../../../../../node_modules/swiper/modules/pagination/pagination.scss";
-
 @import "swiper/scss";
 @import "swiper/scss/navigation";
 @import "swiper/scss/pagination";
@@ -23,10 +19,10 @@
 .gallery-image {
   width: 100%;
   height: 500px;
-  object-fit: cover;
+  object-fit: contain;
 }
 .my-swiper {
   width: 100%;
   height: 500px;
-  object-fit: cover;
+  // object-fit: cover;
 }
