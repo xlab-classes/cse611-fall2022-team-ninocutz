@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  HostListener,
   OnInit,
   ViewChild,
   ViewEncapsulation,
@@ -31,29 +32,16 @@ export class CustomerHomeComponent implements OnInit {
   galleryImages: GalleryImagesModel[] = [];
   pastEvents: PastEventsModel[] = [];
   futureEvents: FutureEventsModel[] = [];
-  responsiveOptions: any[] = [
-    {
-      breakpoint: '1024px',
-      numVisible: 5,
-    },
-    {
-      breakpoint: '768px',
-      numVisible: 3,
-    },
-    {
-      breakpoint: '560px',
-      numVisible: 1,
-    },
-  ];
+  imageHeight = '500px';
 
   constructor(
     private dataService: DataService,
     private activeRoute: ActivatedRoute,
-    public dialogService: DialogService,
-    private messageService: MessageService
+    public dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
+    this.setHeightOfGalleryImages(window.innerWidth);
     this.getCurrentLocationOfRv();
     this.getFutureEvents();
     this.getPastEvents();
@@ -62,7 +50,6 @@ export class CustomerHomeComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.activeRoute.params.subscribe((param) => {
-      // alert(param.pageSec)
       if (param['pageSec']) {
         const section = this.container.nativeElement.querySelector(
           `#${param['pageSec']}`
@@ -128,5 +115,15 @@ export class CustomerHomeComponent implements OnInit {
         event: event,
       },
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.setHeightOfGalleryImages(window.innerWidth);
+  }
+
+  setHeightOfGalleryImages(windowSize: number) {
+    this.imageHeight =
+      windowSize <= 320 ? '200px' : windowSize <= 425 ? '300px' : '500px';
   }
 }
