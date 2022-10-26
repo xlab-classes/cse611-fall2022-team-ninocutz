@@ -294,4 +294,20 @@ export class DataService {
   customerSignup(customer: CustomerSignupModel): Observable<any> {
     return this.postData('customer', customer);
   }
+
+  approveBookingRequest(bookingId: number): Observable<any> {
+    const data = {
+      bookingId: bookingId,
+    };
+
+    return this.putData('bookings/approve', data, true);
+  }
+
+  declineBookingRequest(bookingId: number): Observable<any> {
+    const data = {
+      bookingId: bookingId,
+    };
+
+    return this.putData('bookings/decline', data, true);
+  }
 }

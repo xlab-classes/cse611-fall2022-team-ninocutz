@@ -1,4 +1,5 @@
 export class BookingsModel {
+  Id: number;
   FirstName: string;
   LastName: string;
   BookingDate: string;

@@ -16,7 +16,7 @@ def addBooking(customerId, numberOfPeople, bookingDate, bookingTimeSlot):
 def getAllBookings():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT C.FirstName, C.LastName, B.NumberOfPeople, B.BookingDate, B.BookingTimeSlot, C.Address, C.EmailId, C.MobileNumber, B.BookingStatus \
+    sql = "SELECT B.Id, C.FirstName, C.LastName, B.NumberOfPeople, B.BookingDate, B.BookingTimeSlot, C.Address, C.EmailId, C.MobileNumber, B.BookingStatus \
         FROM AFM.Booking AS B LEFT JOIN AFM.Customer AS C ON B.CustomerId = C.Id"
     cursor.execute(sql)
     columns = cursor.description
@@ -30,8 +30,8 @@ def getAllBookings():
 def getAllRequestedBookings():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT C.FirstName, C.LastName, B.NumberOfPeople, B.BookingDate, B.BookingTimeSlot, C.Address, C.EmailId, C.MobileNumber \
-        FROM AFM.Booking AS B LEFT JOIN AFM.Customer AS C ON B.CustomerId = C.Id WHERE BookingStatus = 'REQUESTED'"
+    sql = "SELECT B.Id, C.FirstName, C.LastName, B.NumberOfPeople, B.BookingDate, B.BookingTimeSlot, C.Address, C.EmailId, C.MobileNumber \
+        FROM AFM.Booking AS B LEFT JOIN AFM.Customer AS C ON B.CustomerId = C.Id WHERE B.BookingStatus = 'REQUESTED'"
     cursor.execute(sql)
     columns = cursor.description
     results = [{columns[index][0]:column for index,
