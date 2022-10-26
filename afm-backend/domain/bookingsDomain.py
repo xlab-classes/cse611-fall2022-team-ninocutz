@@ -30,3 +30,7 @@ def declineBooking(bookingId, userId):
 
 def acceptBooking(bookingId, userId):
     return bookingsRepository.acceptBooking(bookingId, userId)
+
+
+def getBookingSlots():
+    return bookingsRepository.getBookingSlots()
