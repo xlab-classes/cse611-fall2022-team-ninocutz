@@ -60,6 +60,7 @@
           <th pSortableColumn="BookingStatus">
             Booking Status <p-sortIcon field="BookingStatus"></p-sortIcon>
           </th>
+          <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-booking>
@@ -75,6 +76,24 @@
           <td>{{ booking.MobileNumber }}</td>
           <td>{{ booking.NumberOfPeople }}</td>
           <td>{{ booking.BookingStatus }}</td>
+          <td width="130px">
+            <div *ngIf="booking.BookingStatus === 'REQUESTED'">
+              <button
+                pButton
+                pRipple
+                icon="pi pi-check"
+                class="p-button-rounded p-button-success mr-2"
+                (click)="approveRequest(booking)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-warning"
+                (click)="declineRequest(booking)"
+              ></button>
+            </div>
+          </td>
         </tr>
       </ng-template>
     </p-table>

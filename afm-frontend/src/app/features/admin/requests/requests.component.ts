@@ -30,4 +30,16 @@ export class RequestsComponent implements OnInit {
       this.bookings = data.bookings;
     });
   }
+
+  approveRequest(booking: BookingsModel) {
+    this.dataService.approveBookingRequest(booking.Id).subscribe((data) => {
+      this.getAllBookings();
+    });
+  }
+
+  declineRequest(booking: BookingsModel) {
+    this.dataService.declineBookingRequest(booking.Id).subscribe((data) => {
+      this.getAllBookings();
+    });
+  }
 }
