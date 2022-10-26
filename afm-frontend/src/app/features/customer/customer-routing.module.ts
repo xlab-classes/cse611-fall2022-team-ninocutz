@@ -4,6 +4,7 @@ import { CustomerHomeComponent } from './customer-home/customer-home.component';
 import { CustomerComponent } from './customer.component';
 import { RequestRvComponent } from './request-rv/request-rv.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { CustomerAppointmentComponent } from './customer-appointment/customer-appointment.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'sign-up',
         component: SignUpComponent,
+      },
+      {
+        path: 'appointment-request',
+        component: CustomerAppointmentComponent,
       },
     ],
   },

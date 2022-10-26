@@ -1,0 +1,83 @@
+<div class="root-div">
+  <h2 class="afm-heading-text text-align-center">Appointment Request</h2>
+
+  <div class="form-external-box">
+    <app-afm-blur-background>
+      <div class="container" class="form-internal-box">
+        <div class="row mt-4">
+          <div class="col">
+            <h5 class="afm-label-text">First Name</h5>
+            <input type="text" pInputText [(ngModel)]="appointment.firstName" />
+          </div>
+
+          <div class="col mt-sm-0 mt-4">
+            <h5 class="afm-label-text">Last Name</h5>
+            <input type="text" pInputText [(ngModel)]="appointment.lastName" />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <h5 class="afm-label-text">Time Slot</h5>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <span class="p-float-label">
+              <p-calendar
+                id="fromTime"
+                [(ngModel)]="fromTime"
+                [timeOnly]="true"
+                [hourFormat]="'24'"
+                inputId="timeonly"
+              ></p-calendar>
+              <label for="fromTime">From Time</label>
+            </span>
+          </div>
+          <div class="col">
+            <span class="p-float-label">
+              <p-calendar
+                id="toime"
+                [(ngModel)]="toTime"
+                [timeOnly]="true"
+                [hourFormat]="'24'"
+                [minDate]="fromTime"
+                inputId="timeonly"
+              ></p-calendar>
+              <label for="toime">To Time</label>
+            </span>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <h5 class="afm-label-text">Email Id</h5>
+            <input type="text" pInputText [(ngModel)]="appointment.emailId" />
+          </div>
+
+          <div class="col mt-sm-0 mt-4">
+            <h5 class="afm-label-text">Mobile Number</h5>
+            <p-inputNumber
+              [(ngModel)]="appointment.mobileNumber"
+              mode="decimal"
+              inputId="withoutgrouping"
+              [useGrouping]="false"
+            >
+            </p-inputNumber>
+          </div>
+        </div>
+
+        <div class="row mt-4"></div>
+
+        <div class="row mt-4 text-align-center">
+          <app-afm-button
+            label="Submit"
+            (click)="submitClicked()"
+            [disable]="disableSubmit()"
+          ></app-afm-button>
+        </div>
+      </div>
+    </app-afm-blur-background>
+  </div>
+</div>
+
+<p-toast></p-toast>

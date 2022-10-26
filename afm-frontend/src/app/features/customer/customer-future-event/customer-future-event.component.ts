@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FutureEventsModel } from 'src/app/core/models/future-events.model';
+import { SharingService } from 'src/app/core/services/sharing.service';
 
 @Component({
   selector: 'app-customer-future-event',
@@ -14,7 +16,9 @@ export class CustomerFutureEventComponent implements OnInit {
 
   constructor(
     public ref: DynamicDialogRef,
-    public config: DynamicDialogConfig
+    public config: DynamicDialogConfig,
+    private sharingService: SharingService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -22,5 +26,11 @@ export class CustomerFutureEventComponent implements OnInit {
     this.eventDate = this.futureEvent.EventDate = moment(this.eventDate).format(
       'LL'
     );
+  }
+
+  openAppointmentBooking() {
+    this.sharingService.setData(this.futureEvent);
+    this.ref.close();
+    this.router.navigate(['/appointment-request']);
   }
 }
