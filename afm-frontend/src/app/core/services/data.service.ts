@@ -21,6 +21,7 @@ import { CurrentEventReposponseModel } from '../models/current-event-response.mo
 import { RVRequestModel } from '../models/rv-request.model';
 import { CustomerSignupModel } from '../models/customer-signup.model';
 import { AppointmentsResponseModel } from '../models/appointments-response.model';
+import { AppointmentsRequestModel } from '../models/appointments-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -300,7 +301,6 @@ export class DataService {
     const data = {
       bookingId: bookingId,
     };
-
     return this.putData('bookings/approve', data, true);
   }
 
@@ -308,7 +308,6 @@ export class DataService {
     const data = {
       bookingId: bookingId,
     };
-
     return this.putData('bookings/decline', data, true);
   }
 
@@ -320,7 +319,6 @@ export class DataService {
     const data = {
       appointmentId: appointmentId,
     };
-
     return this.putData('appointments/approve', data, true);
   }
 
@@ -328,7 +326,10 @@ export class DataService {
     const data = {
       appointmentId: appointmentId,
     };
-
     return this.putData('appointments/decline', data, true);
+  }
+
+  requestAppointment(appointment: AppointmentsRequestModel) {
+    return this.postData<AppointmentsRequestModel>('appointments', appointment);
   }
 }

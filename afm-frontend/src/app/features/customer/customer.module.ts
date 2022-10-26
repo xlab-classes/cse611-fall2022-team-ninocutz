@@ -10,6 +10,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { CurrentLocationComponent } from './current-location/current-location.component';
 import { CustomerPastEventComponent } from './customer-past-event/customer-past-event.component';
 import { CustomerFutureEventComponent } from './customer-future-event/customer-future-event.component';
+import { CustomerAppointmentComponent } from './customer-appointment/customer-appointment.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CustomerFutureEventComponent } from './customer-future-event/customer-f
     CurrentLocationComponent,
     CustomerPastEventComponent,
     CustomerFutureEventComponent,
+    CustomerAppointmentComponent,
   ],
   imports: [CustomerRoutingModule, CommonModule, SharedModule],
 })

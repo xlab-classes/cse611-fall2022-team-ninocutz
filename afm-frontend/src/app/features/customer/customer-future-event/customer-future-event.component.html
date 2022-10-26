@@ -31,4 +31,13 @@
   <div class="row">
     <h4 class="afm-label-text">Zipcode : {{ futureEvent.Zipcode }}</h4>
   </div>
+
+  <div class="row" style="text-align: center">
+    <div class="col align-self-center mt-4">
+      <app-afm-button
+        label="Book Appointment"
+        (click)="openAppointmentBooking()"
+      ></app-afm-button>
+    </div>
+  </div>
 </div>
