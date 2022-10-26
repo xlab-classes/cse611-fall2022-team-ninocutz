@@ -1,5 +1,5 @@
+from collections import defaultdict
 from app import Database
-
 
 def addBooking(customerId, numberOfPeople, bookingDate, bookingTimeSlot):
     db = Database()
@@ -59,3 +59,24 @@ def acceptBooking(bookingId, userId):
     cursor.close()
     db.commit()
     return val == 1
+
+
+def getBookingSlots():
+    db = Database()
+    booking_slots = defaultdict(list)
+    cursor = db.cursor()
+    sql = "SELECT BookingDate, BookingTimeSlot FROM AFM.Booking where BookingStatus = 'ACCEPTED' and BookingDate >= CURDATE();"
+    cursor.execute(sql)
+    columns = cursor.description
+    results = [{columns[index][0]:column for index,
+                column in enumerate(value)} for value in cursor.fetchall()]
+    cursor.close()
+    if not results:
+        return results
+    for result in results:
+        year = result['BookingDate'].strftime("%Y-%m-%d")
+        booking_slots[year].append(result['BookingTimeSlot'])
+    results = []
+    for k, v in booking_slots.items():
+        results.append({'BookingDate':k, 'BookingSlots':v})
+    return results
