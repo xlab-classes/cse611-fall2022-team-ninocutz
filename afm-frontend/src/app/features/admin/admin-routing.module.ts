@@ -15,6 +15,7 @@ import { AddPastEventComponent } from './add-past-event/add-past-event.component
 import { NotificationsComponent } from './notifications/notifications.component';
 import { EditPastEventComponent } from './edit-past-event/edit-past-event.component';
 import { ProfileComponent } from './profile/profile.component';
+import { FutureAppointmentsComponent } from './future-appointments/future-appointments.component';
 
 const routes: Routes = [
   {
@@ -91,6 +92,11 @@ const routes: Routes = [
       {
         path: 'admin/notifications',
         component: NotificationsComponent,
+        canActivateChild: [AuthGuardService],
+      },
+      {
+        path: 'admin/appointments',
+        component: FutureAppointmentsComponent,
         canActivateChild: [AuthGuardService],
       },
     ],

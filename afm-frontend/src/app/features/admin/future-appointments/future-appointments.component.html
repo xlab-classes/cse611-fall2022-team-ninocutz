@@ -1,0 +1,95 @@
+<div class="row" style="margin-top: 50px">
+  <h2 class="afm-heading-text" style="text-align: center">Requests</h2>
+
+  <div class="col-10 mx-auto">
+    <p-table
+      #appointmentsTable
+      [value]="appointments"
+      responsiveLayout="scroll"
+      [paginator]="true"
+      [rows]="5"
+      [globalFilterFields]="[
+        'FirstName',
+        'LastName',
+        'EventDate',
+        'EventName',
+        'BookingTimeSlot',
+        'EmailId',
+        'MobileNumber',
+        'AppointmentStatus'
+      ]"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="applyFilterGlobal($event, 'contains')"
+              placeholder="Search keyword"
+            />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="FirstName">
+            First Name <p-sortIcon field="FirstName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="LastName">
+            Last Name <p-sortIcon field="LastName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="EventName">
+            Event Name <p-sortIcon field="EventName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="EventDate">
+            Date <p-sortIcon field="EventDate"></p-sortIcon>
+          </th>
+          <th>Time Slot</th>
+          <th pSortableColumn="EmailId">
+            Email Id <p-sortIcon field="EmailId"></p-sortIcon>
+          </th>
+          <th pSortableColumn="MobileNumber">
+            Mobile Number <p-sortIcon field="MobileNumber"></p-sortIcon>
+          </th>
+          <th pSortableColumn="AppointmentStatus">
+            Appointment Status
+            <p-sortIcon field="AppointmentStatus"></p-sortIcon>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-appointment>
+        <tr>
+          <td>{{ appointment.FirstName }}</td>
+          <td>{{ appointment.LastName }}</td>
+          <td>{{ appointment.EventName }}</td>
+          <td>{{ appointment.EventDate }}</td>
+          <td>{{ appointment.BookingTimeSlot }}</td>
+          <td>{{ appointment.EmailId }}</td>
+          <td>{{ appointment.MobileNumber }}</td>
+          <td>{{ appointment.AppointmentStatus }}</td>
+          <td width="130px">
+            <div *ngIf="appointment.AppointmentStatus === 'REQUESTED'">
+              <button
+                pButton
+                pRipple
+                icon="pi pi-check"
+                class="p-button-rounded p-button-success mr-2"
+                (click)="approveRequest(appointment)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-warning"
+                (click)="declineRequest(appointment)"
+              ></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

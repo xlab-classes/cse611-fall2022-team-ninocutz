@@ -20,6 +20,7 @@ import { EditPastEventComponent } from './edit-past-event/edit-past-event.compon
 import { RequestsComponent } from './requests/requests.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { ProfileComponent } from './profile/profile.component';
+import { FutureAppointmentsComponent } from './future-appointments/future-appointments.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ProfileComponent } from './profile/profile.component';
     RequestsComponent,
     AddUserComponent,
     ProfileComponent,
+    FutureAppointmentsComponent,
   ],
   imports: [AdminRoutingModule, CommonModule, SharedModule],
   providers: [

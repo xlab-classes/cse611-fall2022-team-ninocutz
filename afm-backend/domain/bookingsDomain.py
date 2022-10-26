@@ -1,5 +1,4 @@
-from repository import bookingsRepository
-from repository import customerRepository
+from repository import bookingsRepository, customerRepository
 
 
 def addBooking(firstName, lastName, numberOfPeople, bookingDate, bookingTimeSlot, address, zipCode, emailId, mobileNumber):
