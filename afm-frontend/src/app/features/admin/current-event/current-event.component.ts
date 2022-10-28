@@ -23,7 +23,8 @@ export class CurrentEventComponent implements OnInit {
   selectedEvent: EventTypesModel;
   eventTypes: EventTypesModel[] = [];
   eventName: string;
-  emailTrigger: boolean = false;
+  emailTrigger = false;
+  smsTrigger = false;
 
   constructor(
     private locationService: LocationService,
@@ -92,6 +93,7 @@ export class CurrentEventComponent implements OnInit {
       '-' +
       moment(this.toTime).format('HH:mm');
     data.emailTrigger = this.emailTrigger;
+    data.smsTrigger = this.smsTrigger;
     this.dataService.addCurrentEvent(data).subscribe((data) => {
       this.loading = false;
     });

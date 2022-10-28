@@ -9,4 +9,5 @@ export class CurrentEventRequestModel {
   message: string;
   eventTimeSlot: string;
   emailTrigger: boolean;
+  smsTrigger: boolean;
 }
