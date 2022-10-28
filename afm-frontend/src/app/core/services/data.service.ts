@@ -22,6 +22,7 @@ import { RVRequestModel } from '../models/rv-request.model';
 import { CustomerSignupModel } from '../models/customer-signup.model';
 import { AppointmentsResponseModel } from '../models/appointments-response.model';
 import { AppointmentsRequestModel } from '../models/appointments-request.model';
+import { BookedSlotsResponseModel } from '../models/booked-slots-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -331,5 +332,9 @@ export class DataService {
 
   requestAppointment(appointment: AppointmentsRequestModel) {
     return this.postData<AppointmentsRequestModel>('appointments', appointment);
+  }
+
+  getBookedSlots(): Observable<BookedSlotsResponseModel> {
+    return this.getData<BookedSlotsResponseModel>('bookings/slots');
   }
 }

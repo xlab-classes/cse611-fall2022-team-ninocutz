@@ -35,6 +35,7 @@
               [showIcon]="true"
               inputId="icon"
               [minDate]="todayDate"
+              (onSelect)="dateSelected($event)"
             ></p-calendar>
           </div>
         </div>
@@ -68,6 +69,16 @@
               ></p-calendar>
               <label for="toime">To Time</label>
             </span>
+          </div>
+        </div>
+        <div class="row" *ngIf="disabledSlots">
+          <div class="row">
+            <div class="col">
+              <label>Unavailable Slots</label>
+            </div>
+          </div>
+          <div class="row">
+            <label>{{ disabledSlots }}</label>
           </div>
         </div>
 

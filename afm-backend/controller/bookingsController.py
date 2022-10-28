@@ -75,11 +75,8 @@ def acceptBooking():
 
 
 @bookings_blueprint.route("/bookings/slots", methods=['GET'])
-@jwt_required()
 @cross_origin()
 def return_booking_slots():
-    '''
-    '''
     booking_slots = bookingsDomain.getBookingSlots()
     if booking_slots:
         return {'bookings': booking_slots}, 200

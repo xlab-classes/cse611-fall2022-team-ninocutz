@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
+import { BookedRvSlotsModels } from 'src/app/core/models/booked-rv-slots.model';
 import { RVRequestModel } from 'src/app/core/models/rv-request.model';
 import { DataService } from 'src/app/core/services/data.service';
 
@@ -16,6 +17,8 @@ export class RequestRvComponent implements OnInit {
   fromTime: Date;
   toTime: Date;
   rvRequest: RVRequestModel;
+  bookedSlots: BookedRvSlotsModels[];
+  disabledSlots: string = '';
 
   constructor(
     private dataService: DataService,
@@ -24,6 +27,13 @@ export class RequestRvComponent implements OnInit {
 
   ngOnInit(): void {
     this.rvRequest = new RVRequestModel();
+    this.getBookedSlots();
+  }
+
+  getBookedSlots() {
+    this.dataService.getBookedSlots().subscribe((data) => {
+      this.bookedSlots = data.bookings;
+    });
   }
 
   disableSubmit(): boolean {
@@ -60,5 +70,17 @@ export class RequestRvComponent implements OnInit {
       summary: 'Success',
       detail: 'Sent RV Request',
     });
+  }
+
+  dateSelected(event: Date) {
+    const formatedDate = moment(event).format('YYYY-MM-DD');
+    const timeSlots = this.bookedSlots.filter(
+      (x) => x.BookingDate === formatedDate
+    )[0];
+    if (timeSlots) {
+      this.disabledSlots = timeSlots.BookingSlots.join(', ');
+    } else {
+      this.disabledSlots = '';
+    }
   }
 }
