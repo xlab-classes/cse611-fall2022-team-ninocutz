@@ -19,6 +19,9 @@ export class RequestRvComponent implements OnInit {
   rvRequest: RVRequestModel;
   bookedSlots: BookedRvSlotsModels[];
   disabledSlots: string = '';
+  invalidZipCode = false;
+  invalidPhoneNumber = false;
+  invalidEmail = false;
 
   constructor(
     private dataService: DataService,
@@ -47,7 +50,10 @@ export class RequestRvComponent implements OnInit {
       !this.rvRequest.address ||
       !this.rvRequest.zipCode ||
       !this.rvRequest.emailId ||
-      !this.rvRequest.mobileNumber
+      !this.rvRequest.mobileNumber ||
+      this.invalidZipCode ||
+      this.invalidPhoneNumber ||
+      this.invalidEmail
     );
   }
 
@@ -82,5 +88,20 @@ export class RequestRvComponent implements OnInit {
     } else {
       this.disabledSlots = '';
     }
+  }
+
+  validateZipCode() {
+    this.invalidZipCode = ('' + this.rvRequest.zipCode).length != 5;
+  }
+
+  validatePhoneNumber() {
+    this.invalidPhoneNumber = ('' + this.rvRequest.mobileNumber).length != 10;
+  }
+
+  validateEmailId() {
+    const regex = new RegExp(
+      '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}'
+    );
+    this.invalidEmail = !regex.test(this.rvRequest.emailId);
   }
 }

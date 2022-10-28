@@ -83,16 +83,25 @@
         <div class="row mt-4">
           <div class="col">
             <h5 class="afm-label-text">Email Id</h5>
-            <input type="text" pInputText [(ngModel)]="appointment.emailId" />
+            <input
+              [ngClass]="{ 'ng-invalid ng-dirty': invalidEmail }"
+              type="text"
+              pInputText
+              [(ngModel)]="appointment.emailId"
+              (blur)="validateEmailId()"
+            />
           </div>
 
           <div class="col mt-sm-0 mt-4">
             <h5 class="afm-label-text">Mobile Number</h5>
             <p-inputNumber
+              [ngClass]="{ 'ng-invalid ng-dirty': invalidPhoneNumber }"
               [(ngModel)]="appointment.mobileNumber"
               mode="decimal"
               inputId="withoutgrouping"
               [useGrouping]="false"
+              placeholder="XXX-XXX-XXXX"
+              (onBlur)="validatePhoneNumber()"
             >
             </p-inputNumber>
           </div>

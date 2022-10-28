@@ -34,10 +34,13 @@
           <div class="col">
             <h3 class="afm-label-text">Zip Code</h3>
             <p-inputNumber
+              [ngClass]="{ 'ng-invalid ng-dirty': invalidZipCode }"
               [(ngModel)]="customer.zipCode"
               mode="decimal"
               inputId="withoutgrouping"
               [useGrouping]="false"
+              placeholder="XXXXX"
+              (onBlur)="validateZipCode()"
             >
             </p-inputNumber>
           </div>
@@ -46,16 +49,25 @@
         <div class="row mt-4">
           <div class="col">
             <h5 class="afm-label-text">Email Id</h5>
-            <input type="text" pInputText [(ngModel)]="customer.emailId" />
+            <input
+              [ngClass]="{ 'ng-invalid ng-dirty': invalidEmail }"
+              type="email"
+              pInputText
+              [(ngModel)]="customer.emailId"
+              (blur)="validateEmailId()"
+            />
           </div>
 
           <div class="col mt-sm-0 mt-4">
             <h5 class="afm-label-text">Mobile Number</h5>
             <p-inputNumber
+              [ngClass]="{ 'ng-invalid ng-dirty': invalidPhoneNumber }"
               [(ngModel)]="customer.mobileNumber"
               mode="decimal"
               inputId="withoutgrouping"
               [useGrouping]="false"
+              placeholder="XXX-XXX-XXXX"
+              (onBlur)="validatePhoneNumber()"
             >
             </p-inputNumber>
           </div>

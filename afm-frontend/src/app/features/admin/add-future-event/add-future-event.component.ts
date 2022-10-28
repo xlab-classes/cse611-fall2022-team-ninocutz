@@ -34,6 +34,7 @@ export class AddFutureEventComponent implements OnInit {
   twitterTrigger: boolean = false;
   facebookAuthToken: string;
   loading = false;
+  invalidZipCode = false;
 
   constructor(
     private dataService: DataService,
@@ -123,12 +124,17 @@ export class AddFutureEventComponent implements OnInit {
       !this.toTime ||
       !this.address ||
       !this.zipCode ||
-      !this.message
+      !this.message ||
+      this.invalidZipCode
     );
   }
 
   showSuccess() {
     this.confirmationService.setConfirmation('Event Inserted');
     this.router.navigate(['/admin/future-events']);
+  }
+
+  validateZipCode() {
+    this.invalidZipCode = ('' + this.zipCode).length != 5;
   }
 }
