@@ -8,3 +8,4 @@ python-dotenv==0.21.0
 Werkzeug==2.2.2
 passlib==1.7.4
 tweepy==4.10.1
+twilio==7.15.0
