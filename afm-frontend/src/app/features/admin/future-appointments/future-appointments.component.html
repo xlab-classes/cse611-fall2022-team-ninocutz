@@ -9,10 +9,10 @@
       [paginator]="true"
       [rows]="5"
       [globalFilterFields]="[
-        'FirstName',
-        'LastName',
         'EventDate',
         'EventName',
+        'FirstName',
+        'LastName',
         'BookingTimeSlot',
         'EmailId',
         'MobileNumber',
@@ -34,25 +34,32 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="FirstName">
-            First Name <p-sortIcon field="FirstName"></p-sortIcon>
-          </th>
-          <th pSortableColumn="LastName">
-            Last Name <p-sortIcon field="LastName"></p-sortIcon>
-          </th>
           <th pSortableColumn="EventName">
             Event Name <p-sortIcon field="EventName"></p-sortIcon>
           </th>
+
           <th pSortableColumn="EventDate">
             Date <p-sortIcon field="EventDate"></p-sortIcon>
           </th>
+
+          <th pSortableColumn="FirstName">
+            First Name <p-sortIcon field="FirstName"></p-sortIcon>
+          </th>
+
+          <th pSortableColumn="LastName">
+            Last Name <p-sortIcon field="LastName"></p-sortIcon>
+          </th>
+
           <th>Time Slot</th>
+
           <th pSortableColumn="EmailId">
             Email Id <p-sortIcon field="EmailId"></p-sortIcon>
           </th>
+
           <th pSortableColumn="MobileNumber">
             Mobile Number <p-sortIcon field="MobileNumber"></p-sortIcon>
           </th>
+
           <th pSortableColumn="AppointmentStatus">
             Appointment Status
             <p-sortIcon field="AppointmentStatus"></p-sortIcon>
@@ -62,10 +69,10 @@
       </ng-template>
       <ng-template pTemplate="body" let-appointment>
         <tr>
-          <td>{{ appointment.FirstName }}</td>
-          <td>{{ appointment.LastName }}</td>
           <td>{{ appointment.EventName }}</td>
           <td>{{ appointment.EventDate }}</td>
+          <td>{{ appointment.FirstName }}</td>
+          <td>{{ appointment.LastName }}</td>
           <td>{{ appointment.BookingTimeSlot }}</td>
           <td>{{ appointment.EmailId }}</td>
           <td>{{ appointment.MobileNumber }}</td>

@@ -21,6 +21,9 @@ export class CustomerAppointmentComponent implements OnInit {
   appointment: AppointmentsRequestModel;
   event: FutureEventsModel;
   localStorageKey = 'future-event';
+  eventStartTime: Date;
+  eventEndTime: Date;
+  invalidEndTime = false;
 
   constructor(
     private messageService: MessageService,
@@ -41,11 +44,19 @@ export class CustomerAppointmentComponent implements OnInit {
         this.localStorageKey,
         this.event
       );
+      this.setEventStartEndTime();
     } else {
       this.event = this.sessionStorageService.getSessionStorage(
         this.localStorageKey
       );
+      this.setEventStartEndTime();
     }
+  }
+
+  setEventStartEndTime() {
+    const temp = this.event.EventTimeSlot.split('-');
+    this.eventStartTime = moment('2022-10-13' + ' ' + temp[0]).toDate();
+    this.eventEndTime = moment('2022-10-13' + ' ' + temp[1]).toDate();
   }
 
   disableSubmit(): boolean {
@@ -54,6 +65,7 @@ export class CustomerAppointmentComponent implements OnInit {
       !this.appointment.lastName ||
       !this.fromTime ||
       !this.toTime ||
+      this.invalidEndTime ||
       !this.appointment.emailId ||
       !this.appointment.mobileNumber
     );
@@ -78,5 +90,17 @@ export class CustomerAppointmentComponent implements OnInit {
       summary: 'Success',
       detail: 'Sent Appointment Request',
     });
+  }
+
+  selectDefaultStartTime() {
+    this.fromTime = this.fromTime ?? this.eventStartTime;
+  }
+
+  selectDefaultEndTime() {
+    this.toTime = this.toTime ?? this.fromTime;
+  }
+
+  timeSelected() {
+    this.invalidEndTime = this.fromTime > this.toTime;
   }
 }
