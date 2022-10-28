@@ -28,6 +28,7 @@ export class EditPastEventComponent implements OnInit, OnDestroy {
   toTime: Date = new Date();
   eventDate: Date = new Date();
   loading = false;
+  invalidZipCode = false;
 
   constructor(
     private sharingService: SharingService,
@@ -136,5 +137,9 @@ export class EditPastEventComponent implements OnInit, OnDestroy {
       this.confirmationService.setConfirmation('Event Deleted');
       this.router.navigate(['/admin/past-events']);
     });
+  }
+
+  validateZipCode() {
+    this.invalidZipCode = ('' + this.pastEvent.Zipcode).length != 5;
   }
 }

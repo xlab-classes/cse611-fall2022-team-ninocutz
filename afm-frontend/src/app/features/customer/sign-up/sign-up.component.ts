@@ -11,6 +11,9 @@ import { DataService } from 'src/app/core/services/data.service';
 })
 export class SignUpComponent implements OnInit {
   customer: CustomerSignupModel;
+  invalidPhoneNumber = false;
+  invalidZipCode = false;
+  invalidEmail = false;
 
   constructor(
     private dataService: DataService,
@@ -28,7 +31,10 @@ export class SignUpComponent implements OnInit {
       !this.customer.address ||
       !this.customer.zipCode ||
       !this.customer.emailId ||
-      !this.customer.mobileNumber
+      !this.customer.mobileNumber ||
+      this.invalidPhoneNumber ||
+      this.invalidZipCode ||
+      this.invalidEmail
     );
   }
 
@@ -45,5 +51,20 @@ export class SignUpComponent implements OnInit {
       summary: 'Success',
       detail: 'Signed up for notifications',
     });
+  }
+
+  validatePhoneNumber() {
+    this.invalidPhoneNumber = ('' + this.customer.mobileNumber).length != 10;
+  }
+
+  validateZipCode() {
+    this.invalidZipCode = ('' + this.customer.zipCode).length != 5;
+  }
+
+  validateEmailId() {
+    const regex = new RegExp(
+      '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}'
+    );
+    this.invalidEmail = !regex.test(this.customer.emailId);
   }
 }

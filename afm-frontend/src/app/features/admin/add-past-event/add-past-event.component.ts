@@ -26,6 +26,7 @@ export class AddPastEventComponent implements OnInit {
   fromTime: Date;
   toTime: Date;
   loading = false;
+  invalidZipCode = false;
 
   constructor(
     private dataService: DataService,
@@ -90,7 +91,12 @@ export class AddPastEventComponent implements OnInit {
       !this.toTime ||
       !this.address ||
       !this.zipCode ||
-      !this.message
+      !this.message ||
+      this.invalidZipCode
     );
+  }
+
+  validateZipCode() {
+    this.invalidZipCode = ('' + this.zipCode).length != 5;
   }
 }

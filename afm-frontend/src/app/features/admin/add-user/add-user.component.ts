@@ -10,6 +10,8 @@ import { DataService } from 'src/app/core/services/data.service';
 })
 export class AddUserComponent implements OnInit {
   user: UserRequestModel;
+  invalidZipCode = false;
+  invalidEmail = false;
 
   constructor(
     public ref: DynamicDialogRef,
@@ -27,7 +29,8 @@ export class AddUserComponent implements OnInit {
       this.user.firstName &&
       this.user.lastName &&
       this.user.emailId &&
-      this.user.mobileNumber
+      this.user.mobileNumber &&
+      !this.invalidZipCode
     );
   }
 
@@ -35,5 +38,16 @@ export class AddUserComponent implements OnInit {
     this.dataService.addUser(this.user).subscribe((data) => {
       this.ref.close(true);
     });
+  }
+
+  validateZipCode() {
+    this.invalidZipCode = ('' + this.user.zipCode).length != 5;
+  }
+
+  validateEmailId() {
+    const regex = new RegExp(
+      '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}'
+    );
+    this.invalidEmail = !regex.test(this.user.emailId);
   }
 }

@@ -24,6 +24,8 @@ export class CustomerAppointmentComponent implements OnInit {
   eventStartTime: Date;
   eventEndTime: Date;
   invalidEndTime = false;
+  invalidPhoneNumber = false;
+  invalidEmail = false;
 
   constructor(
     private messageService: MessageService,
@@ -67,7 +69,9 @@ export class CustomerAppointmentComponent implements OnInit {
       !this.toTime ||
       this.invalidEndTime ||
       !this.appointment.emailId ||
-      !this.appointment.mobileNumber
+      !this.appointment.mobileNumber ||
+      this.invalidPhoneNumber ||
+      this.invalidEmail
     );
   }
 
@@ -102,5 +106,16 @@ export class CustomerAppointmentComponent implements OnInit {
 
   timeSelected() {
     this.invalidEndTime = this.fromTime > this.toTime;
+  }
+
+  validatePhoneNumber() {
+    this.invalidPhoneNumber = ('' + this.appointment.mobileNumber).length != 10;
+  }
+
+  validateEmailId() {
+    const regex = new RegExp(
+      '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}'
+    );
+    this.invalidEmail = !regex.test(this.appointment.emailId);
   }
 }

@@ -90,10 +90,13 @@
           <div class="col">
             <h3 class="afm-label-text">Zip Code</h3>
             <p-inputNumber
+              [ngClass]="{ 'ng-invalid ng-dirty': invalidZipCode }"
               [(ngModel)]="zipCode"
               mode="decimal"
               inputId="withoutgrouping"
               [useGrouping]="false"
+              placeholder="XXXXX"
+              (onBlur)="validateZipCode()"
             >
             </p-inputNumber>
           </div>

@@ -25,6 +25,7 @@ export class CurrentEventComponent implements OnInit {
   eventName: string;
   emailTrigger = false;
   smsTrigger = false;
+  invalidZipCode = false;
 
   constructor(
     private locationService: LocationService,
@@ -74,7 +75,8 @@ export class CurrentEventComponent implements OnInit {
       !this.zipCode ||
       !this.message ||
       !this.fromTime ||
-      !this.toTime
+      !this.toTime ||
+      this.invalidZipCode
     );
   }
 
@@ -97,5 +99,9 @@ export class CurrentEventComponent implements OnInit {
     this.dataService.addCurrentEvent(data).subscribe((data) => {
       this.loading = false;
     });
+  }
+
+  validateZipCode() {
+    this.invalidZipCode = ('' + this.zipCode).length != 5;
   }
 }
