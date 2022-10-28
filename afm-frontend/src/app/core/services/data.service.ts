@@ -155,6 +155,7 @@ export class DataService {
     formData.append('message', data.message);
     formData.append('eventTimeSlot', data.eventTimeSlot);
     formData.append('emailTrigger', '' + data.emailTrigger);
+    formData.append('smsTrigger', '' + data.smsTrigger);
 
     return this.postData('event/current', formData, true);
   }

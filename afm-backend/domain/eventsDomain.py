@@ -52,17 +52,19 @@ def createCurrentEvent(event: EventModel, userId, emailTrigger=False, smsTrigger
         emailIds = [p['EmailId'] for p in customers]
         emailUtil.triggerNotificationEmail(template, emailIds)
         return currentEventId
-    
+
     if smsTrigger:
         customers = customerRepository.getCustomersByZipCode(
             event.zipCode, True)
+
         numbers = []
         for rec in customers:
-            if len(rec) == 10:
+            if len(rec['MobileNumber']) == 10:
                 mobile = "+1"+rec['MobileNumber']
                 numbers.append(mobile)
             else:
                 pass
+
         smsUtil.send_promotional_sms(numbers, smsUtil.DEFAULT_SMS_SERVICE)
         return currentEventId
     return currentEventId
