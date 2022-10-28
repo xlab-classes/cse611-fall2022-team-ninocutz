@@ -6,6 +6,26 @@
       <div class="container" class="form-internal-box">
         <div class="row mt-4">
           <div class="col">
+            <h5 class="afm-label-text">Event Name: {{ event.Name }}</h5>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col">
+            <h5 class="afm-label-text">Event Date: {{ event.EventDate }}</h5>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col">
+            <h5 class="afm-label-text">
+              Event Timings: {{ event.EventTimeSlot }}
+            </h5>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
             <h5 class="afm-label-text">First Name</h5>
             <input type="text" pInputText [(ngModel)]="appointment.firstName" />
           </div>
@@ -29,6 +49,10 @@
                 [timeOnly]="true"
                 [hourFormat]="'24'"
                 inputId="timeonly"
+                [minDate]="eventStartTime"
+                [maxDate]="eventEndTime"
+                [readonlyInput]="true"
+                (onFocus)="selectDefaultStartTime()"
               ></p-calendar>
               <label for="fromTime">From Time</label>
             </span>
@@ -36,15 +60,23 @@
           <div class="col">
             <span class="p-float-label">
               <p-calendar
+                [ngClass]="{ 'ng-invalid ng-dirty': invalidEndTime }"
                 id="toime"
                 [(ngModel)]="toTime"
                 [timeOnly]="true"
                 [hourFormat]="'24'"
-                [minDate]="fromTime"
                 inputId="timeonly"
+                [minDate]="eventStartTime"
+                [maxDate]="eventEndTime"
+                [readonlyInput]="true"
+                (onFocus)="selectDefaultEndTime()"
+                (onSelect)="timeSelected()"
               ></p-calendar>
               <label for="toime">To Time</label>
             </span>
+            <small *ngIf="invalidEndTime" class="p-error block"
+              >End Time lower than start time</small
+            >
           </div>
         </div>
 
