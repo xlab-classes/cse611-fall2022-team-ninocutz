@@ -2,7 +2,7 @@ from repository import eventsRepository as eventsRepo
 from repository import customerRepository
 from domain import notificationsDomain
 from model.EventModel import EventModel
-from utils import emailUtil
+from utils import emailUtil, smsUtil
 
 
 def createEvent(newEvent: EventModel, userId):
@@ -26,7 +26,7 @@ def getCurrentEvent():
     return event
 
 
-def createCurrentEvent(event: EventModel, userId, emailTrigger=False):
+def createCurrentEvent(event: EventModel, userId, emailTrigger=False, smsTrigger=False):
 
     newEvent = EventModel(name=event.name,
                           eventType=event.eventType,
@@ -52,7 +52,19 @@ def createCurrentEvent(event: EventModel, userId, emailTrigger=False):
         emailIds = [p['EmailId'] for p in customers]
         emailUtil.triggerNotificationEmail(template, emailIds)
         return currentEventId
-
+    
+    if smsTrigger:
+        customers = customerRepository.getCustomersByZipCode(
+            event.zipCode, True)
+        numbers = []
+        for rec in customers:
+            if len(rec) == 10:
+                mobile = "+1"+rec['MobileNumber']
+                numbers.append(mobile)
+            else:
+                pass
+        smsUtil.send_promotional_sms(numbers, smsUtil.DEFAULT_SMS_SERVICE)
+        return currentEventId
     return currentEventId
 
 

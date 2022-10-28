@@ -107,10 +107,11 @@ def addCurrentEvent():
                           )
 
     emailTrigger = getBoolValue(request.form.get('emailTrigger', False))
+    smsTrigger = getBoolValue(request.form.get('smsTrigger', False))
     # TODO: Check if image is needed
 
     createdCurrentEventId = eventsDomain.createCurrentEvent(
-        newEvent, userId, emailTrigger)
+        newEvent, userId, emailTrigger, smsTrigger)
     return {'id': createdCurrentEventId}, 201
 
 # endregion Current Events
