@@ -1,30 +1,29 @@
 import time
 from datetime import date, datetime
-from repository import eventsRepository as eventsRepo
-from repository import customerRepository
+from repository import eventsRepository, customerRepository
 from domain import notificationsDomain
 from model.EventModel import EventModel
 from utils import emailUtil, smsUtil
 
 
 def createEvent(newEvent: EventModel, userId):
-    newEvent.eventTypeId = eventsRepo.getEventTypeId(newEvent.eventType)
-    createdEventId = eventsRepo.createEvent(newEvent, userId)
+    newEvent.eventTypeId = eventsRepository.getEventTypeId(newEvent.eventType)
+    createdEventId = eventsRepository.createEvent(newEvent, userId)
     return createdEventId
 
 
 def getAllFutureEvents():
-    events = eventsRepo.getAllFutureEvents()
+    events = eventsRepository.getAllFutureEvents()
     return events
 
 
 def getEventById(event_id):
-    event = eventsRepo.getEventById(event_id)
+    event = eventsRepository.getEventById(event_id)
     return event
 
 
 def getCurrentEvent():
-    event = eventsRepo.getCurrentEvent()
+    event = eventsRepository.getCurrentEvent()
     if event:
         today = str(date.today())
         currentEventData = datetime.strftime(
@@ -36,7 +35,7 @@ def getCurrentEvent():
             if cur >= timeSlot[0] and cur <= timeSlot[1]:
                 return event
             elif cur > timeSlot[1]:
-                eventsRepo.truncateCurrentEvent()
+                eventsRepository.truncateCurrentEvent()
 
     return []
 
@@ -57,20 +56,21 @@ def createCurrentEvent(event: EventModel, userId, emailTrigger=False, smsTrigger
 
     eventId = createEvent(newEvent, userId)
 
-    currentEventId = eventsRepo.addCurrentEvent(eventId, userId)
+    customers = customerRepository.getCustomersByZipCode(
+        event.zipCode, True)
+
+    currentEventId = eventsRepository.addCurrentEvent(eventId, userId)
     if emailTrigger:
         notification = notificationsDomain.getNotificationByType('Email')
         template = notification[0]['NotificationTemplate']
 
-        customers = customerRepository.getCustomersByZipCode(
-            event.zipCode, True)
         emailIds = [p['EmailId'] for p in customers]
         emailUtil.triggerNotificationEmail(template, emailIds)
         return currentEventId
 
     if smsTrigger:
-        customers = customerRepository.getCustomersByZipCode(
-            event.zipCode, True)
+        notification = notificationsDomain.getNotificationByType('SMS')
+        template = notification[0]['NotificationTemplate']
 
         numbers = []
         for rec in customers:
@@ -80,26 +80,28 @@ def createCurrentEvent(event: EventModel, userId, emailTrigger=False, smsTrigger
             else:
                 pass
 
-        smsUtil.send_promotional_sms(numbers, smsUtil.DEFAULT_SMS_SERVICE)
+        smsUtil.send_promotional_sms(
+            numbers, template, smsUtil.DEFAULT_SMS_SERVICE)
         return currentEventId
     return currentEventId
 
 
 def getAllPastEvents():
-    events = eventsRepo.getAllPastEvents()
+    events = eventsRepository.getAllPastEvents()
     return events
 
 
 def delete_event(id):
-    return eventsRepo.delete_event(id)
+    return eventsRepository.delete_event(id)
 
 
 def edit_event(newEvent: EventModel, event_id, userId):
     if not newEvent.eventType:
-        newEvent.eventTypeId = eventsRepo.getEventTypeId(newEvent.eventType)
-    event_update = eventsRepo.edit_event(newEvent, event_id, userId)
+        newEvent.eventTypeId = eventsRepository.getEventTypeId(
+            newEvent.eventType)
+    event_update = eventsRepository.edit_event(newEvent, event_id, userId)
     return event_update
 
 
 def getAllEventTypes():
-    return eventsRepo.getAllEventTypes()
+    return eventsRepository.getAllEventTypes()
