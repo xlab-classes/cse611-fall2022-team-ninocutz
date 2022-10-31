@@ -1,5 +1,5 @@
 <div #parentContainer>
-  <div class="container-fluid" *ngIf="currentEvent">
+  <div class="container-fluid" *ngIf="currentEvent; else altertnateCurrent">
     <div class="row justify-content-center">
       <div class="align-self-center col-auto" style="padding: 0">
         <div class="map-display">
@@ -20,6 +20,16 @@
       </div>
     </div>
   </div>
+
+  <ng-template #altertnateCurrent>
+    <div class="container-fluid">
+      <div class="row mt-5 mb-5" style="text-align: center">
+        <div class="col">
+          <span>There is no current Event for the RV</span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 
   <div id="futureEventsDisplay" class="gallery-corousel">
     <app-afm-blur-background>

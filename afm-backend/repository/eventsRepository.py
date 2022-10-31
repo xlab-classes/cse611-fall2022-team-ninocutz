@@ -86,6 +86,18 @@ def getCurrentEvent():
     return results
 
 
+def truncateCurrentEvent():
+    db = Database()
+
+    sql = "TRUNCATE AFM.CurrentEvent"
+
+    cursor = db.cursor()
+    cursor.execute(sql)
+    cursor.close()
+    db.commit()
+    return cursor.lastrowid
+
+
 def getAllPastEvents():
     db = Database()
     cursor = db.cursor()
