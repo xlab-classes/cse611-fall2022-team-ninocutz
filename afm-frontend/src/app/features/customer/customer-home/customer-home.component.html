@@ -79,103 +79,7 @@
     </app-afm-blur-background>
   </div>
 
-  <!-- <div class="gallery-corousel" id="futureEventsDisplay">
-    <app-afm-blur-background>
-      <div style="padding-top: 10px; padding-bottom: 10px">
-        <h2 class="afm-heading-text">Future Events</h2>
-      </div>
-      <div class="container-fluid">
-        <swiper
-          [slidesPerView]="1"
-          [navigation]="true"
-          [pagination]="{
-            dynamicBullets: true
-          }"
-          [centeredSlides]="true"
-          [keyboard]="{
-            enabled: true
-          }"
-          [autoplay]="{
-            delay: 3000,
-            disableOnInteraction: true
-          }"
-          class="my-swiper"
-        >
-          <ng-template swiperSlide *ngFor="let futureEvent of futureEvents">
-            <div
-              class="swiper-slide-container"
-              (click)="futureEventClicked(futureEvent)"
-              style="cursor: pointer"
-            >
-              <div>
-                <h4 style="color: black">
-                  {{ futureEvent.Name }}
-                </h4>
-                <p style="margin-bottom: 2.5rem; color: black">
-                  {{ futureEvent.Message }}
-                </p>
-              </div>
-              <img class="gallery-image" [src]="futureEvent.Url" />
-              <p style="margin-bottom: 2.5rem; color: white">
-                {{ futureEvent.Message }}
-              </p>
-            </div>
-          </ng-template>
-        </swiper>
-      </div>
-      <br />
-    </app-afm-blur-background>
-  </div> -->
-
-  <!-- <div class="gallery-corousel" id="pastEventsDisplay">
-    <app-afm-blur-background>
-      <div style="padding-top: 10px; padding-bottom: 10px">
-        <h2 class="afm-heading-text">Past Events</h2>
-      </div>
-      <div class="container-fluid">
-        <swiper
-          [slidesPerView]="1"
-          [navigation]="true"
-          [pagination]="{
-            dynamicBullets: true
-          }"
-          [centeredSlides]="true"
-          [keyboard]="{
-            enabled: true
-          }"
-          [autoplay]="{
-            delay: 3000,
-            disableOnInteraction: true
-          }"
-          class="my-swiper"
-        >
-          <ng-template swiperSlide *ngFor="let pastEvent of pastEvents">
-            <div
-              class="swiper-slide-container"
-              (click)="pastEventClicked(pastEvent)"
-              style="cursor: pointer"
-            >
-              <div>
-                <h4 style="color: black">
-                  {{ pastEvent.Name }}
-                </h4>
-                <p style="margin-bottom: 2.5rem; color: black">
-                  {{ pastEvent.Message }}
-                </p>
-              </div>
-              <img class="gallery-image" [src]="pastEvent.Url" />
-              <p style="margin-bottom: 2.5rem; color: white">
-                {{ pastEvent.Message }}
-              </p>
-            </div>
-          </ng-template>
-        </swiper>
-      </div>
-      <br />
-    </app-afm-blur-background>
-  </div> -->
-
-  <!-- <div class="gallery-corousel" id="galleryDisplay">
+  <div class="gallery-corousel" id="galleryDisplay">
     <app-afm-blur-background>
       <div style="padding-top: 10px; padding-bottom: 10px">
         <h2 class="afm-heading-text">Gallery</h2>
@@ -199,49 +103,17 @@
         >
           <ng-template swiperSlide *ngFor="let galleryImage of galleryImages">
             <div class="swiper-slide-container">
-              <img class="gallery-image" [src]="galleryImage.Url" />
+              <p-image
+                imageClass="gallery-image"
+                [src]="galleryImage.Url ?? ''"
+                alt="Image"
+                [height]="imageHeight"
+              ></p-image>
             </div>
           </ng-template>
         </swiper>
       </div>
       <br />
-    </app-afm-blur-background>
-  </div> -->
-
-  <div class="gallery-corousel" id="galleryDisplay">
-    <app-afm-blur-background>
-      <div style="padding-top: 10px; padding-bottom: 10px">
-        <h2 class="afm-heading-text">Gallery</h2>
-      </div>
-      <p-carousel
-        [value]="galleryImages"
-        [numVisible]="1"
-        [numScroll]="1"
-        [circular]="true"
-        ngClass="p-hide-paginator"
-        [autoplayInterval]="3000"
-      >
-        <ng-template let-image pTemplate="item">
-          <div style="border-style: solid; border: 2px">
-            <div class="image-item-content">
-              <div class="mb-3">
-                <div class="container">
-                  <div class="row justify-content-center">
-                    <div class="col-10" *ngIf="image.Url" style="padding: 0">
-                      <p-image
-                        imageClass="gallery-image"
-                        [src]="image.Url"
-                        alt="Image"
-                        [height]="imageHeight"
-                      ></p-image>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-      </p-carousel>
     </app-afm-blur-background>
   </div>
 </div>

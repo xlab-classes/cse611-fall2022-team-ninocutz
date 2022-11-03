@@ -124,6 +124,12 @@ export class CustomerHomeComponent implements OnInit {
 
   setHeightOfGalleryImages(windowSize: number) {
     this.imageHeight =
-      windowSize <= 320 ? '200px' : windowSize <= 425 ? '300px' : '500px';
+      windowSize <= 320
+        ? '200px'
+        : windowSize <= 425
+        ? '300px'
+        : windowSize <= 1440
+        ? '500px'
+        : '700px';
   }
 }
