@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { BookingsModel } from 'src/app/core/models/bookings.model';
 import { DataService } from 'src/app/core/services/data.service';
@@ -7,12 +8,16 @@ import { DataService } from 'src/app/core/services/data.service';
   selector: 'app-requests',
   templateUrl: './requests.component.html',
   styleUrls: ['./requests.component.scss'],
+  providers: [MessageService],
 })
 export class RequestsComponent implements OnInit {
   @ViewChild('requestTable') requestTable: Table;
   bookings: BookingsModel[];
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.getAllBookings();
@@ -34,12 +39,23 @@ export class RequestsComponent implements OnInit {
   approveRequest(booking: BookingsModel) {
     this.dataService.approveBookingRequest(booking.Id).subscribe((data) => {
       this.getAllBookings();
+      this.showSuccessMessage();
     });
   }
 
   declineRequest(booking: BookingsModel) {
     this.dataService.declineBookingRequest(booking.Id).subscribe((data) => {
       this.getAllBookings();
+      this.showSuccessMessage(false);
+    });
+  }
+
+  showSuccessMessage(accepted = true) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail:
+        'Request ' + accepted ? ' accepted ' : ' declined ' + 'successfully',
     });
   }
 }
