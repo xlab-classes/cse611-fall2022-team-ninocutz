@@ -28,7 +28,10 @@
             ></app-afm-image>
           </div>
           <div class="col align-self-center mt-4 mt-sm-0">
-            <app-afm-button label="Remove" (click)="clear()"></app-afm-button>
+            <app-afm-button
+              label="Remove"
+              (buttonClicked)="clear()"
+            ></app-afm-button>
           </div>
         </div>
 
@@ -160,7 +163,7 @@
         <div class="row mt-4 text-align-center">
           <app-afm-button
             label="Update"
-            (click)="editPastEvent()"
+            (buttonClicked)="editPastEvent()"
           ></app-afm-button>
         </div>
       </div>

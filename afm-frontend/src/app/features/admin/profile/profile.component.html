@@ -52,7 +52,7 @@
         <div class="row mt-4" style="text-align: center">
           <app-afm-button
             label="Update"
-            (click)="updateProfile()"
+            (buttonClicked)="updateProfile()"
           ></app-afm-button>
         </div>
       </div>
@@ -61,3 +61,5 @@
 </div>
 
 <p-toast></p-toast>
+
+<app-loading *ngIf="loading"></app-loading>

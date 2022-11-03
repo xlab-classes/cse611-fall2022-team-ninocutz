@@ -11,6 +11,7 @@ import { DataService } from 'src/app/core/services/data.service';
 })
 export class ProfileComponent implements OnInit {
   user: UserModel;
+  loading = false;
 
   constructor(
     private dataService: DataService,
@@ -31,13 +32,17 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserProfile() {
+    this.loading = true;
     this.dataService.getUserProfile().subscribe((data) => {
       this.user = data.user;
+      this.loading = false;
     });
   }
 
   updateProfile() {
+    this.loading = true;
     this.dataService.updateUserProfile(this.user).subscribe((data) => {
+      this.loading = false;
       this.showSuccess();
     });
   }

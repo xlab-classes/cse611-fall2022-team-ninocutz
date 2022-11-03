@@ -34,12 +34,16 @@
 
     <div class="col mt-md-0 mt-4">
       <h4 class="afm-label-text">Mobile Number</h4>
-      <input
-        class="input-box"
-        type="text"
-        pInputText
+      <p-inputNumber
+        [ngClass]="{ 'ng-invalid ng-dirty': invalidPhoneNumber }"
         [(ngModel)]="user.mobileNumber"
-      />
+        mode="decimal"
+        inputId="withoutgrouping"
+        [useGrouping]="false"
+        placeholder="XXX-XXX-XXXX"
+        (onBlur)="validatePhoneNumber()"
+      >
+      </p-inputNumber>
     </div>
   </div>
 
@@ -78,9 +82,11 @@
     <div class="col">
       <app-afm-button
         label="Add"
-        (click)="addUser()"
+        (buttonClicked)="addUser()"
         [disable]="disableAddButton()"
       ></app-afm-button>
     </div>
   </div>
 </div>
+
+<app-loading *ngIf="loading"></app-loading>

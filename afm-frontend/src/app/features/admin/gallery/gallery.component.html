@@ -8,7 +8,10 @@
           <app-afm-image [src]="uploadedFiles.objectURL"></app-afm-image>
         </div>
         <div class="col align-self-center mt-4 mt-sm-0">
-          <app-afm-button label="Remove" (click)="clear()"></app-afm-button>
+          <app-afm-button
+            label="Remove"
+            (buttonClicked)="clear()"
+          ></app-afm-button>
         </div>
       </div>
 
@@ -17,7 +20,7 @@
           <div *ngIf="uploadedFiles">
             <app-afm-button
               label="Submit"
-              (click)="uploadImage()"
+              (buttonClicked)="uploadImage()"
             ></app-afm-button>
           </div>
           <div [hidden]="uploadedFiles">

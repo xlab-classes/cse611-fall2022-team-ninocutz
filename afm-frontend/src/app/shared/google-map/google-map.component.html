@@ -15,11 +15,14 @@
       </map-marker
     ></google-map>
   </div>
+  <div class="row mt-5" style="text-align: center">
+    <label class="afm-label-text">Address : {{ address }} </label>
+  </div>
   <div class="row mt-5">
     <div class="col text-center">
       <app-afm-button
         label="Update Location"
-        (click)="updateLocation()"
+        (buttonClicked)="updateLocation()"
       ></app-afm-button>
     </div>
   </div>

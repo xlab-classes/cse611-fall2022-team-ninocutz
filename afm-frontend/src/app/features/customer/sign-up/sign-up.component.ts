@@ -14,6 +14,7 @@ export class SignUpComponent implements OnInit {
   invalidPhoneNumber = false;
   invalidZipCode = false;
   invalidEmail = false;
+  loading = false;
 
   constructor(
     private dataService: DataService,
@@ -39,8 +40,10 @@ export class SignUpComponent implements OnInit {
   }
 
   submitClicked() {
+    this.loading = true;
     this.dataService.customerSignup(this.customer).subscribe(() => {
       this.customer = new CustomerSignupModel();
+      this.loading = false;
       this.showSuccessMessage();
     });
   }
