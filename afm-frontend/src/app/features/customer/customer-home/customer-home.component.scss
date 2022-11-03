@@ -30,8 +30,12 @@
     height: 300px;
   }
 
-  @media screen and (min-width: 426px) {
+  @media screen and (min-width: 426px) and (max-width: 1440px) {
     height: 500px;
+  }
+
+  @media screen and (min-width: 1441px) {
+    height: 700px;
   }
 }
 .swiper-slide-active {
