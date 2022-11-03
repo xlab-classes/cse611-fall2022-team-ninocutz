@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CurrentEventRequestModel } from 'src/app/core/models/current-event-request.model';
 import { EventTypesModel } from 'src/app/core/models/event-types.model';
@@ -11,7 +12,7 @@ import { GoogleMapComponent } from 'src/app/shared/google-map/google-map.compone
   selector: 'app-current-event',
   templateUrl: './current-event.component.html',
   styleUrls: ['./current-event.component.scss'],
-  providers: [DialogService],
+  providers: [DialogService, MessageService],
 })
 export class CurrentEventComponent implements OnInit {
   fromTime: Date;
@@ -25,7 +26,8 @@ export class CurrentEventComponent implements OnInit {
   constructor(
     private locationService: LocationService,
     private dataService: DataService,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -96,6 +98,7 @@ export class CurrentEventComponent implements OnInit {
     this.dataService.addCurrentEvent(this.currentEvent).subscribe(() => {
       this.currentEvent = new CurrentEventRequestModel();
       this.loading = false;
+      this.showSuccessMessage();
     });
   }
 
@@ -115,5 +118,13 @@ export class CurrentEventComponent implements OnInit {
 
   validateZipCode() {
     this.invalidZipCode = ('' + this.currentEvent.zipCode).length != 5;
+  }
+
+  showSuccessMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Current Event Added',
+    });
   }
 }
