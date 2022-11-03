@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CurrentEventRequestModel } from 'src/app/core/models/current-event-request.model';
 import { EventTypesModel } from 'src/app/core/models/event-types.model';
@@ -11,42 +12,32 @@ import { GoogleMapComponent } from 'src/app/shared/google-map/google-map.compone
   selector: 'app-current-event',
   templateUrl: './current-event.component.html',
   styleUrls: ['./current-event.component.scss'],
-  providers: [DialogService],
+  providers: [DialogService, MessageService],
 })
 export class CurrentEventComponent implements OnInit {
   fromTime: Date;
   toTime: Date;
   loading = false;
-  address: string;
-  zipCode: number;
-  message: string;
   selectedEvent: EventTypesModel;
   eventTypes: EventTypesModel[] = [];
-  eventName: string;
-  emailTrigger = false;
-  smsTrigger = false;
   invalidZipCode = false;
+  currentEvent: CurrentEventRequestModel;
 
   constructor(
     private locationService: LocationService,
     private dataService: DataService,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
+    this.currentEvent = new CurrentEventRequestModel();
     this.loadEventTypes();
   }
 
   loadEventTypes() {
     this.dataService.getEventTypes().subscribe((data) => {
       this.eventTypes = data.eventTypes;
-    });
-  }
-
-  shareLocationClicked() {
-    this.loading = true;
-    this.locationService.getPosition().then((pos) => {
-      this.showGoogleMap(pos.lat, pos.lng);
     });
   }
 
@@ -62,46 +53,78 @@ export class CurrentEventComponent implements OnInit {
 
     ref.onClose.subscribe((pos: any) => {
       if (pos) {
-        this.addCurrentEvent(pos);
+        this.setLocationFromMaps(pos);
+      } else {
+        this.loading = false;
       }
     });
   }
 
+  setLocationFromMaps(pos: {
+    lat: string;
+    lng: string;
+    zipCode: string;
+    address: string;
+  }) {
+    this.currentEvent.latitude = '' + pos.lat;
+    this.currentEvent.longitude = '' + pos.lng;
+    this.currentEvent.zipCode = pos.zipCode;
+    this.currentEvent.address = pos.address;
+
+    this.loading = false;
+  }
+
   disableSubmit(): boolean {
     return (
-      !this.eventName ||
+      !this.currentEvent.eventName ||
       !this.selectedEvent ||
-      !this.address ||
-      !this.zipCode ||
-      !this.message ||
+      !this.currentEvent.address ||
+      !this.currentEvent.message ||
+      !this.currentEvent.zipCode ||
       !this.fromTime ||
-      !this.toTime ||
-      this.invalidZipCode
+      !this.toTime
     );
   }
 
-  addCurrentEvent(pos: any) {
-    const data: CurrentEventRequestModel = new CurrentEventRequestModel();
-    data.eventName = this.eventName;
-    data.eventType = this.selectedEvent.Name;
-    data.latitude = '' + pos.lat;
-    data.longitude = '' + pos.lng;
-    data.address = this.address;
-    data.eventDate = moment(Date.now()).format('YYYY-MM-DD');
-    data.zipCode = '' + this.zipCode;
-    data.message = this.message;
-    data.eventTimeSlot =
+  addCurrentEvent() {
+    this.loading = true;
+    this.currentEvent.eventType = this.selectedEvent.Name;
+    this.currentEvent.eventDate = moment(Date.now()).format('YYYY-MM-DD');
+    this.currentEvent.eventTimeSlot =
       moment(this.fromTime).format('HH:mm') +
       '-' +
       moment(this.toTime).format('HH:mm');
-    data.emailTrigger = this.emailTrigger;
-    data.smsTrigger = this.smsTrigger;
-    this.dataService.addCurrentEvent(data).subscribe((data) => {
+
+    this.dataService.addCurrentEvent(this.currentEvent).subscribe(() => {
+      this.currentEvent = new CurrentEventRequestModel();
       this.loading = false;
+      this.showSuccessMessage();
     });
   }
 
+  getLocation() {
+    this.loading = true;
+    if (this.currentEvent.latitude && this.currentEvent.longitude) {
+      this.showGoogleMap(
+        +this.currentEvent.latitude,
+        +this.currentEvent.longitude
+      );
+    } else {
+      this.locationService.getPosition().then((pos) => {
+        this.showGoogleMap(pos.lat, pos.lng);
+      });
+    }
+  }
+
   validateZipCode() {
-    this.invalidZipCode = ('' + this.zipCode).length != 5;
+    this.invalidZipCode = ('' + this.currentEvent.zipCode).length != 5;
+  }
+
+  showSuccessMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Current Event Added',
+    });
   }
 }

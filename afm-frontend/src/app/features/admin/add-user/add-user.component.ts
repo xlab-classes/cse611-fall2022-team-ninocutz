@@ -12,6 +12,8 @@ export class AddUserComponent implements OnInit {
   user: UserRequestModel;
   invalidZipCode = false;
   invalidEmail = false;
+  invalidPhoneNumber = false;
+  loading = false;
 
   constructor(
     public ref: DynamicDialogRef,
@@ -30,12 +32,16 @@ export class AddUserComponent implements OnInit {
       this.user.lastName &&
       this.user.emailId &&
       this.user.mobileNumber &&
-      !this.invalidZipCode
+      !this.invalidZipCode &&
+      !this.invalidEmail &&
+      !this.invalidPhoneNumber
     );
   }
 
   addUser() {
+    this.loading = true;
     this.dataService.addUser(this.user).subscribe((data) => {
+      this.loading = false;
       this.ref.close(true);
     });
   }
@@ -49,5 +55,9 @@ export class AddUserComponent implements OnInit {
       '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}'
     );
     this.invalidEmail = !regex.test(this.user.emailId);
+  }
+
+  validatePhoneNumber() {
+    this.invalidPhoneNumber = ('' + this.user.mobileNumber).length != 10;
   }
 }

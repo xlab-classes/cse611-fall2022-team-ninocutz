@@ -26,6 +26,7 @@ export class CustomerAppointmentComponent implements OnInit {
   invalidEndTime = false;
   invalidPhoneNumber = false;
   invalidEmail = false;
+  loading = false;
 
   constructor(
     private messageService: MessageService,
@@ -76,6 +77,7 @@ export class CustomerAppointmentComponent implements OnInit {
   }
 
   submitClicked() {
+    this.loading = true;
     this.appointment.bookingTimeSlot =
       moment(this.fromTime).format('HH:mm') +
       '-' +
@@ -84,6 +86,7 @@ export class CustomerAppointmentComponent implements OnInit {
 
     this.dataService.requestAppointment(this.appointment).subscribe(() => {
       this.appointment = new AppointmentsRequestModel();
+      this.loading = false;
       this.showSuccessMessage();
     });
   }

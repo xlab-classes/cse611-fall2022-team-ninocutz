@@ -8,12 +8,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class AfmButtonComponent implements OnInit {
   @Input() disable = false;
   @Input() label: string;
-  @Output() click = new EventEmitter();
+  @Output() buttonClicked = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}
 
   buttonClick() {
-    this.click.emit();
+    this.buttonClicked.emit();
   }
 }

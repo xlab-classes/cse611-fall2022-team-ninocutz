@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { AppointmentsModel } from 'src/app/core/models/appointments.model';
 import { DataService } from 'src/app/core/services/data.service';
@@ -7,12 +8,16 @@ import { DataService } from 'src/app/core/services/data.service';
   selector: 'app-future-appointments',
   templateUrl: './future-appointments.component.html',
   styleUrls: ['./future-appointments.component.scss'],
+  providers: [MessageService],
 })
 export class FutureAppointmentsComponent implements OnInit {
   @ViewChild('appointmentsTable') appointmentsTable: Table;
   appointments: AppointmentsModel[];
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.getAllAppointments();
@@ -36,6 +41,7 @@ export class FutureAppointmentsComponent implements OnInit {
       .approveAppointmentRequest(appointment.Id)
       .subscribe((data) => {
         this.getAllAppointments();
+        this.showSuccessMessage();
       });
   }
 
@@ -44,6 +50,16 @@ export class FutureAppointmentsComponent implements OnInit {
       .declineAppointmentRequest(appointment.Id)
       .subscribe((data) => {
         this.getAllAppointments();
+        this.showSuccessMessage(false);
       });
+  }
+
+  showSuccessMessage(accepted = true) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail:
+        'Event ' + accepted ? ' accepted ' : ' declined ' + 'successfully',
+    });
   }
 }

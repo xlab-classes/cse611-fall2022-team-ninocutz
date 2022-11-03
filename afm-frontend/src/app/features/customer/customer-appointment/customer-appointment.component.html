@@ -112,7 +112,7 @@
         <div class="row mt-4 text-align-center">
           <app-afm-button
             label="Submit"
-            (click)="submitClicked()"
+            (buttonClicked)="submitClicked()"
             [disable]="disableSubmit()"
           ></app-afm-button>
         </div>
@@ -122,3 +122,5 @@
 </div>
 
 <p-toast></p-toast>
+
+<app-loading *ngIf="loading"></app-loading>

@@ -19,6 +19,8 @@ export class GoogleMapComponent implements OnInit {
     lat: number;
     lng: number;
   };
+  zipCode: string;
+  address: string;
 
   constructor(
     public ref: DynamicDialogRef,
@@ -32,6 +34,7 @@ export class GoogleMapComponent implements OnInit {
     };
     this.center = this.newPosition;
     this.addMarker();
+    this.getMarkerZipCode();
   }
 
   addMarker() {
@@ -42,12 +45,41 @@ export class GoogleMapComponent implements OnInit {
     };
   }
 
+  geocoder = new google.maps.Geocoder();
+
+  getMarkerZipCode() {
+    let latlng = new google.maps.LatLng(
+      this.newPosition.lat,
+      this.newPosition.lng
+    );
+
+    this.geocoder.geocode({ location: latlng }, (results, status) => {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results && results[0]) {
+          this.address = results[0].formatted_address;
+          const addressComponents = results[0].address_components;
+          for (var i = 0; i < addressComponents.length; i++) {
+            if (addressComponents[i].types.includes('postal_code')) {
+              this.zipCode = results[0].address_components[i].short_name;
+            }
+          }
+        }
+      }
+    });
+  }
+
   updateMarkerLocation(marker: any) {
     this.newPosition.lat = marker.latLng.lat();
     this.newPosition.lng = marker.latLng.lng();
+    this.getMarkerZipCode();
   }
 
   updateLocation() {
-    this.ref.close(this.newPosition);
+    this.ref.close({
+      lat: this.newPosition.lat,
+      lng: this.newPosition.lng,
+      zipCode: this.zipCode,
+      address: this.address,
+    });
   }
 }

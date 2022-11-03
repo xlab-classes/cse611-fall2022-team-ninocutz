@@ -35,7 +35,10 @@
       </div>
 
       <div class="row mt-5">
-        <app-afm-button label="Login" (click)="loginClicked()"></app-afm-button>
+        <app-afm-button
+          label="Login"
+          (buttonClicked)="loginClicked()"
+        ></app-afm-button>
       </div>
     </div>
   </div>

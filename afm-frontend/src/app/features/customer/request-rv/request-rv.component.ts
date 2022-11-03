@@ -22,6 +22,7 @@ export class RequestRvComponent implements OnInit {
   invalidZipCode = false;
   invalidPhoneNumber = false;
   invalidEmail = false;
+  loading = false;
 
   constructor(
     private dataService: DataService,
@@ -58,6 +59,7 @@ export class RequestRvComponent implements OnInit {
   }
 
   submitClicked() {
+    this.loading = true;
     this.rvRequest.bookingDate = moment(this.bookingDate).format('YYYY-MM-DD');
     this.rvRequest.bookingTimeSlot =
       moment(this.fromTime).format('HH:mm') +
@@ -66,6 +68,7 @@ export class RequestRvComponent implements OnInit {
 
     this.dataService.requestRV(this.rvRequest).subscribe(() => {
       this.rvRequest = new RVRequestModel();
+      this.loading = false;
       this.showSuccessMessage();
     });
   }

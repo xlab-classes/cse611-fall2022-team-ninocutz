@@ -9,7 +9,11 @@
         <div class="row">
           <div class="col">
             <h5 class="afm-label-text">Event Name</h5>
-            <input type="text" pInputText [(ngModel)]="eventName" />
+            <input
+              type="text"
+              pInputText
+              [(ngModel)]="currentEvent.eventName"
+            />
           </div>
         </div>
 
@@ -49,7 +53,7 @@
           <div class="col">
             <h5 class="afm-label-text">Message</h5>
             <textarea
-              [(ngModel)]="message"
+              [(ngModel)]="currentEvent.message"
               [rows]="5"
               [cols]="70"
               pInputTextarea
@@ -72,33 +76,24 @@
           </div>
         </div>
 
+        <div class="row mt-4" style="text-align: center">
+          <app-afm-button
+            label="Get Location"
+            (buttonClicked)="getLocation()"
+          ></app-afm-button>
+        </div>
+
         <div class="row mt-4">
           <div class="col">
-            <h3 class="afm-label-text">Address</h3>
-            <textarea
-              [(ngModel)]="address"
-              [rows]="5"
-              [cols]="80"
-              pInputTextarea
-              [autoResize]="true"
-              style="max-width: 90%"
-            ></textarea>
+            <h3 class="afm-label-text">Address: {{ currentEvent.address }}</h3>
           </div>
         </div>
 
         <div class="row mt-4">
           <div class="col">
-            <h3 class="afm-label-text">Zip Code</h3>
-            <p-inputNumber
-              [ngClass]="{ 'ng-invalid ng-dirty': invalidZipCode }"
-              [(ngModel)]="zipCode"
-              mode="decimal"
-              inputId="withoutgrouping"
-              [useGrouping]="false"
-              placeholder="XXXXX"
-              (onBlur)="validateZipCode()"
-            >
-            </p-inputNumber>
+            <h3 class="afm-label-text">
+              Zip Code : {{ currentEvent.zipCode }}
+            </h3>
           </div>
         </div>
 
@@ -107,7 +102,9 @@
             <h3 class="afm-label-text">Trigger Email</h3>
           </div>
           <div class="col">
-            <p-inputSwitch [(ngModel)]="emailTrigger"></p-inputSwitch>
+            <p-inputSwitch
+              [(ngModel)]="currentEvent.emailTrigger"
+            ></p-inputSwitch>
           </div>
         </div>
 
@@ -116,7 +113,9 @@
             <h3 class="afm-label-text">Trigger SMS</h3>
           </div>
           <div class="col">
-            <p-inputSwitch [(ngModel)]="smsTrigger"></p-inputSwitch>
+            <p-inputSwitch
+              [(ngModel)]="currentEvent.smsTrigger"
+            ></p-inputSwitch>
           </div>
         </div>
 
@@ -126,7 +125,7 @@
         <div class="row" style="text-align: center">
           <app-afm-button
             label="Share Location"
-            (click)="shareLocationClicked()"
+            (buttonClicked)="addCurrentEvent()"
             [disable]="disableSubmit()"
           ></app-afm-button>
         </div>
@@ -134,5 +133,7 @@
     </app-afm-blur-background>
   </div>
 </div>
+
+<p-toast></p-toast>
 
 <app-loading *ngIf="loading"></app-loading>
