@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@abacritt/angularx-social-login": "^1.2.5",
     "@angular/animations": "^14.2.0",
     "@angular/common": "^14.2.0",
     "@angular/compiler": "^14.2.0",
@@ -24,7 +25,6 @@
     "@fontsource/montserrat": "^4.5.12",
     "@fortawesome/angular-fontawesome": "^0.11.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
-    "angularx-social-login": "^4.1.0",
     "bootstrap": "^5.2.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.1",

@@ -13,8 +13,7 @@ import {
   FacebookLoginProvider,
   SocialLoginModule,
   SocialAuthServiceConfig,
-} from 'angularx-social-login';
-
+} from '@abacritt/angularx-social-login';
 @NgModule({
   declarations: [AppComponent],
   imports: [
