@@ -8,7 +8,7 @@ import { EventTypesModel } from 'src/app/core/models/event-types.model';
 import {
   FacebookLoginProvider,
   SocialAuthService,
-} from 'angularx-social-login';
+} from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-add-future-event',
