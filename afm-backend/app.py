@@ -5,7 +5,6 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from dotenv import load_dotenv
 from uuid import uuid4
-from flask_swagger_ui import get_swaggerui_blueprint
 from flasgger import Swagger
 
 # Used to load .env file
@@ -51,12 +50,13 @@ class Database:
     def __init__(self):
         self.username = os.environ.get("DB_USERNAME")
         self.password = os.environ.get("DB_PASSWORD")
+        self.dbIpAddress = os.environ.get("DB_IP_ADDRESS")
 
         self.db = None
 
     def create_connection(self):
         self.db = pymysql.connect(
-            host='54.172.170.239', user=self.username, password=self.password, database='AFM')
+            host=self.dbIpAddress, user=self.username, password=self.password, database='AFM')
 
     def cursor(self):
         if not self.db:

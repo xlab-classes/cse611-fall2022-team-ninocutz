@@ -1,6 +1,18 @@
 <div class="container">
+  <div class="row mb-3">
+    <input
+      type="text"
+      class="my-search-box"
+      pInputText
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="Search Location"
+      type="text"
+      #search
+    />
+  </div>
   <div class="row">
     <google-map
+      #myGoogleMap
       height="450px"
       width="100%"
       [center]="center"
