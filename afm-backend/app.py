@@ -5,6 +5,8 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from dotenv import load_dotenv
 from uuid import uuid4
+from flask_swagger_ui import get_swaggerui_blueprint
+from flasgger import Swagger
 
 # Used to load .env file
 load_dotenv()
@@ -20,7 +22,7 @@ def create_app():
     from controller.appointmentController import appointment_blueprint
 
     app = Flask(__name__)
-
+    Swagger(app)
     # JWT
     # Random Secret Key
     app.secret_key = uuid4().hex
