@@ -27,6 +27,7 @@ export class CustomerAppointmentComponent implements OnInit {
   invalidPhoneNumber = false;
   invalidEmail = false;
   loading = false;
+  eventDisplayDate: string;
 
   constructor(
     private messageService: MessageService,
@@ -57,6 +58,9 @@ export class CustomerAppointmentComponent implements OnInit {
   }
 
   setEventStartEndTime() {
+    this.eventDisplayDate = moment(this.event.EventDate)
+      .add(1, 'days')
+      .format('LL');
     const temp = this.event.EventTimeSlot.split('-');
     this.eventStartTime = moment('2022-10-13' + ' ' + temp[0]).toDate();
     this.eventEndTime = moment('2022-10-13' + ' ' + temp[1]).toDate();
