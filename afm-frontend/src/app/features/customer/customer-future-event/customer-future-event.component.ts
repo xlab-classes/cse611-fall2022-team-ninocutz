@@ -23,9 +23,9 @@ export class CustomerFutureEventComponent implements OnInit {
 
   ngOnInit(): void {
     this.futureEvent = this.config.data.event;
-    this.eventDate = this.futureEvent.EventDate = moment(this.eventDate).format(
-      'LL'
-    );
+    this.eventDate = moment(this.futureEvent.EventDate)
+      .add(1, 'days')
+      .format('LL');
   }
 
   openAppointmentBooking() {
