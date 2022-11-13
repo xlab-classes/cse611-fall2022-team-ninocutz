@@ -34,10 +34,10 @@ export class AdminHeaderComponent implements OnInit {
         label: 'Requests',
         routerLink: ['/admin/requests'],
       },
-      {
-        label: 'Appointments',
-        routerLink: ['/admin/appointments'],
-      },
+      // {
+      //   label: 'Appointments',
+      //   routerLink: ['/admin/appointments'],
+      // },
       {
         label: 'Notifications',
         routerLink: ['/admin/notifications'],

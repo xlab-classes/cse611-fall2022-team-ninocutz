@@ -31,59 +31,64 @@
     </div>
   </ng-template>
 
-  <div id="futureEventsDisplay" class="gallery-corousel">
-    <app-afm-blur-background>
-      <div style="padding-top: 10px">
+  <div id="futureEventsDisplay" class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-auto">
         <h2 class="afm-heading-text">Future Events</h2>
       </div>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-auto">
-            <div *ngIf="futureEvents.length == 0">
-              <p-progressSpinner></p-progressSpinner>
-            </div>
-            <div *ngIf="futureEvents.length > 0">
-              <app-afm-image-carousel
-                [data]="futureEvents"
-                (imageClick)="futureEventClicked($event)"
-                [displayIcon]="false"
-              ></app-afm-image-carousel>
-            </div>
+    </div>
+
+    <app-afm-blur-background>
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <div *ngIf="futureEvents.length == 0">
+            <p-progressSpinner></p-progressSpinner>
+          </div>
+          <div *ngIf="futureEvents.length > 0">
+            <app-afm-image-carousel
+              [data]="futureEvents"
+              (imageClick)="futureEventClicked($event)"
+              [displayIcon]="false"
+            ></app-afm-image-carousel>
           </div>
         </div>
       </div>
     </app-afm-blur-background>
   </div>
 
-  <div id="pastEventsDisplay" class="gallery-corousel">
-    <app-afm-blur-background>
-      <div style="padding-top: 10px">
+  <div id="pastEventsDisplay" class="container-fluid" style="margin-top: 80px">
+    <div class="row justify-content-center">
+      <div class="col-auto">
         <h2 class="afm-heading-text">Past Events</h2>
       </div>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-auto">
-            <div *ngIf="pastEvents.length == 0">
-              <p-progressSpinner></p-progressSpinner>
-            </div>
-            <div *ngIf="pastEvents.length > 0">
-              <app-afm-image-carousel
-                [data]="pastEvents"
-                (imageClick)="pastEventClicked($event)"
-                [displayIcon]="false"
-              ></app-afm-image-carousel>
-            </div>
+    </div>
+
+    <app-afm-blur-background>
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <div *ngIf="pastEvents.length == 0">
+            <p-progressSpinner></p-progressSpinner>
+          </div>
+          <div *ngIf="pastEvents.length > 0">
+            <app-afm-image-carousel
+              [data]="pastEvents"
+              (imageClick)="pastEventClicked($event)"
+              [displayIcon]="false"
+            ></app-afm-image-carousel>
           </div>
         </div>
       </div>
     </app-afm-blur-background>
   </div>
 
-  <div class="gallery-corousel" id="galleryDisplay">
-    <app-afm-blur-background>
-      <div style="padding-top: 10px; padding-bottom: 10px">
+  <div id="galleryDisplay" class="container-fluid" style="margin-top: 80px">
+    <div class="row justify-content-center">
+      <div class="col-auto">
         <h2 class="afm-heading-text">Gallery</h2>
       </div>
+    </div>
+
+    <app-afm-blur-background>
       <div class="container-fluid">
         <swiper
           [slidesPerView]="1"
@@ -113,7 +118,6 @@
           </ng-template>
         </swiper>
       </div>
-      <br />
     </app-afm-blur-background>
   </div>
 </div>

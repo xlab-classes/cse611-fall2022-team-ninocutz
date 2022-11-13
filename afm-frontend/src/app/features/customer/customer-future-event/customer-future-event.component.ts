@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FutureEventsModel } from 'src/app/core/models/future-events.model';
 import { SharingService } from 'src/app/core/services/sharing.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-customer-future-event',
@@ -29,8 +30,6 @@ export class CustomerFutureEventComponent implements OnInit {
   }
 
   openAppointmentBooking() {
-    this.sharingService.setData(this.futureEvent);
-    this.ref.close();
-    this.router.navigate(['/appointment-request']);
+    window.open(environment.squareUrl);
   }
 }
