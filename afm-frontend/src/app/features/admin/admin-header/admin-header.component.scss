@@ -6,8 +6,10 @@
   text-align: center;
 }
 .afm-header-text {
-  @extend .afm-font-family-logo;
   color: white;
+  @extend .afm-font-family;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   font-size: 14px;
 }
 .img-logo {
@@ -31,6 +33,12 @@
 }
 ::ng-deep .p-menuitem-text {
   @extend .afm-font-family;
+  display: block;
+  margin-left: 30px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8em;
 }
 .logout-button {
   cursor: pointer;

@@ -1,9 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@fontsource/aileron";
-@import "@fontsource/montserrat";
 
 .afm-font-family {
-  font-family: "Montserrat";
+  font-family: Montserrat, Helvetica Neue, Arial, sans-serif;
 }
 
 .afm-font-family-logo {
@@ -11,7 +10,9 @@
 }
 
 .afm-heading-text {
-  @extend .afm-font-family;
+  font-family: Oswald, Helvetica Neue, Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 .afm-label-text {
   @extend .afm-font-family;

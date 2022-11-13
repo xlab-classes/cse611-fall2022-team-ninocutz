@@ -14,6 +14,7 @@ import { FutureEventsModel } from 'src/app/core/models/future-events.model';
 import { GalleryImagesModel } from 'src/app/core/models/gallery-images.model';
 import { PastEventsModel } from 'src/app/core/models/past-events.model';
 import { DataService } from 'src/app/core/services/data.service';
+import { environment } from 'src/environments/environment';
 import SwiperCore, { Keyboard, Pagination, Navigation, Autoplay } from 'swiper';
 import { CustomerFutureEventComponent } from '../customer-future-event/customer-future-event.component';
 import { CustomerPastEventComponent } from '../customer-past-event/customer-past-event.component';
@@ -68,9 +69,7 @@ export class CustomerHomeComponent implements OnInit {
   }
 
   bookNowClicked() {
-    window.open(
-      'https://square.site/book/1G35M2ZHB258R/architect-for-men-buffalo-ny'
-    );
+    window.open(environment.squareUrl);
   }
 
   getGalleryImages() {

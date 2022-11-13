@@ -17,6 +17,7 @@ export class CustomerHeaderComponent implements OnInit {
       {
         label: 'Future Events',
         routerLink: ['/home', { pageSec: 'futureEventsDisplay' }],
+        styleClass: 'afm-header'
       },
       {
         label: 'Past Events',
