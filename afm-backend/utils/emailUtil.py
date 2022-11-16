@@ -23,7 +23,8 @@ def resetPasswordEmail(username, token):
     msg['To'] = msg_recipient_email
     msg['Subject'] = "Password Reset Link"
 
-    reset_url = "http://localhost:4200/reset-password?token=" + token
+    reset_url = os.environ.get("WEBSITE_URL") + \
+        "/reset-password?token=" + token
     msg_body = "Hello, " + "\n" + "Please follow this link to reset your password - {}".format(reset_url)+"\n"\
         "Note: Please keep in mind the link is valid only for 15 minutes. If link expires, request password reset again from our website." +\
         "\n"+"\n"+"\n"+"Regards,"+"\n"+"Architect For Men"
@@ -45,8 +46,7 @@ def triggerNotificationEmail(template, usernames):
     msg['From'] = msgSenderEmail
     msg['Subject'] = "AFM-RV near your location"
 
-    websiteUrl = "http://localhost:4200"
-
+    websiteUrl = os.environ.get("WEBSITE_URL")
     msgBody = template.format(websiteUrl)
 
     msg.set_content(msgBody)
