@@ -48,7 +48,7 @@ def default_sms_thread(message_body, numbers):
 
 
 def send_promotional_sms(numbers, template, sms_service_type):
-    website_link = "http://localhost:4200"
+    website_link = os.environ.get("WEBSITE_URL")
 
     message_body = template.format(website_link)
     if sms_service_type == TWILIO_SMS_SERVICE:
