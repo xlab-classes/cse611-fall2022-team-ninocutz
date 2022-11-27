@@ -52,7 +52,6 @@ CREATE TABLE `Event` (
   `Address` varchar(255) DEFAULT NULL,
   `EventDate` datetime DEFAULT NULL,
   `EventTimeSlot` varchar(100) DEFAULT NULL,
-  `EventTimeLine` varchar(10) DEFAULT NULL,
   `Zipcode` varchar(10) DEFAULT NULL,
   `Message` varchar(500) DEFAULT NULL,
   `CreatedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
