@@ -17,7 +17,7 @@ class EventModel:
     def _get_dict(self):
         self.col_dict = {'ImageId': self.imageId, 'EventTypeId':self.eventTypeId, 
         'Name': self.name, 'Longitude':self.longitude, 'Latitude':self.latitude, 'Address':self.address, 
-        'EventDate':self.eventDate, 'EventTimeSlot':self.eventTimeSlot, 'EventTimeLine':None, 'Zipcode':self.zipCode, 
+        'EventDate':self.eventDate, 'EventTimeSlot':self.eventTimeSlot, 'Zipcode':self.zipCode, 
         'Message':self.message}
         return self.col_dict
 
