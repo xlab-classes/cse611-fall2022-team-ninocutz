@@ -7,12 +7,12 @@
         <div class="row mt-4">
           <div class="col">
             <h5 class="afm-label-text">First Name</h5>
-            <input type="text" pInputText [(ngModel)]="rvRequest.firstName" />
+            <input data-id="firstName" type="text" pInputText [(ngModel)]="rvRequest.firstName" />
           </div>
 
           <div class="col mt-sm-0 mt-4">
             <h5 class="afm-label-text">Last Name</h5>
-            <input type="text" pInputText [(ngModel)]="rvRequest.lastName" />
+            <input data-id="lastName" type="text" pInputText [(ngModel)]="rvRequest.lastName" />
           </div>
         </div>
 
@@ -22,7 +22,7 @@
             <p-inputNumber
               [(ngModel)]="rvRequest.numberOfPeople"
               mode="decimal"
-              inputId="withoutgrouping"
+              inputId="numberOfPeople"
               [useGrouping]="false"
             >
             </p-inputNumber>
@@ -33,7 +33,7 @@
             <p-calendar
               [(ngModel)]="bookingDate"
               [showIcon]="true"
-              inputId="icon"
+              inputId="bookingDate"
               [minDate]="todayDate"
               (onSelect)="dateSelected($event)"
             ></p-calendar>
@@ -48,11 +48,10 @@
           <div class="col">
             <span class="p-float-label">
               <p-calendar
-                id="fromTime"
                 [(ngModel)]="fromTime"
                 [timeOnly]="true"
                 [hourFormat]="'24'"
-                inputId="timeonly"
+                inputId="fromTime"
               ></p-calendar>
               <label for="fromTime">From Time</label>
             </span>
@@ -65,7 +64,7 @@
                 [timeOnly]="true"
                 [hourFormat]="'24'"
                 [minDate]="fromTime"
-                inputId="timeonly"
+                inputId="toTime"
               ></p-calendar>
               <label for="toime">To Time</label>
             </span>
@@ -86,6 +85,7 @@
           <div class="col">
             <h3 class="afm-label-text">Address</h3>
             <textarea
+              data-id="address"            
               [(ngModel)]="rvRequest.address"
               [rows]="5"
               [cols]="80"
@@ -103,7 +103,7 @@
               [ngClass]="{ 'ng-invalid ng-dirty': invalidZipCode }"
               [(ngModel)]="rvRequest.zipCode"
               mode="decimal"
-              inputId="withoutgrouping"
+              inputId="zipCode"
               [useGrouping]="false"
               placeholder="XXXXX"
               (onBlur)="validateZipCode()"
@@ -116,6 +116,7 @@
           <div class="col">
             <h5 class="afm-label-text">Email Id</h5>
             <input
+              data-id="emailAddress"
               [ngClass]="{ 'ng-invalid ng-dirty': invalidEmail }"
               type="text"
               pInputText
@@ -130,7 +131,7 @@
               [ngClass]="{ 'ng-invalid ng-dirty': invalidPhoneNumber }"
               [(ngModel)]="rvRequest.mobileNumber"
               mode="decimal"
-              inputId="withoutgrouping"
+              inputId="mobileNumber"
               [useGrouping]="false"
               placeholder="XXX-XXX-XXXX"
               (onBlur)="validatePhoneNumber()"
@@ -143,6 +144,7 @@
 
         <div class="row mt-4 text-align-center">
           <app-afm-button
+            dataid="Submit"
             label="Submit"
             (buttonClicked)="submitClicked()"
             [disable]="disableSubmit()"
