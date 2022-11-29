@@ -9,7 +9,7 @@ export class AfmButtonComponent implements OnInit {
   @Input() disable = false;
   @Input() label: string;
   @Output() buttonClicked = new EventEmitter();
-  constructor() {}
+  constructor() {} 
 
   ngOnInit(): void {}
 

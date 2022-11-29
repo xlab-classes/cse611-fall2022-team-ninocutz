@@ -130,7 +130,7 @@
               [ngClass]="{ 'ng-invalid ng-dirty': invalidPhoneNumber }"
               [(ngModel)]="rvRequest.mobileNumber"
               mode="decimal"
-              inputId="withoutgrouping"
+              inputId="mobileNumber" 
               [useGrouping]="false"
               placeholder="XXX-XXX-XXXX"
               (onBlur)="validatePhoneNumber()"
