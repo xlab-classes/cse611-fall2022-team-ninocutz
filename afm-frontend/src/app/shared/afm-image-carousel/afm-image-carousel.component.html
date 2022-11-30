@@ -12,6 +12,7 @@
       <ng-template let-image pTemplate="item">
         <div style="border-style: solid; border: 2px">
           <div
+            [id]="getDivId(image)"
             class="image-item"
             (click)="imageClicked(image)"
             style="cursor: pointer"

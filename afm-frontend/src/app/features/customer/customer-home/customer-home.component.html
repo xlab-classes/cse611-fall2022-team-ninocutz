@@ -46,6 +46,7 @@
           </div>
           <div *ngIf="futureEvents.length > 0">
             <app-afm-image-carousel
+              divId="future-event"
               [data]="futureEvents"
               (imageClick)="futureEventClicked($event)"
               [displayIcon]="false"

@@ -18,6 +18,7 @@ export class AfmImageCarouselComponent implements OnInit {
   @Input() data: ImageCarouselModel[];
   @Input() displayIcon = false;
   @Input() faIcon = faEdit;
+  @Input() divId = 'div-id';
   @Output() imageClick = new EventEmitter();
 
   getScreenWidth: any;
@@ -50,5 +51,9 @@ export class AfmImageCarouselComponent implements OnInit {
 
   imageClicked(image: ImageCarouselModel) {
     this.imageClick.emit(image);
+  }
+
+  getDivId(item: ImageCarouselModel): string {
+    return this.divId + '-' + this.data.indexOf(item);
   }
 }
