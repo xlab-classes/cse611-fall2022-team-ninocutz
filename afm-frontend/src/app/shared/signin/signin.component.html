@@ -30,12 +30,15 @@
 
       <div class="row mt-4 justify-content-end">
         <div class="col-6">
-          <a routerLink="/forgot-password">Forgot Password?</a>
+          <a routerLink="/forgot-password" id="forgot-password"
+            >Forgot Password?</a
+          >
         </div>
       </div>
 
       <div class="row mt-5">
         <app-afm-button
+          dataid="login-button"
           label="Login"
           (buttonClicked)="loginClicked()"
         ></app-afm-button>
