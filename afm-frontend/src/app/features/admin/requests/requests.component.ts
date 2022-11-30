@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { BookingsModel } from 'src/app/core/models/bookings.model';
@@ -32,6 +33,9 @@ export class RequestsComponent implements OnInit {
 
   getAllBookings() {
     this.dataService.getAllBookings().subscribe((data) => {
+      data.bookings.forEach((x) => {
+        x.BookingDate = moment(x.BookingDate).add(1, 'days').format('LL');
+      });
       this.bookings = data.bookings;
     });
   }
