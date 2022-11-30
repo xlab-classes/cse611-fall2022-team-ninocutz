@@ -19,4 +19,9 @@ describe("Request and Verify for RV", function () {
       cy.wait('@createBooking').its('response.statusCode').should('eq', 201);
        
     });
+    it("Verify Submit is disabled", function () {
+      cy.visit("http://localhost:4200/sign-up");
+      cy.contains('Sign Up').click();
+      cy.get('[id=Submit]').should('be.disabled')
+    });        
   });  
