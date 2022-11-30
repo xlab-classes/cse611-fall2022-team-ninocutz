@@ -19,8 +19,8 @@ export class CustomerPastEventComponent implements OnInit {
 
   ngOnInit(): void {
     this.pastEvent = this.config.data.event;
-    this.eventDate = this.pastEvent.EventDate = moment(this.eventDate).format(
-      'LL'
-    );
+    this.eventDate = moment(this.pastEvent.EventDate)
+      .add(1, 'days')
+      .format('LL');
   }
 }
