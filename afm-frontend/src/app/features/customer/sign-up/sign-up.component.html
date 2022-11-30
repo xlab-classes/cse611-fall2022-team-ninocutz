@@ -7,12 +7,22 @@
         <div class="row mt-4">
           <div class="col">
             <h5 class="afm-label-text">First Name</h5>
-            <input type="text" pInputText [(ngModel)]="customer.firstName" />
+            <input
+              id="firstName"
+              type="text"
+              pInputText
+              [(ngModel)]="customer.firstName"
+            />
           </div>
 
           <div class="col mt-sm-0 mt-4">
             <h5 class="afm-label-text">Last Name</h5>
-            <input type="text" pInputText [(ngModel)]="customer.lastName" />
+            <input
+              id="lastName"
+              type="text"
+              pInputText
+              [(ngModel)]="customer.lastName"
+            />
           </div>
         </div>
 
@@ -20,6 +30,7 @@
           <div class="col">
             <h3 class="afm-label-text">Address</h3>
             <textarea
+              id="address"
               [(ngModel)]="customer.address"
               [rows]="5"
               [cols]="80"
@@ -37,7 +48,7 @@
               [ngClass]="{ 'ng-invalid ng-dirty': invalidZipCode }"
               [(ngModel)]="customer.zipCode"
               mode="decimal"
-              inputId="withoutgrouping"
+              inputId="zipCode"
               [useGrouping]="false"
               placeholder="XXXXX"
               (onBlur)="validateZipCode()"
@@ -50,6 +61,7 @@
           <div class="col">
             <h5 class="afm-label-text">Email Id</h5>
             <input
+              id="emailAddress"
               [ngClass]="{ 'ng-invalid ng-dirty': invalidEmail }"
               type="email"
               pInputText
@@ -61,10 +73,10 @@
           <div class="col mt-sm-0 mt-4">
             <h5 class="afm-label-text">Mobile Number</h5>
             <p-inputNumber
+              inputId="mobileNumber"
               [ngClass]="{ 'ng-invalid ng-dirty': invalidPhoneNumber }"
               [(ngModel)]="customer.mobileNumber"
               mode="decimal"
-              inputId="withoutgrouping"
               [useGrouping]="false"
               placeholder="XXX-XXX-XXXX"
               (onBlur)="validatePhoneNumber()"
@@ -77,6 +89,7 @@
 
         <div class="row mt-4 text-align-center">
           <app-afm-button
+            dataid="submit"
             label="Submit"
             (buttonClicked)="submitClicked()"
             [disable]="disableSubmit()"

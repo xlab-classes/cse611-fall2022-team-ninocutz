@@ -7,12 +7,12 @@
         <div class="row mt-4">
           <div class="col">
             <h5 class="afm-label-text">First Name</h5>
-            <input data-id="firstName" type="text" pInputText [(ngModel)]="rvRequest.firstName" />
+            <input id="firstName" type="text" pInputText [(ngModel)]="rvRequest.firstName" />
           </div>
 
           <div class="col mt-sm-0 mt-4">
             <h5 class="afm-label-text">Last Name</h5>
-            <input data-id="lastName" type="text" pInputText [(ngModel)]="rvRequest.lastName" />
+            <input id="lastName" type="text" pInputText [(ngModel)]="rvRequest.lastName" />
           </div>
         </div>
 
@@ -85,7 +85,7 @@
           <div class="col">
             <h3 class="afm-label-text">Address</h3>
             <textarea
-              data-id="address"            
+              id="address"            
               [(ngModel)]="rvRequest.address"
               [rows]="5"
               [cols]="80"
@@ -116,7 +116,7 @@
           <div class="col">
             <h5 class="afm-label-text">Email Id</h5>
             <input
-              data-id="emailAddress"
+              id="emailAddress"
               [ngClass]="{ 'ng-invalid ng-dirty': invalidEmail }"
               type="text"
               pInputText
@@ -144,7 +144,7 @@
 
         <div class="row mt-4 text-align-center">
           <app-afm-button
-            dataid="Submit"
+            dataid="submit"
             label="Submit"
             (buttonClicked)="submitClicked()"
             [disable]="disableSubmit()"
