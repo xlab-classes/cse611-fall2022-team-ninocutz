@@ -1,7 +1,7 @@
 describe("Sign Up for Notifications", function () {
     xit("SignUp", function () {
       cy.intercept('POST', '/customer').as('signUp')    
-      cy.visit("http://localhost:4200/sign-up");
+      cy.visit("https://architectformobilehairdesign.com/");
       cy.contains('Sign Up').click();
       cy.get('[data-id=firstName]').type('John');
       cy.get('[data-id=lastName]').type('Doe');
@@ -14,7 +14,7 @@ describe("Sign Up for Notifications", function () {
       cy.wait('@signUp').its('response.statusCode').should('eq', 201);
     });
     it("Verify Submit is disabled", function () {
-      cy.visit("http://localhost:4200/sign-up");
+      cy.visit("https://architectformobilehairdesign.com/");
       cy.contains('Sign Up').click();
       cy.get('[id=Submit]').should('be.disabled')
     });    

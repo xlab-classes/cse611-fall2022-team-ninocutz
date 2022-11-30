@@ -20,7 +20,7 @@ describe("Request and Verify for RV", function () {
        
     });
     it("Verify Submit is disabled", function () {
-      cy.visit("http://localhost:4200/sign-up");
+      cy.visit("https://architectformobilehairdesign.com/");
       cy.contains('Sign Up').click();
       cy.get('[id=Submit]').should('be.disabled')
     });        
