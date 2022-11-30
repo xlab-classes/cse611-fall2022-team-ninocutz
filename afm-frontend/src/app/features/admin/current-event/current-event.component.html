@@ -10,6 +10,7 @@
           <div class="col">
             <h5 class="afm-label-text">Event Name</h5>
             <input
+              id="event-name"
               type="text"
               pInputText
               [(ngModel)]="currentEvent.eventName"
@@ -37,7 +38,7 @@
           <div class="col">
             <span class="p-float-label">
               <p-calendar
-                id="toime"
+                id="toTime"
                 [(ngModel)]="toTime"
                 [timeOnly]="true"
                 [hourFormat]="'24'"
@@ -53,6 +54,7 @@
           <div class="col">
             <h5 class="afm-label-text">Message</h5>
             <textarea
+              id="message"
               [(ngModel)]="currentEvent.message"
               [rows]="5"
               [cols]="70"
@@ -67,6 +69,7 @@
           <div class="col-12 col-md-6">
             <h3 class="afm-label-text">Event Type</h3>
             <p-dropdown
+              id="event-type"
               [options]="eventTypes"
               [(ngModel)]="selectedEvent"
               placeholder="Select"
@@ -78,6 +81,7 @@
 
         <div class="row mt-4" style="text-align: center">
           <app-afm-button
+            dataid="get-location"
             label="Get Location"
             (buttonClicked)="getLocation()"
           ></app-afm-button>
@@ -103,6 +107,7 @@
           </div>
           <div class="col">
             <p-inputSwitch
+              id="trigger-email"
               [(ngModel)]="currentEvent.emailTrigger"
             ></p-inputSwitch>
           </div>
@@ -114,6 +119,7 @@
           </div>
           <div class="col">
             <p-inputSwitch
+              id="trigger-sms"
               [(ngModel)]="currentEvent.smsTrigger"
             ></p-inputSwitch>
           </div>
@@ -124,6 +130,7 @@
 
         <div class="row" style="text-align: center">
           <app-afm-button
+            dataid="share-location"
             label="Share Location"
             (buttonClicked)="addCurrentEvent()"
             [disable]="disableSubmit()"
