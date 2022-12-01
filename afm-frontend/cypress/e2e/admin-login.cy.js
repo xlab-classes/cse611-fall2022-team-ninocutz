@@ -5,7 +5,7 @@ describe("Login Page", () => {
     cy.get("[id=password]").type("password");
 
     cy.intercept("POST", "/auth").as("login");
-    cy.get("[id=login-button]").click();
+    cy.get("[id=loginButton]").click();
 
     cy.wait("@login").its("response.statusCode").should("eq", 200);
 
@@ -18,7 +18,7 @@ describe("Login Page", () => {
     cy.get("[id=password]").type("invalidPassword");
 
     cy.intercept("POST", "/auth").as("login");
-    cy.get("[id=login-button]").click();
+    cy.get("[id=loginButton]").click();
 
     cy.wait("@login").its("response.statusCode").should("eq", 401);
 

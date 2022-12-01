@@ -10,6 +10,7 @@
           </div>
           <div class="col align-self-center mt-4 mt-sm-0">
             <app-afm-button
+              dataid="remove"
               label="Remove"
               (buttonClicked)="clear()"
             ></app-afm-button>
@@ -36,7 +37,12 @@
         <div class="row mt-4">
           <div class="col">
             <h5 class="afm-label-text">Event Name</h5>
-            <input type="text" pInputText [(ngModel)]="eventName" />
+            <input
+              id="eventName"
+              type="text"
+              pInputText
+              [(ngModel)]="eventName"
+            />
           </div>
         </div>
 
@@ -46,7 +52,7 @@
             <p-calendar
               [(ngModel)]="futureEventData"
               [showIcon]="true"
-              inputId="icon"
+              inputId="eventDate"
               [minDate]="tomorrowDate"
             ></p-calendar>
           </div>
@@ -72,7 +78,7 @@
           <div class="col">
             <span class="p-float-label">
               <p-calendar
-                id="toime"
+                id="toTime"
                 [(ngModel)]="toTime"
                 [timeOnly]="true"
                 [hourFormat]="'24'"
@@ -88,6 +94,7 @@
           <div class="col">
             <h5 class="afm-label-text">Message</h5>
             <textarea
+              id="message"
               [(ngModel)]="message"
               [rows]="5"
               [cols]="80"
@@ -102,6 +109,7 @@
           <div class="col">
             <h3 class="afm-label-text">Event Type</h3>
             <p-dropdown
+              id="eventType"
               [options]="eventTypes"
               [(ngModel)]="selectedEvent"
               placeholder="Select"
@@ -115,6 +123,7 @@
           <div class="col">
             <h3 class="afm-label-text">Address</h3>
             <textarea
+              id="address"
               [(ngModel)]="address"
               [rows]="5"
               [cols]="80"
@@ -129,6 +138,7 @@
           <div class="col">
             <h3 class="afm-label-text">Zip Code</h3>
             <p-inputNumber
+              id="zipCode"
               [ngClass]="{ 'ng-invalid ng-dirty': invalidZipCode }"
               [(ngModel)]="zipCode"
               mode="decimal"
@@ -146,7 +156,10 @@
             <h3 class="afm-label-text">Post On Instagram</h3>
           </div>
           <div class="col">
-            <p-inputSwitch [(ngModel)]="instagramTrigger"></p-inputSwitch>
+            <p-inputSwitch
+              id="postOnInstagram"
+              [(ngModel)]="instagramTrigger"
+            ></p-inputSwitch>
           </div>
         </div>
 
@@ -155,7 +168,10 @@
             <h3 class="afm-label-text">Post On Facebook</h3>
           </div>
           <div class="col">
-            <p-inputSwitch [(ngModel)]="facebookTrigger"></p-inputSwitch>
+            <p-inputSwitch
+              id="postOnFacebook"
+              [(ngModel)]="facebookTrigger"
+            ></p-inputSwitch>
           </div>
         </div>
 
@@ -164,12 +180,16 @@
             <h3 class="afm-label-text">Post On Twitter</h3>
           </div>
           <div class="col">
-            <p-inputSwitch [(ngModel)]="twitterTrigger"></p-inputSwitch>
+            <p-inputSwitch
+              id="postOnTwitter"
+              [(ngModel)]="twitterTrigger"
+            ></p-inputSwitch>
           </div>
         </div>
 
         <div class="row mt-4 text-align-center">
           <app-afm-button
+            dataid="submit"
             label="Submit"
             (buttonClicked)="submitClicked()"
             [disable]="disableSubmit()"

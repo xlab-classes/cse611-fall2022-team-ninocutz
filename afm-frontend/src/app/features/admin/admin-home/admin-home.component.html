@@ -2,7 +2,7 @@
   <div class="row justify-content-center" style="height: 250px">
     <div class="align-self-center col-auto">
       <app-afm-button
-        dataid="share-current-location"
+        dataid="shareCurrentLocation"
         label="Share Current Location"
         (buttonClicked)="shareLocationButtonClick()"
       ></app-afm-button>
@@ -11,6 +11,7 @@
 
   <div class="row justify-content-center">
     <div
+      id="future-events"
       class="col-auto"
       style="cursor: pointer"
       (click)="openFutureEventsPage()"
