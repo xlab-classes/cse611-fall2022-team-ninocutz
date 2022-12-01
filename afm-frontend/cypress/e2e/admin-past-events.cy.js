@@ -1,5 +1,5 @@
-describe("Admin Future Events", () => {
-  it("Home Page, admin clicks on Future Events redirects to page to display all future events", () => {
+describe("Admin Past Events", () => {
+  it("Home Page, admin clicks on Past Events redirects to page to display all past events", () => {
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
     cy.get("[id=password]").type("password");
@@ -7,22 +7,22 @@ describe("Admin Future Events", () => {
     cy.get("[id=loginButton]").click();
     cy.location("pathname").should("eq", "/admin/home");
 
-    cy.get("[id=futureEvents]").click();
-    cy.location("pathname").should("eq", "/admin/future-events");
+    cy.get("[id=pastEvents]").click();
+    cy.location("pathname").should("eq", "/admin/past-events");
 
-    cy.contains("Future Events");
+    cy.contains("Past Events");
   });
 
-  it("Future events page admin is able to enter the details for future events, validate fields", () => {
+  it("Past events page admin is able to enter the details for past events, validate fields", () => {
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
     cy.get("[id=password]").type("password");
 
     cy.get("[id=loginButton]").click();
 
-    cy.get("[id=futureEvents]").click();
-    cy.get("[id=addFutureEvent]").click();
-    cy.location("pathname").should("eq", "/admin/add-future-event");
+    cy.get("[id=pastEvents]").click();
+    cy.get("[id=addPastEvent]").click();
+    cy.location("pathname").should("eq", "/admin/add-past-event");
 
     cy.get("[id=submit]").should("be.disabled");
 
@@ -36,7 +36,7 @@ describe("Admin Future Events", () => {
     cy.get("[id=message]").type("Automated Test Message Input");
     cy.get("[id=eventType]").click();
     cy.contains("Wedding").click();
-    cy.get("[id=eventDate]").type("12/02/2032");
+    cy.get("[id=eventDate]").type("12/02/2021");
     cy.get("[id=zipCode]").type("14214");
     cy.get("[id=address]").type("Automated Test Message Address");
 
@@ -81,17 +81,12 @@ describe("Admin Future Events", () => {
       .should("have.value", "");
     cy.get("[id=submit]").should("be.disabled");
 
-    cy.get("[id=eventDate]").type("12/02/2032");
+    cy.get("[id=eventDate]").type("12/02/2021");
     cy.get("[id=submit]").should("not.be.disabled");
 
-    cy.get("[id=zipCode]")
-      .type("{selectAll}")
-      .type("{backspace}")
-      .should("have.value", "");
-    cy.get("[id=postOnFacebook]").find("input").click({ force: true });
+    cy.get("[id=zipCode]").type("{selectAll}").type("{backspace}").blur();
     cy.get("[id=submit]").should("be.disabled");
-    cy.get("[id=zipCode]").type("14214");
-    cy.get("[id=postOnFacebook]").find("input").click({ force: true });
+    cy.get("[id=zipCode]").type("14214").blur();
     cy.get("[id=submit]").should("not.be.disabled");
 
     cy.get("[id=address]")
@@ -103,12 +98,10 @@ describe("Admin Future Events", () => {
     cy.get("[id=submit]").should("not.be.disabled");
 
     // Validate Zip Code values
-    cy.get("[id=zipCode]").type("{backspace}");
-    cy.get("[id=postOnInstagram]").find("input").click({ force: true });
+    cy.get("[id=zipCode]").type("{backspace}").blur();
     cy.get("[id=submit]").should("be.disabled");
 
-    cy.get("[id=zipCode]").type("4");
-    cy.get("[id=postOnInstagram]").find("input").click({ force: true });
+    cy.get("[id=zipCode]").type("4").blur();
     cy.get("[id=submit]").should("not.be.disabled");
   });
 });
