@@ -23,7 +23,7 @@ export class AfmImageCarouselComponent implements OnInit {
 
   getScreenWidth: any;
   noOfImages: number;
-  imageWidth = '200';
+  imageWidth = '250';
 
   constructor() {}
 
@@ -39,9 +39,11 @@ export class AfmImageCarouselComponent implements OnInit {
         ? 2
         : windowSize <= 1230
         ? 3
-        : 4;
+        : windowSize <= 1441
+        ? 4
+        : 5;
 
-    this.imageWidth = windowSize < 370 ? '150' : '200';
+    this.imageWidth = windowSize < 370 ? '150' : '250';
   }
 
   @HostListener('window:resize', ['$event'])
