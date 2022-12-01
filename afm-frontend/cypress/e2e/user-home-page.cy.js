@@ -28,4 +28,17 @@ describe("User Page", function () {
     cy.visit("http://localhost:4200/");
     cy.contains("Sign Up");
   });
+  
+  it("Verify Future Event Booking", function () {
+    cy.visit("http://localhost:4200/");
+    cy.get("[id=future-event-0]").first().click({ force: true });
+    cy.contains("Book Appointment").should('not.be.disabled')
+  });
+
+  it("Verify Past Events", function () {
+    cy.visit("http://localhost:4200/");
+    cy.wait(1000)
+    cy.get("[class=image-item]").last().click({ force: true });
+    cy.contains('Zipcode')
+  });
 });
