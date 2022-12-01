@@ -10,7 +10,7 @@
           <div class="col">
             <h5 class="afm-label-text">Event Name</h5>
             <input
-              id="event-name"
+              id="eventName"
               type="text"
               pInputText
               [(ngModel)]="currentEvent.eventName"
@@ -69,7 +69,7 @@
           <div class="col-12 col-md-6">
             <h3 class="afm-label-text">Event Type</h3>
             <p-dropdown
-              id="event-type"
+              id="eventType"
               [options]="eventTypes"
               [(ngModel)]="selectedEvent"
               placeholder="Select"
@@ -81,7 +81,7 @@
 
         <div class="row mt-4" style="text-align: center">
           <app-afm-button
-            dataid="get-location"
+            dataid="getLocation"
             label="Get Location"
             (buttonClicked)="getLocation()"
           ></app-afm-button>
@@ -107,7 +107,7 @@
           </div>
           <div class="col">
             <p-inputSwitch
-              id="trigger-email"
+              id="triggerEmail"
               [(ngModel)]="currentEvent.emailTrigger"
             ></p-inputSwitch>
           </div>
@@ -119,7 +119,7 @@
           </div>
           <div class="col">
             <p-inputSwitch
-              id="trigger-sms"
+              id="triggerSms"
               [(ngModel)]="currentEvent.smsTrigger"
             ></p-inputSwitch>
           </div>
@@ -130,7 +130,7 @@
 
         <div class="row" style="text-align: center">
           <app-afm-button
-            dataid="share-location"
+            dataid="shareLocation"
             label="Share Location"
             (buttonClicked)="addCurrentEvent()"
             [disable]="disableSubmit()"

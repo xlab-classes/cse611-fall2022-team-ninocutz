@@ -10,6 +10,7 @@
           </div>
           <div class="col align-self-center mt-4 mt-sm-0">
             <app-afm-button
+              dataid="remove"
               label="Remove"
               (buttonClicked)="clear()"
             ></app-afm-button>
@@ -36,7 +37,12 @@
         <div class="row mt-4">
           <div class="col">
             <h5 class="afm-label-text">Event Name</h5>
-            <input type="text" pInputText [(ngModel)]="eventName" />
+            <input
+              id="eventName"
+              type="text"
+              pInputText
+              [(ngModel)]="eventName"
+            />
           </div>
         </div>
 
@@ -44,6 +50,7 @@
           <div class="col">
             <h3 class="afm-label-text">Event Date</h3>
             <p-calendar
+              id="eventDate"
               [maxDate]="yesterdayDate"
               [(ngModel)]="pastEventDate"
               [showIcon]="true"
@@ -72,7 +79,7 @@
           <div class="col">
             <span class="p-float-label">
               <p-calendar
-                id="toime"
+                id="toTime"
                 [(ngModel)]="toTime"
                 [timeOnly]="true"
                 [hourFormat]="'24'"
@@ -88,6 +95,7 @@
           <div class="col">
             <h5 class="afm-label-text">Message</h5>
             <textarea
+              id="message"
               [(ngModel)]="message"
               [rows]="5"
               [cols]="80"
@@ -102,6 +110,7 @@
           <div class="col">
             <h3 class="afm-label-text">Event Type</h3>
             <p-dropdown
+              id="eventType"
               [options]="eventTypes"
               [(ngModel)]="selectedEvent"
               placeholder="Select"
@@ -115,6 +124,7 @@
           <div class="col">
             <h3 class="afm-label-text">Address</h3>
             <textarea
+              id="address"
               [(ngModel)]="address"
               [rows]="5"
               [cols]="80"
@@ -132,7 +142,7 @@
               [ngClass]="{ 'ng-invalid ng-dirty': invalidZipCode }"
               [(ngModel)]="zipCode"
               mode="decimal"
-              inputId="withoutgrouping"
+              inputId="zipCode"
               [useGrouping]="false"
               placeholder="XXXXX"
               (onBlur)="validateZipCode()"
@@ -143,6 +153,7 @@
 
         <div class="row mt-4 text-align-center">
           <app-afm-button
+            dataid="submit"
             label="Submit"
             (buttonClicked)="addNewPastEvent()"
             [disable]="disableSubmit()"
