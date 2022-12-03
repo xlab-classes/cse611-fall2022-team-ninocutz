@@ -1,5 +1,6 @@
 .image-item {
   .image-item-content {
+    min-height: 300px;
     border: 2px solid var(--surface-d);
     border-radius: 20px;
     margin: 0.3rem;
@@ -21,4 +22,12 @@
   @extend .message-break;
   font-weight: 900;
   letter-spacing: 1px;
+}
+.border-card {
+  border-style: solid;
+  border: 2px;
+}
+.image-div {
+  padding: 0;
+  height: 180px;
 }
