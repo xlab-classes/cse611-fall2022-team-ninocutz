@@ -10,7 +10,7 @@
       [autoplayInterval]="3000"
     >
       <ng-template let-image pTemplate="item">
-        <div style="border-style: solid; border: 2px">
+        <div class="border-card">
           <div
             [id]="getDivId(image)"
             class="image-item"
@@ -21,7 +21,7 @@
               <div class="mb-3">
                 <div class="container">
                   <div class="row justify-content-center">
-                    <div class="col-10" *ngIf="image.Url" style="padding: 0">
+                    <div class="col-10" *ngIf="image.Url" class="image-div">
                       <p-image
                         [src]="image.Url"
                         alt="Image"

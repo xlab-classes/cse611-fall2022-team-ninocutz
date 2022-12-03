@@ -15,9 +15,14 @@ export class CustomerHeaderComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {
+        label: 'AFM',
+        styleClass: 'afm-header',
+        command: () => this.redirectToAFM(),
+      },
+      {
         label: 'Future Events',
         routerLink: ['/home', { pageSec: 'futureEventsDisplay' }],
-        styleClass: 'afm-header'
+        styleClass: 'afm-header',
       },
       {
         label: 'Past Events',
@@ -36,6 +41,10 @@ export class CustomerHeaderComponent implements OnInit {
         routerLink: ['/sign-up'],
       },
     ];
+  }
+
+  redirectToAFM() {
+    window.location.href = 'https://www.architectformen.com/pages/homepage';
   }
 
   homeIconClicked() {
