@@ -1,4 +1,10 @@
 describe("Request and Verify for RV", function () {
+  it("Verify Submit is disabled", function () {
+    cy.visit("http://localhost:4200/");
+    cy.contains("Sign Up").click();
+    cy.get("[id=submit]").should("be.disabled");
+  });
+
   it("Request RV", function () {
     cy.intercept("POST", "/bookings").as("createBooking");
     cy.visit("http://localhost:4200/");
@@ -17,11 +23,20 @@ describe("Request and Verify for RV", function () {
     cy.wait(2000);
     cy.get("[id=submit]").click();
     cy.wait("@createBooking").its("response.statusCode").should("eq", 201);
-  });
 
-  it("Verify Submit is disabled", function () {
-    cy.visit("http://localhost:4200/");
-    cy.contains("Sign Up").click();
-    cy.get("[id=submit]").should("be.disabled");
+    // Validate if the Booking is displayed to the Admin
+
+    cy.visit("http://localhost:4200/login");
+    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
+    cy.get("[id=password]").type("password");
+    cy.get("[id=loginButton]").click();
+
+    cy.get("[id=requests]").click();
+    cy.get("[id=search").type("John");
+    cy.contains("John");
+    cy.contains("Doe");
+    cy.contains("test@test.com");
+    cy.contains("196 Englewood Ave");
+    cy.contains("7164168888");
   });
 });
