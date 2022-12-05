@@ -12,11 +12,10 @@ describe("Admin Future Events", () => {
     cy.contains("Future Events");
   });
 
-  it("Future events page admin is able to enter the details for future events, validate fields", () => {
+  it("Future events page admin is able to enter the details for future events, validate fields, validate posting and delete", () => {
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("automation@test.com");
     cy.get("[id=password]").type("defaultPassword");
-
     cy.get("[id=loginButton]").click();
 
     cy.get("[id=futureEvents]").click();
@@ -110,6 +109,7 @@ describe("Admin Future Events", () => {
     cy.get("[id=postOnInstagram]").find("input").click({ force: true });
     cy.get("[id=submit]").should("not.be.disabled");
 
+    // Submit the Event
     cy.intercept("POST", "/event").as("createFutureEvent");
     cy.get("[id=submit]").click();
     cy.wait("@createFutureEvent").its("response.statusCode").should("eq", 201);

@@ -28,6 +28,7 @@ export class AdminHeaderComponent implements OnInit {
       },
       {
         label: 'Gallery',
+        id: 'gallery',
         routerLink: ['/admin/gallery'],
       },
       {
@@ -50,6 +51,7 @@ export class AdminHeaderComponent implements OnInit {
       },
       {
         label: 'Profile',
+        id: 'profile',
         routerLink: ['/admin/profile'],
       },
     ];

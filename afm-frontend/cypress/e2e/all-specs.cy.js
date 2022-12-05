@@ -6,3 +6,4 @@ import "./request-rv.cy";
 import "./signup.cy";
 import "./user-home-page.cy";
 import "./users.cy";
+import "./profile.cy";

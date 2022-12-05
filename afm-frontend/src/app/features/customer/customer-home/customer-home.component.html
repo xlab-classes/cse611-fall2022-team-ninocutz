@@ -91,7 +91,15 @@
     </div>
 
     <app-afm-blur-background>
-      <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <div *ngIf="galleryImages.length == 0">
+            <p-progressSpinner></p-progressSpinner>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid" *ngIf="galleryImages.length > 0">
         <swiper
           [slidesPerView]="1"
           [navigation]="true"
@@ -111,6 +119,7 @@
           <ng-template swiperSlide *ngFor="let galleryImage of galleryImages">
             <div class="swiper-slide-container">
               <p-image
+                [id]="getGalleryImageDivId(galleryImage)"
                 imageClass="gallery-image"
                 [src]="galleryImage.Url ?? ''"
                 alt="Image"
