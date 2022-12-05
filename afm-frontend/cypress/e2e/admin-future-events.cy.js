@@ -1,8 +1,8 @@
 describe("Admin Future Events", () => {
   it("Home Page, admin clicks on Future Events redirects to page to display all future events", () => {
     cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
-    cy.get("[id=password]").type("password");
+    cy.get("[id=email]").type("automation@test.com");
+    cy.get("[id=password]").type("defaultPassword");
     cy.get("[id=loginButton]").click();
     cy.location("pathname").should("eq", "/admin/home");
 
@@ -14,8 +14,8 @@ describe("Admin Future Events", () => {
 
   it("Future events page admin is able to enter the details for future events, validate fields", () => {
     cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
-    cy.get("[id=password]").type("password");
+    cy.get("[id=email]").type("automation@test.com");
+    cy.get("[id=password]").type("defaultPassword");
 
     cy.get("[id=loginButton]").click();
 
@@ -109,5 +109,29 @@ describe("Admin Future Events", () => {
     cy.get("[id=zipCode]").type("4");
     cy.get("[id=postOnInstagram]").find("input").click({ force: true });
     cy.get("[id=submit]").should("not.be.disabled");
+
+    cy.intercept("POST", "/event").as("createFutureEvent");
+    cy.get("[id=submit]").click();
+    cy.wait("@createFutureEvent").its("response.statusCode").should("eq", 201);
+
+    cy.location("pathname").should("eq", "/admin/future-events");
+
+    // Check if the event is displayed for the customer
+    cy.visit("http://localhost:4200/");
+    cy.get("[id=future-event-0]").first().click({ force: true });
+    cy.contains("Book Appointment").should("not.be.disabled");
+
+    // Delete the event from the DB, Validating delete future event
+    cy.visit("http://localhost:4200/admin/future-events");
+
+    cy.get("[id=editFutureEvent-0]").click();
+    cy.location("pathname").should("eq", "/admin/edit-future-event");
+    cy.get("[id=delete]").click();
+
+    cy.location("pathname").should("eq", "/admin/future-events");
+
+    // Validate if future event is not displayed to user
+    cy.visit("http://localhost:4200/");
+    cy.get("[id=future-event-0]").should("not.exist");
   });
 });

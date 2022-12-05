@@ -58,4 +58,8 @@ export class FutureEventsComponent implements OnInit {
     this.sharingService.setData(event);
     this.router.navigate(['/admin/edit-future-event']);
   }
+
+  getEditFutureEventDivId(event: FutureEventsModel): string {
+    return 'editFutureEvent-' + this.futureEvents.indexOf(event);
+  }
 }

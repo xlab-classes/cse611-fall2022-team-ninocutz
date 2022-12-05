@@ -1,22 +1,22 @@
 describe("Users", () => {
   it("Validate if users exist", () => {
     cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
-    cy.get("[id=password]").type("password");
+    cy.get("[id=email]").type("automation@test.com");
+    cy.get("[id=password]").type("defaultPassword");
     cy.get("[id=loginButton]").click();
 
     cy.get("[id=users]").click();
     cy.location("pathname").should("eq", "/admin/users");
 
-    cy.get("[id=search]").type("bhavan.reddy1997@gmail.com");
+    cy.get("[id=search]").type("automation@test.com");
 
-    cy.contains("bhavan.reddy1997@gmail.com");
+    cy.contains("automation@test.com");
   });
 
   it("Validate adding of user", () => {
     cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
-    cy.get("[id=password]").type("password");
+    cy.get("[id=email]").type("automation@test.com");
+    cy.get("[id=password]").type("defaultPassword");
     cy.get("[id=loginButton]").click();
 
     cy.get("[id=users]").click();
@@ -38,5 +38,10 @@ describe("Users", () => {
 
     cy.get("[id=search]").type("test@test.com");
     cy.contains("7165555555");
+
+    // Validate delete user
+
+    cy.get("[id=deleteUser-Test]").click({ multiple: true });
+    cy.contains("7165555555").should("not.exist");
   });
 });

@@ -27,8 +27,8 @@ describe("Request and Verify for RV", function () {
     // Validate if the Booking is displayed to the Admin
 
     cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
-    cy.get("[id=password]").type("password");
+    cy.get("[id=email]").type("automation@test.com");
+    cy.get("[id=password]").type("defaultPassword");
     cy.get("[id=loginButton]").click();
 
     cy.get("[id=requests]").click();

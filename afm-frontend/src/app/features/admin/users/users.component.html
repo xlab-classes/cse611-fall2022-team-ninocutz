@@ -74,6 +74,7 @@
             <button
               pButton
               pRipple
+              [id]="getDeleteUserDivId(user)"
               icon="pi pi-trash"
               class="p-button-rounded p-button-warning delete-icon"
               (click)="deleteUser(user)"

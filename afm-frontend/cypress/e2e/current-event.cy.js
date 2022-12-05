@@ -1,8 +1,8 @@
 describe("Admin Current Event", () => {
   it("Home Page, admin clicks on Share Current Location redirects to page to fill current event details, and able to enter the required details", () => {
     cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
-    cy.get("[id=password]").type("password");
+    cy.get("[id=email]").type("automation@test.com");
+    cy.get("[id=password]").type("defaultPassword");
 
     cy.get("[id=loginButton]").click();
 
@@ -36,8 +36,8 @@ describe("Admin Current Event", () => {
 
   it("Validate Share button on invalid data", () => {
     cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
-    cy.get("[id=password]").type("password");
+    cy.get("[id=email]").type("automation@test.com");
+    cy.get("[id=password]").type("defaultPassword");
 
     cy.get("[id=loginButton]").click();
 
