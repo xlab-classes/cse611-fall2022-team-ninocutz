@@ -1,9 +1,9 @@
 describe("Admin Future Events", () => {
   it("Future events page admin is able to enter the details for future events, validate fields, validate posting and delete", () => {
     // Login
-    cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("automation@test.com");
-    cy.get("[id=password]").type("defaultPassword");
+    cy.visit(Cypress.env("baseUrl") + "login");
+    cy.get("[id=email]").type(Cypress.env("loginEmail"));
+    cy.get("[id=password]").type(Cypress.env("passowrd"));
     cy.get("[id=loginButton]").click();
 
     // Redirect to future events page
@@ -108,12 +108,12 @@ describe("Admin Future Events", () => {
     cy.location("pathname").should("eq", "/admin/future-events");
 
     // Check if the event is displayed for the customer
-    cy.visit("http://localhost:4200/");
+    cy.visit(Cypress.env("baseUrl"));
     cy.get("[id=future-event-0]").first().click({ force: true });
     cy.contains("Book Appointment").should("not.be.disabled");
 
     // Delete the event from the DB, Validating delete future event
-    cy.visit("http://localhost:4200/admin/future-events");
+    cy.visit(Cypress.env("baseUrl") + "admin/future-events");
 
     cy.get("[id=editFutureEvent-0]").click();
     cy.location("pathname").should("eq", "/admin/edit-future-event");
@@ -122,7 +122,7 @@ describe("Admin Future Events", () => {
     cy.location("pathname").should("eq", "/admin/future-events");
 
     // Validate if future event is not displayed to user
-    cy.visit("http://localhost:4200/");
+    cy.visit(Cypress.env("baseUrl"));
     cy.get("[id=future-event-0]").should("not.exist");
   });
 });

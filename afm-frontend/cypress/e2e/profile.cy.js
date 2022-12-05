@@ -1,9 +1,9 @@
 describe("User Profile", () => {
   it("User Able to update the profile details", () => {
     // Login
-    cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("automation@test.com");
-    cy.get("[id=password]").type("defaultPassword");
+    cy.visit(Cypress.env("baseUrl") + "login");
+    cy.get("[id=email]").type(Cypress.env("loginEmail"));
+    cy.get("[id=password]").type(Cypress.env("passowrd"));
     cy.get("[id=loginButton]").click();
 
     cy.get("[id=profile]").click();
@@ -12,7 +12,7 @@ describe("User Profile", () => {
     // Validate Existing Data
     cy.get("[id=firstName]").should("have.value", "Automation");
     cy.get("[id=lastName]").should("have.value", "Test");
-    cy.get("[id=emailId]").should("have.value", "automation@test.com");
+    cy.get("[id=emailId]").should("have.value", Cypress.env("loginEmail"));
     cy.get("[id=mobileNumber]").should("have.value", "7165555555");
     cy.get("[id=address]").should("have.value", "Englewood");
     cy.get("[id=zipCode]").should("have.value", "14214");

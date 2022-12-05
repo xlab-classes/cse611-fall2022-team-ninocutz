@@ -1,12 +1,12 @@
 describe("Sign Up for Notifications", () => {
   it("Verify Submit is disabled", () => {
-    cy.visit("http://localhost:4200/");
+    cy.visit(Cypress.env("baseUrl"));
     cy.contains("Sign Up").click();
     cy.get("[id=submit]").should("be.disabled");
   });
 
   it("SignUp", () => {
-    cy.visit("http://localhost:4200/");
+    cy.visit(Cypress.env("baseUrl"));
     cy.get("[id=signup]").click();
 
     // Fill in details
