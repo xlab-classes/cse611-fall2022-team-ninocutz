@@ -16,7 +16,6 @@ describe("Admin Future Events", () => {
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("automation@test.com");
     cy.get("[id=password]").type("defaultPassword");
-
     cy.get("[id=loginButton]").click();
 
     cy.get("[id=futureEvents]").click();

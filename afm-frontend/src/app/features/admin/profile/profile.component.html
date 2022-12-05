@@ -7,24 +7,44 @@
         <div class="row mt-4">
           <div class="col">
             <h5 class="afm-label-text">First Name</h5>
-            <input type="text" pInputText [(ngModel)]="user.FirstName" />
+            <input
+              id="firstName"
+              type="text"
+              pInputText
+              [(ngModel)]="user.FirstName"
+            />
           </div>
 
           <div class="col mt-sm-0 mt-4">
             <h5 class="afm-label-text">Last Name</h5>
-            <input type="text" pInputText [(ngModel)]="user.LastName" />
+            <input
+              id="lastName"
+              type="text"
+              pInputText
+              [(ngModel)]="user.LastName"
+            />
           </div>
         </div>
 
         <div class="row mt-4">
           <div class="col">
             <h5 class="afm-label-text">Email Id</h5>
-            <input type="text" pInputText [(ngModel)]="user.EmailID" />
+            <input
+              id="emailId"
+              type="text"
+              pInputText
+              [(ngModel)]="user.EmailID"
+            />
           </div>
 
           <div class="col mt-sm-0 mt-4">
             <h5 class="afm-label-text">Mobile Number</h5>
-            <input type="text" pInputText [(ngModel)]="user.MobileNumber" />
+            <input
+              id="mobileNumber"
+              type="text"
+              pInputText
+              [(ngModel)]="user.MobileNumber"
+            />
           </div>
         </div>
 
@@ -32,6 +52,7 @@
           <div class="col">
             <h5 class="afm-label-text">Address</h5>
             <textarea
+              id="address"
               [(ngModel)]="user.Address"
               [rows]="5"
               [cols]="80"
@@ -45,12 +66,18 @@
         <div class="row mt-4">
           <div class="col">
             <h5 class="afm-label-text">Zip Code</h5>
-            <input type="text" pInputText [(ngModel)]="user.ZipCode" />
+            <input
+              id="zipCode"
+              type="text"
+              pInputText
+              [(ngModel)]="user.ZipCode"
+            />
           </div>
         </div>
 
         <div class="row mt-4" style="text-align: center">
           <app-afm-button
+            dataid="update"
             label="Update"
             (buttonClicked)="updateProfile()"
           ></app-afm-button>
