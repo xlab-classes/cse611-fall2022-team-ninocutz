@@ -34,10 +34,12 @@ export class CustomerHeaderComponent implements OnInit {
       },
       {
         label: 'Request RV',
+        id: 'requestRv',
         routerLink: ['/request-rv'],
       },
       {
         label: 'Sign Up',
+        id: 'signup',
         routerLink: ['/sign-up'],
       },
     ];

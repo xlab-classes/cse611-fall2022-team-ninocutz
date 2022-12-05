@@ -1,11 +1,12 @@
 describe("Gallery", () => {
   it("Validate if User is able to add Gallery image, and it is displayed to customer", () => {
-    //Validate adding of image
+    // Login
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("automation@test.com");
     cy.get("[id=password]").type("defaultPassword");
     cy.get("[id=loginButton]").click();
 
+    //Validate adding of image
     cy.get("[id=gallery]").click();
     cy.location("pathname").should("eq", "/admin/gallery");
 
@@ -29,6 +30,7 @@ describe("Gallery", () => {
     cy.intercept("DELETE", "/images/gallery/*").as("deleteGalleryImage");
     cy.get("[id=galleryImageDelete-0]").click();
     cy.wait("@deleteGalleryImage").its("response.statusCode").should("eq", 204);
+
     cy.contains("Success");
     cy.get("[id=galleryImageDelete-0]").should("not.exist");
 

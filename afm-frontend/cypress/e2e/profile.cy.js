@@ -1,5 +1,6 @@
 describe("User Profile", () => {
   it("User Able to update the profile details", () => {
+    // Login
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("automation@test.com");
     cy.get("[id=password]").type("defaultPassword");
@@ -32,12 +33,13 @@ describe("User Profile", () => {
     cy.get("[id=update]").should("be.disabled");
 
     // Update Back the field
-    cy.intercept("PUT", "/user").as("updateProfile");
     cy.get("[id=address]")
       .type("{selectAll}")
       .type("{backspace}")
       .type("Englewood");
     cy.get("[id=update]").should("not.be.disabled");
+
+    cy.intercept("PUT", "/user").as("updateProfile");
     cy.get("[id=update]").click();
     cy.wait("@updateProfile").its("response.statusCode").should("eq", 204);
 

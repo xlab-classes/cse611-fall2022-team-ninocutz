@@ -1,10 +1,12 @@
 describe("Users", () => {
   it("Validate if users exist", () => {
+    // Login
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("automation@test.com");
     cy.get("[id=password]").type("defaultPassword");
     cy.get("[id=loginButton]").click();
 
+    // Validate refirection and if user exists
     cy.get("[id=users]").click();
     cy.location("pathname").should("eq", "/admin/users");
 
@@ -14,6 +16,7 @@ describe("Users", () => {
   });
 
   it("Validate adding of user", () => {
+    // Login
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("automation@test.com");
     cy.get("[id=password]").type("defaultPassword");
@@ -22,8 +25,10 @@ describe("Users", () => {
     cy.get("[id=users]").click();
     cy.location("pathname").should("eq", "/admin/users");
 
+    // Validate Add user
     cy.get("[id=addUser]").click();
 
+    // Fill in details
     cy.get("[id=firstName]").type("Test");
     cy.get("[id=lastName]").type("User");
     cy.get("[id=emailId]").type("test@test.com");
@@ -32,7 +37,6 @@ describe("Users", () => {
     cy.get("[id=zipCode]").type("14214");
 
     cy.intercept("POST", "/user").as("addUser");
-
     cy.get("[id=addButton]").click();
     cy.wait("@addUser").its("response.statusCode").should("eq", 200);
 
