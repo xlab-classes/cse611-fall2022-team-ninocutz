@@ -81,4 +81,8 @@ export class GalleryComponent implements OnInit {
       this.showDeleteSuccess();
     });
   }
+
+  getGalleryDeleteImageDivId(gal: GalleryImagesModel): string {
+    return 'galleryImageDelete-' + this.galleryImages.indexOf(gal);
+  }
 }

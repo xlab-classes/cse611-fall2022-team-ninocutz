@@ -28,6 +28,7 @@ export class AdminHeaderComponent implements OnInit {
       },
       {
         label: 'Gallery',
+        id: 'gallery',
         routerLink: ['/admin/gallery'],
       },
       {

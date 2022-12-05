@@ -131,4 +131,8 @@ export class CustomerHomeComponent implements OnInit {
         ? '500px'
         : '700px';
   }
+
+  getGalleryImageDivId(gal: GalleryImagesModel): string {
+    return 'galleryImage-' + this.galleryImages.indexOf(gal);
+  }
 }

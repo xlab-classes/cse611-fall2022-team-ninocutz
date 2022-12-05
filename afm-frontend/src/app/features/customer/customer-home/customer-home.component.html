@@ -119,6 +119,7 @@
           <ng-template swiperSlide *ngFor="let galleryImage of galleryImages">
             <div class="swiper-slide-container">
               <p-image
+                [id]="getGalleryImageDivId(galleryImage)"
                 imageClass="gallery-image"
                 [src]="galleryImage.Url ?? ''"
                 alt="Image"
