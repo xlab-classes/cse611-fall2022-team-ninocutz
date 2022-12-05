@@ -16,8 +16,11 @@ describe("User Profile", () => {
     cy.get("[id=address]").should("have.value", "Englewood");
     cy.get("[id=zipCode]").should("have.value", "14214");
 
+    cy.get("[id=update]").should("be.disabled");
+
     // Update A field and save
     cy.get("[id=address]").type(" Update");
+    cy.get("[id=update]").should("not.be.disabled");
 
     cy.intercept("PUT", "/user").as("updateProfile");
     cy.get("[id=update]").click();
@@ -26,6 +29,7 @@ describe("User Profile", () => {
     cy.contains("Success");
 
     cy.get("[id=address]").should("have.value", "Englewood Update");
+    cy.get("[id=update]").should("be.disabled");
 
     // Update Back the field
     cy.intercept("PUT", "/user").as("updateProfile");
@@ -33,7 +37,10 @@ describe("User Profile", () => {
       .type("{selectAll}")
       .type("{backspace}")
       .type("Englewood");
+    cy.get("[id=update]").should("not.be.disabled");
     cy.get("[id=update]").click();
     cy.wait("@updateProfile").its("response.statusCode").should("eq", 204);
+
+    cy.get("[id=update]").should("be.disabled");
   });
 });

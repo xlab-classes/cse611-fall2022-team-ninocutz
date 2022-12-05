@@ -12,6 +12,7 @@ import { DataService } from 'src/app/core/services/data.service';
 export class ProfileComponent implements OnInit {
   user: UserModel;
   loading = false;
+  oldUser: UserModel;
 
   constructor(
     private dataService: DataService,
@@ -35,6 +36,7 @@ export class ProfileComponent implements OnInit {
     this.loading = true;
     this.dataService.getUserProfile().subscribe((data) => {
       this.user = data.user;
+      this.oldUser = JSON.parse(JSON.stringify(data.user));
       this.loading = false;
     });
   }
@@ -43,6 +45,7 @@ export class ProfileComponent implements OnInit {
     this.loading = true;
     this.dataService.updateUserProfile(this.user).subscribe((data) => {
       this.loading = false;
+      this.oldUser = JSON.parse(JSON.stringify(this.user));
       this.showSuccess();
     });
   }
@@ -53,5 +56,9 @@ export class ProfileComponent implements OnInit {
       summary: 'Success',
       detail: 'Profile Updated',
     });
+  }
+
+  disableUpdate(): boolean {
+    return JSON.stringify(this.oldUser) == JSON.stringify(this.user);
   }
 }
