@@ -13,7 +13,7 @@ describe("Admin Past Events", () => {
     cy.contains("Past Events");
   });
 
-  it("Past events page admin is able to enter the details for past events, validate fields", () => {
+  it("Past events page admin is able to enter the details for past events, validate fields, validate posting and delete", () => {
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("automation@test.com");
     cy.get("[id=password]").type("defaultPassword");
@@ -104,6 +104,7 @@ describe("Admin Past Events", () => {
     cy.get("[id=zipCode]").type("4").blur();
     cy.get("[id=submit]").should("not.be.disabled");
 
+    // Submit the Event
     cy.intercept("POST", "/event").as("createPastEvent");
     cy.get("[id=submit]").click();
     cy.wait("@createPastEvent").its("response.statusCode").should("eq", 201);

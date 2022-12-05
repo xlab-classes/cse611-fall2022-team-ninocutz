@@ -80,7 +80,7 @@ describe("Admin Current Event", () => {
       .type("{backspace}")
       .should("have.value", "");
     cy.get("[id=shareLocation]").should("be.disabled");
-    cy.get("[id=fromTime]").type("10:00");
+    cy.get("[id=fromTime]").type("00:00");
     cy.get("[id=shareLocation]").should("not.be.disabled");
 
     cy.get("[id=toTime]")
@@ -88,7 +88,7 @@ describe("Admin Current Event", () => {
       .type("{backspace}")
       .should("have.value", "");
     cy.get("[id=shareLocation]").should("be.disabled");
-    cy.get("[id=toTime]").type("12:00");
+    cy.get("[id=toTime]").type("23:59");
     cy.get("[id=shareLocation]").should("not.be.disabled");
 
     cy.get("[id=message]")
@@ -98,5 +98,14 @@ describe("Admin Current Event", () => {
     cy.get("[id=shareLocation]").should("be.disabled");
     cy.get("[id=message]").type("Automated Test Message Input");
     cy.get("[id=shareLocation]").should("not.be.disabled");
+
+    // Submit the Event
+    cy.intercept("POST", "/event/current").as("createCurrentEvent");
+    cy.get("[id=shareLocation]").click();
+    cy.wait("@createCurrentEvent").its("response.statusCode").should("eq", 201);
+
+    // Check if the event is displayed for the customer
+    cy.visit("http://localhost:4200/");
+    cy.get("[id=googleMap]").should("exist");
   });
 });
