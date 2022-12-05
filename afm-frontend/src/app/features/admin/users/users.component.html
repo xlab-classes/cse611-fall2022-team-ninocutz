@@ -12,7 +12,7 @@
         'FirstName',
         'LastName',
         'Address',
-        'EmailId',
+        'EmailID',
         'MobileNumber'
       ]"
     >
@@ -23,6 +23,7 @@
               <span class="p-input-icon-left ml-auto">
                 <i class="pi pi-search"></i>
                 <input
+                  id="search"
                   pInputText
                   type="text"
                   (input)="applyFilterGlobal($event, 'contains')"
@@ -32,6 +33,7 @@
             </div>
             <div class="col-sm col-12 text-sm-end text-center mt-4 mt-sm-0">
               <app-afm-button
+                id="addUser"
                 label="Add User"
                 (buttonClicked)="addUser()"
               ></app-afm-button>

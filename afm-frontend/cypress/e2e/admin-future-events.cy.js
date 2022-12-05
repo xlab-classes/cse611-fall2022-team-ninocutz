@@ -3,7 +3,6 @@ describe("Admin Future Events", () => {
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
     cy.get("[id=password]").type("password");
-
     cy.get("[id=loginButton]").click();
     cy.location("pathname").should("eq", "/admin/home");
 

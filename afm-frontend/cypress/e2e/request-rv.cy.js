@@ -32,6 +32,8 @@ describe("Request and Verify for RV", function () {
     cy.get("[id=loginButton]").click();
 
     cy.get("[id=requests]").click();
+    cy.location("pathname").should("eq", "/admin/requests");
+
     cy.get("[id=search").type("John");
     cy.contains("John");
     cy.contains("Doe");

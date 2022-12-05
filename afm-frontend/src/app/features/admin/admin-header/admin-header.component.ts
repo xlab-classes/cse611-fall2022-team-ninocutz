@@ -45,6 +45,7 @@ export class AdminHeaderComponent implements OnInit {
       },
       {
         label: 'Users',
+        id: 'users',
         routerLink: ['/admin/users'],
       },
       {
