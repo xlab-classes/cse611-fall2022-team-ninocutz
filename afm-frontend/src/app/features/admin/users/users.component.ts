@@ -87,4 +87,8 @@ export class UsersComponent implements OnInit {
       return null;
     }
   }
+
+  getDeleteUserDivId(user: UserModel): string {
+    return 'deleteUser-' + user.FirstName;
+  }
 }

@@ -57,4 +57,8 @@ export class PastEventsComponent implements OnInit {
     this.sharingService.setData(event);
     this.router.navigate(['/admin/edit-past-event']);
   }
+
+  getEditPastEventDivId(event: PastEventsModel): string {
+    return 'editPastEvent-' + this.pastEvents.indexOf(event);
+  }
 }

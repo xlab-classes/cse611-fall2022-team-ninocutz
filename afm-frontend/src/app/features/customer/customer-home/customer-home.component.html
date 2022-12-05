@@ -72,6 +72,7 @@
           </div>
           <div *ngIf="pastEvents.length > 0">
             <app-afm-image-carousel
+              divId="past-event"
               [data]="pastEvents"
               (imageClick)="pastEventClicked($event)"
               [displayIcon]="false"

@@ -3,6 +3,7 @@
     <div class="col">
       <h4 class="afm-label-text">First Name</h4>
       <input
+        id="firstName"
         class="input-box"
         type="text"
         pInputText
@@ -12,6 +13,7 @@
     <div class="col mt-md-0 mt-4">
       <h4 class="afm-label-text">Last Name</h4>
       <input
+        id="lastName"
         class="input-box"
         type="text"
         pInputText
@@ -23,6 +25,7 @@
     <div class="col">
       <h4 class="afm-label-text">Email Id</h4>
       <input
+        id="emailId"
         [ngClass]="{ 'ng-invalid ng-dirty': invalidEmail }"
         class="input-box"
         type="text"
@@ -38,7 +41,7 @@
         [ngClass]="{ 'ng-invalid ng-dirty': invalidPhoneNumber }"
         [(ngModel)]="user.mobileNumber"
         mode="decimal"
-        inputId="withoutgrouping"
+        inputId="mobileNumber"
         [useGrouping]="false"
         placeholder="XXX-XXX-XXXX"
         (onBlur)="validatePhoneNumber()"
@@ -51,6 +54,7 @@
     <div class="col">
       <h3 class="afm-label-text">Address</h3>
       <textarea
+        id="address"
         [(ngModel)]="user.address"
         [rows]="5"
         [cols]="50"
@@ -69,7 +73,7 @@
         [inputStyle]="{ 'max-width': '100%' }"
         [(ngModel)]="user.zipCode"
         mode="decimal"
-        inputId="withoutgrouping"
+        inputId="zipCode"
         [useGrouping]="false"
         placeholder="XXXXX"
         (onBlur)="validateZipCode()"
@@ -81,6 +85,7 @@
   <div class="row mt-4" style="text-align: center">
     <div class="col">
       <app-afm-button
+        dataid="addButton"
         label="Add"
         (buttonClicked)="addUser()"
         [disable]="disableAddButton()"

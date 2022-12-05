@@ -1,8 +1,8 @@
 describe("Admin Past Events", () => {
   it("Home Page, admin clicks on Past Events redirects to page to display all past events", () => {
     cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
-    cy.get("[id=password]").type("password");
+    cy.get("[id=email]").type("automation@test.com");
+    cy.get("[id=password]").type("defaultPassword");
 
     cy.get("[id=loginButton]").click();
     cy.location("pathname").should("eq", "/admin/home");
@@ -15,8 +15,8 @@ describe("Admin Past Events", () => {
 
   it("Past events page admin is able to enter the details for past events, validate fields", () => {
     cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
-    cy.get("[id=password]").type("password");
+    cy.get("[id=email]").type("automation@test.com");
+    cy.get("[id=password]").type("defaultPassword");
 
     cy.get("[id=loginButton]").click();
 
@@ -103,5 +103,28 @@ describe("Admin Past Events", () => {
 
     cy.get("[id=zipCode]").type("4").blur();
     cy.get("[id=submit]").should("not.be.disabled");
+
+    cy.intercept("POST", "/event").as("createPastEvent");
+    cy.get("[id=submit]").click();
+    cy.wait("@createPastEvent").its("response.statusCode").should("eq", 201);
+
+    cy.location("pathname").should("eq", "/admin/past-events");
+
+    // Check if the event is displayed for the customer
+    cy.visit("http://localhost:4200/");
+    cy.get("[id=past-event-0]").first().click({ force: true });
+
+    // Delete the event from the DB, Validating delete past event
+    cy.visit("http://localhost:4200/admin/past-events");
+
+    cy.get("[id=editPastEvent-0]").click();
+    cy.location("pathname").should("eq", "/admin/edit-past-event");
+    cy.get("[id=delete]").click();
+
+    cy.location("pathname").should("eq", "/admin/past-events");
+
+    // Validate if past event is not displayed to user
+    cy.visit("http://localhost:4200/");
+    cy.get("[id=past-event-0]").should("not.exist");
   });
 });

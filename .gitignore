@@ -3,3 +3,4 @@ __pycache__
 *.pyc 
 afm-backend/.env
 afm-frontend/node_modules/*
+afm-frontend/cypress/videos/*

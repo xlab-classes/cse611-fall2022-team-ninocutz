@@ -1,8 +1,8 @@
 describe("Login Page", () => {
   it("User logs in with valid credentials", () => {
     cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
-    cy.get("[id=password]").type("password");
+    cy.get("[id=email]").type("automation@test.com");
+    cy.get("[id=password]").type("defaultPassword");
 
     cy.intercept("POST", "/auth").as("login");
     cy.get("[id=loginButton]").click();
@@ -14,7 +14,7 @@ describe("Login Page", () => {
 
   it("User logs in with invalid credentials", () => {
     cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("bhavan.reddy1997@gmail.com");
+    cy.get("[id=email]").type("automation@test.com");
     cy.get("[id=password]").type("invalidPassword");
 
     cy.intercept("POST", "/auth").as("login");
