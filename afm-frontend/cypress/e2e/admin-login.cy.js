@@ -1,9 +1,9 @@
 describe("Login Page", () => {
   it("User logs in with valid credentials", () => {
     // Login
-    cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("automation@test.com");
-    cy.get("[id=password]").type("defaultPassword");
+    cy.visit(Cypress.env("baseUrl") + "login");
+    cy.get("[id=email]").type(Cypress.env("loginEmail"));
+    cy.get("[id=password]").type(Cypress.env("passowrd"));
 
     cy.intercept("POST", "/auth").as("login");
     cy.get("[id=loginButton]").click();
@@ -14,8 +14,8 @@ describe("Login Page", () => {
 
   it("User logs in with invalid credentials", () => {
     // Login
-    cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("automation@test.com");
+    cy.visit(Cypress.env("baseUrl") + "login");
+    cy.get("[id=email]").type(Cypress.env("loginEmail"));
     cy.get("[id=password]").type("invalidPassword");
 
     cy.intercept("POST", "/auth").as("login");
@@ -27,7 +27,7 @@ describe("Login Page", () => {
   });
 
   it("User clicks on forgot password redirects to forgot password page", () => {
-    cy.visit("http://localhost:4200/login");
+    cy.visit(Cypress.env("baseUrl") + "login");
     cy.get("[id=forgot-password]").click();
 
     cy.location("pathname").should("eq", "/forgot-password");

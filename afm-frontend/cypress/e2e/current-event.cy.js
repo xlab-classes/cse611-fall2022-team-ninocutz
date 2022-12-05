@@ -1,9 +1,9 @@
 describe("Admin Current Event", () => {
   it("Home Page, admin clicks on Share Current Location redirects to page to fill current event details, and able to enter the required details", () => {
     // Login
-    cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("automation@test.com");
-    cy.get("[id=password]").type("defaultPassword");
+    cy.visit(Cypress.env("baseUrl") + "login");
+    cy.get("[id=email]").type(Cypress.env("loginEmail"));
+    cy.get("[id=password]").type(Cypress.env("passowrd"));
     cy.get("[id=loginButton]").click();
 
     cy.location("pathname").should("eq", "/admin/home");
@@ -37,9 +37,9 @@ describe("Admin Current Event", () => {
 
   it("Validate Share button on invalid data", () => {
     // Login
-    cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("automation@test.com");
-    cy.get("[id=password]").type("defaultPassword");
+    cy.visit(Cypress.env("baseUrl") + "login");
+    cy.get("[id=email]").type(Cypress.env("loginEmail"));
+    cy.get("[id=password]").type(Cypress.env("passowrd"));
     cy.get("[id=loginButton]").click();
     cy.location("pathname").should("eq", "/admin/home");
 
@@ -102,7 +102,7 @@ describe("Admin Current Event", () => {
     cy.wait("@createCurrentEvent").its("response.statusCode").should("eq", 201);
 
     // Check if the event is displayed for the customer
-    cy.visit("http://localhost:4200/");
+    cy.visit(Cypress.env("baseUrl"));
     cy.get("[id=googleMap]").should("exist");
   });
 });

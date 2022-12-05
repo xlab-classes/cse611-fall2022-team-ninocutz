@@ -1,9 +1,9 @@
 describe("Admin Past Events", () => {
   it("Past events page admin is able to enter the details for past events, validate fields, validate posting and delete", () => {
     // Login
-    cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("automation@test.com");
-    cy.get("[id=password]").type("defaultPassword");
+    cy.visit(Cypress.env("baseUrl") + "login");
+    cy.get("[id=email]").type(Cypress.env("loginEmail"));
+    cy.get("[id=password]").type(Cypress.env("passowrd"));
     cy.get("[id=loginButton]").click();
 
     // Validate redirection
@@ -101,11 +101,11 @@ describe("Admin Past Events", () => {
     cy.location("pathname").should("eq", "/admin/past-events");
 
     // Check if the event is displayed for the customer
-    cy.visit("http://localhost:4200/");
+    cy.visit(Cypress.env("baseUrl"));
     cy.get("[id=past-event-0]").first().click({ force: true });
 
     // Delete the event from the DB, Validating delete past event
-    cy.visit("http://localhost:4200/admin/past-events");
+    cy.visit(Cypress.env("baseUrl") + "admin/past-events");
 
     cy.get("[id=editPastEvent-0]").click();
     cy.location("pathname").should("eq", "/admin/edit-past-event");
@@ -114,7 +114,7 @@ describe("Admin Past Events", () => {
     cy.location("pathname").should("eq", "/admin/past-events");
 
     // Validate if past event is not displayed to user
-    cy.visit("http://localhost:4200/");
+    cy.visit(Cypress.env("baseUrl"));
     cy.get("[id=past-event-0]").should("not.exist");
   });
 });

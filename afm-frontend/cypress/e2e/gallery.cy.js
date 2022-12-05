@@ -1,9 +1,9 @@
 describe("Gallery", () => {
   it("Validate if User is able to add Gallery image, and it is displayed to customer", () => {
     // Login
-    cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("automation@test.com");
-    cy.get("[id=password]").type("defaultPassword");
+    cy.visit(Cypress.env("baseUrl") + "login");
+    cy.get("[id=email]").type(Cypress.env("loginEmail"));
+    cy.get("[id=password]").type(Cypress.env("passowrd"));
     cy.get("[id=loginButton]").click();
 
     //Validate adding of image
@@ -21,11 +21,11 @@ describe("Gallery", () => {
     cy.contains("Success");
 
     // Validate if user is able to see the gallery image
-    cy.visit("http://localhost:4200/");
+    cy.visit(Cypress.env("baseUrl"));
     cy.get("[id=galleryImage-0]").should("exist");
 
     //Validate Delete of gallery image
-    cy.visit("http://localhost:4200/admin/gallery");
+    cy.visit(Cypress.env("baseUrl") + "admin/gallery");
 
     cy.intercept("DELETE", "/images/gallery/*").as("deleteGalleryImage");
     cy.get("[id=galleryImageDelete-0]").click();
@@ -35,7 +35,7 @@ describe("Gallery", () => {
     cy.get("[id=galleryImageDelete-0]").should("not.exist");
 
     // Validate image is not visible to user
-    cy.visit("http://localhost:4200/");
+    cy.visit(Cypress.env("baseUrl"));
     cy.get("[id=galleryImage-0]").should("not.exist");
   });
 });

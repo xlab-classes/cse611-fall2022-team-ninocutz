@@ -1,12 +1,12 @@
 describe("Request and Verify for RV", () => {
   it("Verify Submit is disabled", () => {
-    cy.visit("http://localhost:4200/");
+    cy.visit(Cypress.env("baseUrl"));
     cy.get("[id=requestRv]").click();
     cy.get("[id=submit]").should("be.disabled");
   });
 
   it("Request RV", () => {
-    cy.visit("http://localhost:4200/");
+    cy.visit(Cypress.env("baseUrl"));
     cy.get("[id=requestRv]").click();
 
     // Fill in details
@@ -28,9 +28,9 @@ describe("Request and Verify for RV", () => {
     cy.wait("@createBooking").its("response.statusCode").should("eq", 201);
 
     // Validate if the Booking is displayed to the Admin
-    cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("automation@test.com");
-    cy.get("[id=password]").type("defaultPassword");
+    cy.visit(Cypress.env("baseUrl") + "login");
+    cy.get("[id=email]").type(Cypress.env("loginEmail"));
+    cy.get("[id=password]").type(Cypress.env("passowrd"));
     cy.get("[id=loginButton]").click();
 
     cy.get("[id=requests]").click();
