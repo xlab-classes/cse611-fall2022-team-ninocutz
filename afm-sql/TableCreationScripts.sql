@@ -1,117 +1,151 @@
+CREATE TABLE `Customer` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `FirstName` VARCHAR(50) DEFAULT NULL,
+  `LastName` VARCHAR(50) DEFAULT NULL,
+  `EmailID` VARCHAR(320) DEFAULT NULL,
+  `MobileNumber` VARCHAR(10) DEFAULT NULL,
+  `Address` VARCHAR(500) DEFAULT NULL,
+  `Zipcode` VARCHAR(10) DEFAULT NULL,
+  `SendPromotion` TINYINT DEFAULT NULL,
+  `CreatedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `CreatedBy` INT DEFAULT NULL,
+  `ModifiedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `ModifiedBy` INT DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+);
+
 CREATE TABLE `Booking` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `CustomerId` int NOT NULL,
-  `NumberOfPeople` int NOT NULL,
-  `BookingDate` datetime NOT NULL,
-  `BookingTimeSlot` varchar(30) DEFAULT NULL,
-  `BookingStatus` varchar(50) DEFAULT NULL,
-  `CreatedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `CreatedBy` int DEFAULT NULL,
-  `ModifiedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `ModifiedBy` int DEFAULT NULL,
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `CustomerId` INT NOT NULL,
+  `NumberOfPeople` INT NOT NULL,
+  `BookingDate` DATETIME NOT NULL,
+  `BookingTimeSlot` VARCHAR(30) DEFAULT NULL,
+  `BookingStatus` VARCHAR(50) DEFAULT NULL,
+  `CreatedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `CreatedBy` INT DEFAULT NULL,
+  `ModifiedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `ModifiedBy` INT DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `CustomerId` (`CustomerId`),
   CONSTRAINT `Booking_fk_1` FOREIGN KEY (`CustomerId`) REFERENCES `Customer` (`Id`)
 );
 
-
-CREATE TABLE `CurrentEvent` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `EventId` int DEFAULT NULL,
-  `CreatedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `CreatedBy` int DEFAULT NULL,
-  `ModifiedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `ModifiedBy` int DEFAULT NULL,
-  PRIMARY KEY (`Id`),
-  KEY `eventId` (`EventId`),
-  CONSTRAINT `CurrentEvent_fk_1` FOREIGN KEY (`EventId`) REFERENCES `Event` (`Id`)
-) ;
-CREATE TABLE `Customer` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `FirstName` varchar(50) DEFAULT NULL,
-  `LastName` varchar(50) DEFAULT NULL,
-  `EmailID` varchar(320) DEFAULT NULL,
-  `MobileNumber` varchar(10) DEFAULT NULL,
-  `Address` varchar(500) DEFAULT NULL,
-  `Zipcode` varchar(10) DEFAULT NULL,
-  `SendPromotion` tinyint(1) DEFAULT NULL,
-  `CreatedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `CreatedBy` int DEFAULT NULL,
-  `ModifiedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `ModifiedBy` int DEFAULT NULL,
+CREATE TABLE `EventType` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) DEFAULT NULL,
+  `Description` VARCHAR(500) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 );
 
-CREATE TABLE `Event` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `ImageId` int DEFAULT NULL,
-  `EventTypeId` int DEFAULT NULL,
-  `Name` varchar(50) DEFAULT NULL,
-  `Longitude` decimal(8,6) DEFAULT NULL,
-  `Latitude` decimal(9,6) DEFAULT NULL,
-  `Address` varchar(255) DEFAULT NULL,
-  `EventDate` datetime DEFAULT NULL,
-  `EventTimeSlot` varchar(100) DEFAULT NULL,
-  `Zipcode` varchar(10) DEFAULT NULL,
-  `Message` varchar(500) DEFAULT NULL,
-  `CreatedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `CreatedBy` int DEFAULT NULL,
-  `ModifiedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `ModifiedBy` int DEFAULT NULL,
-  PRIMARY KEY (`Id`),
-  KEY `EventTypeId` (`EventTypeId`),
-  CONSTRAINT `Event_fk_1` FOREIGN KEY (`EventTypeId`) REFERENCES `EventType` (`Id`)
-);
-CREATE TABLE `EventType` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `Name` varchar(100) DEFAULT NULL,
-  `Description` varchar(500) DEFAULT NULL,
+CREATE TABLE `ImageType` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Category` VARCHAR(200) DEFAULT NULL,
+  `CreatedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`Id`)
 );
 
 CREATE TABLE `Image` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `ImageTypeId` int DEFAULT NULL,
-  `Url` varchar(2048) DEFAULT NULL,
-  `CreatedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `CreatedBy` int DEFAULT NULL,
-  `ModifiedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `ModifiedBy` int DEFAULT NULL,
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `ImageTypeId` INT DEFAULT NULL,
+  `Url` VARCHAR(2048) DEFAULT NULL,
+  `CreatedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `CreatedBy` INT DEFAULT NULL,
+  `ModifiedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `ModifiedBy` INT DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `Image_type` (`ImageTypeId`),
   CONSTRAINT `Image_fk_1` FOREIGN KEY (`ImageTypeId`) REFERENCES `ImageType` (`Id`)
 );
 
-CREATE TABLE `ImageType` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `Category` varchar(200) DEFAULT NULL,
-  `CreatedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
-  PRIMARY KEY (`Id`)
-);
-
 CREATE TABLE `Notification` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `NotificationType` varchar(50) NOT NULL,
-  `NotificationTemplate` varchar(500) NOT NULL,
-  `CreatedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `CreatedBy` int DEFAULT NULL,
-  `ModifiedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `ModifiedBy` int DEFAULT NULL,
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `NotificationType` VARCHAR(50) NOT NULL,
+  `NotificationTemplate` VARCHAR(500) NOT NULL,
+  `CreatedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `CreatedBy` INT DEFAULT NULL,
+  `ModifiedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `ModifiedBy` INT DEFAULT NULL,
   PRIMARY KEY (`Id`)
 );
 
 CREATE TABLE `RV_User` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `FirstName` varchar(50) DEFAULT NULL,
-  `LastName` varchar(50) DEFAULT NULL,
-  `EmailID` varchar(320) DEFAULT NULL,
-  `MobileNumber` varchar(10) DEFAULT NULL,
-  `Address` varchar(255) DEFAULT NULL,
-  `Password` varchar(255) DEFAULT NULL,
-  `Zipcode` varchar(10) DEFAULT NULL,
-  `CreatedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `CreatedBy` int DEFAULT NULL,
-  `ModifiedOn` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `ModifiedBy` int DEFAULT NULL,
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `FirstName` VARCHAR(50) DEFAULT NULL,
+  `LastName` VARCHAR(50) DEFAULT NULL,
+  `EmailID` VARCHAR(320) DEFAULT NULL,
+  `MobileNumber` VARCHAR(10) DEFAULT NULL,
+  `Address` VARCHAR(255) DEFAULT NULL,
+  `Password` VARCHAR(255) DEFAULT NULL,
+  `Zipcode` VARCHAR(10) DEFAULT NULL,
+  `CreatedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `CreatedBy` INT DEFAULT NULL,
+  `ModifiedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `ModifiedBy` INT DEFAULT NULL,
   PRIMARY KEY (`Id`)
 );
+
+CREATE TABLE `Event` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `ImageId` INT DEFAULT NULL,
+  `EventTypeId` INT DEFAULT NULL,
+  `Name` VARCHAR(50) DEFAULT NULL,
+  `Longitude` DECIMAL(8,6) DEFAULT NULL,
+  `Latitude` DECIMAL(9,6) DEFAULT NULL,
+  `Address` VARCHAR(255) DEFAULT NULL,
+  `EventDate` DATETIME DEFAULT NULL,
+  `EventTimeSlot` VARCHAR(100) DEFAULT NULL,
+  `Zipcode` VARCHAR(10) DEFAULT NULL,
+  `Message` VARCHAR(500) DEFAULT NULL,
+  `CreatedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `CreatedBy` INT DEFAULT NULL,
+  `ModifiedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `ModifiedBy` INT DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `EventTypeId` (`EventTypeId`),
+  CONSTRAINT `Event_fk_1` FOREIGN KEY (`EventTypeId`) REFERENCES `EventType` (`Id`)
+);
+
+CREATE TABLE `CurrentEvent` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `EventId` INT DEFAULT NULL,
+  `CreatedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `CreatedBy` INT DEFAULT NULL,
+  `ModifiedOn` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `ModifiedBy` INT DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `eventId` (`EventId`),
+  CONSTRAINT `CurrentEvent_fk_1` FOREIGN KEY (`EventId`) REFERENCES `Event` (`Id`)
+) ;
+
+INSERT INTO `EventType`
+( `Name`, `Description`)
+VALUES
+('Wedding', 'Wedding'),
+('Club', 'Club'),
+('Birthday', 'Birthday'),
+('Corporate', 'Corporate');
+
+INSERT INTO `ImageType`
+(`Category`)
+VALUES
+('Gallery');
+
+INSERT INTO `AFM`.`Notification`
+(`NotificationType`, `NotificationTemplate`)
+VALUES
+('Facebook', 'Hello,
+The AFM RV is nearby to your registered address!!!!
+Use the following link to get more details and book your appointment.
+{}'),
+('Instagram', 'Hello,
+The AFM RV is nearby to your registered address!!!!
+Use the following link to get more details and book your appointment.
+{}'),
+('Email', 'Hello,
+The AFM RV is nearby to your registered address!!!!
+Use the following link to get more details and book your appointment.
+{}'),
+('SMS', 'Hello,
+The AFM RV is nearby to your registered address!!!!
+Use the following link to get more details and book your appointment.
+{}');
