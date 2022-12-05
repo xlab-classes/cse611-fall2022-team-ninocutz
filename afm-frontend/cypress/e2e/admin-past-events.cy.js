@@ -1,28 +1,17 @@
 describe("Admin Past Events", () => {
-  it("Home Page, admin clicks on Past Events redirects to page to display all past events", () => {
-    cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("automation@test.com");
-    cy.get("[id=password]").type("defaultPassword");
-
-    cy.get("[id=loginButton]").click();
-    cy.location("pathname").should("eq", "/admin/home");
-
-    cy.get("[id=pastEvents]").click();
-    cy.location("pathname").should("eq", "/admin/past-events");
-
-    cy.contains("Past Events");
-  });
-
   it("Past events page admin is able to enter the details for past events, validate fields, validate posting and delete", () => {
+    // Login
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("automation@test.com");
     cy.get("[id=password]").type("defaultPassword");
-
     cy.get("[id=loginButton]").click();
 
+    // Validate redirection
     cy.get("[id=pastEvents]").click();
     cy.get("[id=addPastEvent]").click();
     cy.location("pathname").should("eq", "/admin/add-past-event");
+
+    cy.contains("Past Events");
 
     cy.get("[id=submit]").should("be.disabled");
 

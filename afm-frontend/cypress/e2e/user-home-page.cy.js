@@ -1,30 +1,30 @@
-describe("User Page", function () {
-  it("Verify Title", function () {
+describe("User Page", () => {
+  it("Verify Title", () => {
     cy.visit("http://localhost:4200/");
     cy.title().should("eq", "AFM-HD");
   });
 
-  it("Verify Future Events", function () {
+  it("Verify Future Events", () => {
     cy.visit("http://localhost:4200/");
     cy.contains("Future Events");
   });
 
-  it("Verify Past Events", function () {
+  it("Verify Past Events", () => {
     cy.visit("http://localhost:4200/");
     cy.contains("Past Events");
   });
 
-  it("Verify Gallery", function () {
+  it("Verify Gallery", () => {
     cy.visit("http://localhost:4200/");
     cy.contains("Gallery");
   });
 
-  it("Verify Request RV", function () {
+  it("Verify Request RV", () => {
     cy.visit("http://localhost:4200/");
     cy.contains("Request RV");
   });
 
-  it("Verify Sign Up", function () {
+  it("Verify Sign Up", () => {
     cy.visit("http://localhost:4200/");
     cy.contains("Sign Up");
   });

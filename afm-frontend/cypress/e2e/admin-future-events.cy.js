@@ -1,26 +1,17 @@
 describe("Admin Future Events", () => {
-  it("Home Page, admin clicks on Future Events redirects to page to display all future events", () => {
-    cy.visit("http://localhost:4200/login");
-    cy.get("[id=email]").type("automation@test.com");
-    cy.get("[id=password]").type("defaultPassword");
-    cy.get("[id=loginButton]").click();
-    cy.location("pathname").should("eq", "/admin/home");
-
-    cy.get("[id=futureEvents]").click();
-    cy.location("pathname").should("eq", "/admin/future-events");
-
-    cy.contains("Future Events");
-  });
-
   it("Future events page admin is able to enter the details for future events, validate fields, validate posting and delete", () => {
+    // Login
     cy.visit("http://localhost:4200/login");
     cy.get("[id=email]").type("automation@test.com");
     cy.get("[id=password]").type("defaultPassword");
     cy.get("[id=loginButton]").click();
 
+    // Redirect to future events page
     cy.get("[id=futureEvents]").click();
     cy.get("[id=addFutureEvent]").click();
     cy.location("pathname").should("eq", "/admin/add-future-event");
+
+    cy.contains("Future Events");
 
     cy.get("[id=submit]").should("be.disabled");
 
