@@ -5,8 +5,7 @@
 export const environment = {
   production: false,
   apibaseUrl: 'http://localhost:5555/',
-  squareUrl:
-    'https://square.site/book/1G35M2ZHB258R/architect-for-men-buffalo-ny',
+  squareUrl: 'https://square.site/book/LC1ZCM5W9N15D/architect-for-men',
 };
 
 /*
