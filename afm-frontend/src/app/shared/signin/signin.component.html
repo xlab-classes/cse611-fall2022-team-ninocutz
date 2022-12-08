@@ -22,6 +22,7 @@
               [(ngModel)]="password"
               [feedback]="false"
               [toggleMask]="true"
+              (keyup.enter)="passwordEntered()"
             ></p-password>
             <label for="password">Password</label>
           </span>
