@@ -101,8 +101,10 @@ def truncateCurrentEvent():
 def getAllPastEvents():
     db = Database()
     cursor = db.cursor()
-    sql = "SELECT E.Id, E.Name, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url \
-        FROM AFM.Event AS E LEFT JOIN AFM.Image AS I ON E.ImageId = I.Id WHERE E.EventDate < CURDATE();"
+
+    sql = "SELECT E.Id, E.Name, ET.Name AS EventType, E.Longitude, E.Latitude, E.Address, E.EventDate, E.EventTimeSlot, E.Zipcode, E.Message, I.Url \
+        FROM AFM.Event AS E LEFT JOIN Image AS I ON E.ImageId = I.Id LEFT JOIN AFM.EventType AS ET ON E.EventTypeId = ET.Id WHERE E.EventDate < CURDATE();"
+
     cursor.execute(sql)
     # results = cursor.fetchall()
     columns = cursor.description

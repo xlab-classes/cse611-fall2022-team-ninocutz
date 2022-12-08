@@ -42,4 +42,8 @@ export class SigninComponent implements OnInit {
       detail: message,
     });
   }
+
+  passwordEntered() {
+    this.loginClicked();
+  }
 }
