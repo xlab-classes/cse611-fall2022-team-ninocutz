@@ -1,5 +1,8 @@
 .image-item {
   .image-item-content {
+    @media screen and (min-width: 430px) {
+      min-width: 300px;
+    }
     min-height: 300px;
     border: 2px solid var(--surface-d);
     border-radius: 20px;
@@ -29,5 +32,5 @@
 }
 .image-div {
   padding: 0;
-  height: 180px;
+  min-height: 250px;
 }
