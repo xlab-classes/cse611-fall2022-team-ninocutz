@@ -2,6 +2,7 @@ import requests
 import os
 import tweepy
 from repository import notificationsRepository
+from PIL import Image, ImageOps
 
 facebook_id = os.environ.get("FB_ID")
 client_secret = os.environ.get("FB_SECRET")
@@ -11,9 +12,11 @@ consumer_secret_key = os.environ.get('CONSUMER_SECRET_KEY')
 access_token = os.environ.get('TWITTER_ACCESS_TOKEN')
 access_token_secret = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
 
+
 def postToInstagram(access_token, image_url, message):
     if not message or not message.strip():
-        message = notificationsRepository.getNotificationByType('Instagram')[0]['NotificationTemplate']
+        message = notificationsRepository.getNotificationByType(
+            'Instagram')[0]['NotificationTemplate']
     long_access_token = generate_long_lived_token(access_token)
     instagram_id = get_instagram_id(long_access_token)
     if not instagram_id:
@@ -67,11 +70,13 @@ def generate_long_lived_token(access_token):
 
 def postToFacebook(access_token, image_url, message):
     if not message or not message.strip():
-        message = notificationsRepository.getNotificationByType('Facebook')[0]['NotificationTemplate']
+        message = notificationsRepository.getNotificationByType(
+            'Facebook')[0]['NotificationTemplate']
     page_id, page_access_token = get_facebook_page_id_token(access_token)
     if not page_id and not page_access_token:
         return False
-    post_id = publish_content_to_facebook(page_id, image_url, message, page_access_token)
+    post_id = publish_content_to_facebook(
+        page_id, image_url, message, page_access_token)
     if not post_id:
         return False
     return True
@@ -98,11 +103,33 @@ def get_facebook_page_id_token(access_token):
 
 def postToTwitter(image_path, message):
     if not message or not message.strip():
-        message = notificationsRepository.getNotificationByType('Twitter')[0]['NotificationTemplate']
-    auth=tweepy.OAuthHandler(consumer_key,consumer_secret_key)
-    auth.set_access_token(access_token,access_token_secret)
-    api=tweepy.API(auth)
+        message = notificationsRepository.getNotificationByType(
+            'Twitter')[0]['NotificationTemplate']
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret_key)
+    auth.set_access_token(access_token, access_token_secret)
+    api = tweepy.API(auth)
+
+    # Compress Image if size is huge
+    current_size = os.path.getsize(image_path)
+    if current_size > 3000000:
+        quality = 90
+        while current_size > 3000000:
+            compress_pic(image_path, quality)
+            current_size = os.stat(image_path).st_size
+            quality -= 5
+
     status = api.update_status_with_media(filename=image_path, status=message)
     if not status.id:
         return False
     return True
+
+
+def compress_pic(file_path, qual):
+    picture = Image.open(file_path)
+    fixed_image = ImageOps.exif_transpose(picture)
+
+    fixed_image.save(file_path, "JPEG", optimize=True, quality=qual)
+
+    processed_size = os.stat(file_path).st_size
+
+    return processed_size
