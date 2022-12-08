@@ -186,6 +186,19 @@ def deleteMultipleEvents(eventIds):
     return val >= 1
 
 
+def delete_linked_current_event(eventId):
+    db = Database()
+    cursor = db.cursor()
+
+    # Delete from current Events table
+    sql = "DELETE FROM AFM.CurrentEvent WHERE EventId=" + str(eventId)
+    val = cursor.execute(sql)
+    cursor.close()
+    db.commit()
+
+    return val <= 1
+
+
 def delete_event(id):
     db = Database()
     cursor = db.cursor()
@@ -193,6 +206,9 @@ def delete_event(id):
     image_sql = "SELECT ImageId from AFM.Event WHERE id=" + str(id)
     cursor.execute(image_sql)
     image_id = cursor.fetchall()[0]
+
+    # Delete from current Event if exists
+    delete_linked_current_event(id)
 
     # Delete from events table
     sql = "DELETE FROM AFM.Event WHERE Id=" + str(id)
