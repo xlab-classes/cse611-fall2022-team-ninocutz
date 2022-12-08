@@ -11,3 +11,4 @@ tweepy==4.10.1
 twilio==7.15.0
 flasgger==0.9.5
 flask-swagger-ui==4.11.1
+Pillow==9.3.0
