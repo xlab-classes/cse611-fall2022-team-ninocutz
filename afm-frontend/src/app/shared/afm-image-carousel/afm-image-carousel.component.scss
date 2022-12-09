@@ -35,4 +35,7 @@
 }
 .image-div {
   padding: 0;
+  @media screen and (min-width: 430px) {
+    min-height: 200px;
+  }
 }
