@@ -1,0 +1,651 @@
+{
+	"variables": [],
+	"info": {
+		"name": "AFM",
+		"_postman_id": "2b67bfcb-7c85-e2f1-1ef8-26e73569c3d4",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Access Token",
+			"request": {
+				"url": "http://localhost:5555/auth",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"automation@test.com\",\n\t\"password\": \"defaultPassword\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Booking",
+			"request": {
+				"url": "http://localhost:5555/bookings",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"TEst1\",\n\t\"lastName\": \"Test2\",\n\t\"numberOfPeople\": 30,\n\t\"bookingDate\" : \"2022-10-02\",\n\t\"bookingTimeSlot\": \"13:53-15:53\",\n\t\"address\": \"Address\",\n\t\"zipCode\": \"14215\",\n\t\"emailId\": \"bhavan.anand1997@gmail.com\",\n\t\"mobileNumber\": \"1234567\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Gallery Image",
+			"request": {
+				"url": "http://localhost:5555/images/gallery",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"description": "",
+							"type": "file",
+							"src": "Untitled.png"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Notification",
+			"request": {
+				"url": "http://localhost:5555/notifications",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"notificationType\": \"Instagram-TEst\",\n\t\"notificationTemplate\": \"Test\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Save Current EVent",
+			"request": {
+				"url": "http://localhost:5555/event/current",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "eventName",
+							"value": "test created",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "eventType",
+							"value": "Wedding",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "longitude",
+							"value": "-78",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "42",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "test",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "eventDate",
+							"value": "2022-10-12",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "zipCode",
+							"value": "14214",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "eventTimeSlot",
+							"value": "12:18-13:18",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "emailTrigger",
+							"value": "False",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Admin User",
+			"request": {
+				"url": "http://localhost:5555/user",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"test\",\n\t\"lastName\": \"test\",\n\t\"emailId\": \"bhavan.reddy1997@gmail.com\",\n\t\"mobileNumber\": \"7165555555\",\n\t\"address\": \"test\",\n\t\"zipCode\": \"14214\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Appointment Request",
+			"request": {
+				"url": "http://localhost:5555/appointments",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"test\",\n\t\"lastName\": \"test\",\n\t\"eventId\": 61,\n\t\"bookingTimeSlot\": \"12:43-13:42\",\n\t\"emailId\": \"test@test.com\",\n\t\"mobileNumber\": \"124234\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Customer",
+			"request": {
+				"url": "http://localhost:5555/customer",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Test\",\n\t\"lastName\": \"Test\",\n\t\"address\": \"Test\",\n\t\"zipCode\": \"14214\",\n\t\"emailId\": \"test@test.com\",\n\t\"mobileNumber\": \"7165979843\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all bookings",
+			"request": {
+				"url": "http://localhost:5555/bookings",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Requested Bookings",
+			"request": {
+				"url": "http://localhost:5555/bookings/requested",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Notifications",
+			"request": {
+				"url": "http://localhost:5555/notifications",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Future Events",
+			"request": {
+				"url": "http://localhost:5555/event/future",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Past Events",
+			"request": {
+				"url": "http://localhost:5555/event/past",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Images",
+			"request": {
+				"url": "http://localhost:5555/images/gallery",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2NTQyNzM4MywianRpIjoiMWVkNWNjMDctYmYyZi00ZGE5LTk5ODAtZWI4MmFiNjk5NzM2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImJoYXZhbi5yZWRkeTE5OTdAZ21haWwuY29tIiwibmJmIjoxNjY1NDI3MzgzLCJleHAiOjE2NjU0MzA5ODN9.AjwSPvCB9Ji3lS03Ly0Vs2rXp4qhr60tXLm9LsVM450",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Event Types",
+			"request": {
+				"url": "http://localhost:5555/event-types",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2NTQyOTI0MCwianRpIjoiZDZhMGU1N2MtNGFjYi00YmRjLWFiNTItZjY2YjJlZTg4NmM0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImJoYXZhbi5yZWRkeTE5OTdAZ21haWwuY29tIiwibmJmIjoxNjY1NDI5MjQwLCJleHAiOjE2NjU0MzAxNDB9.2KV4mFN4d586FJsVoqQcRGPZ8krJPJLLDIIgYTkzx1I",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Profile",
+			"request": {
+				"url": "http://localhost:5555/user",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Appointments",
+			"request": {
+				"url": "http://localhost:5555/appointments",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2NjgxOTMwMSwianRpIjoiOWIyNmM3ZWMtZDg2Ny00NjBkLWJlNDAtMGViOGEzNzI5NDFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImJoYXZhbi5yZWRkeTE5OTdAZ21haWwuY29tIiwibmJmIjoxNjY2ODE5MzAxLCJleHAiOjE2NjY4MjI5MDEsInVzZXJJZCI6MTN9.68OjIVLCsjZfAAtv5g5Wrmt9IyuC9y5Bni0-wKAVSrE",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Requested Appointments",
+			"request": {
+				"url": "http://localhost:5555/appointments/requested",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2NjgxOTMzOCwianRpIjoiNzgyMDNlNjctN2Y5MC00MTU2LWFhOWMtY2VjNDI0NTU2Yzg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImJoYXZhbi5yZWRkeTE5OTdAZ21haWwuY29tIiwibmJmIjoxNjY2ODE5MzM4LCJleHAiOjE2NjY4MjI5MzgsInVzZXJJZCI6MTN9.imYPGWLqiEHwyone7lWARWMp3V760O8VwaBYAsBGhAM",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Future Event by Id",
+			"request": {
+				"url": "http://localhost:5555/event/future/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current Event",
+			"request": {
+				"url": "http://localhost:5555/event/current",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Booked Slots",
+			"request": {
+				"url": "http://localhost:5555/bookings/slots",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Admin Users",
+			"request": {
+				"url": "http://localhost:5555/users",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NTQ1MiwianRpIjoiZjhkMzdlMDMtYTkxNy00ZjExLWFhYTUtOWZiYzc2NjBjYjcwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTU0NTIsImV4cCI6MTY3MDU5OTA1MiwidXNlcklkIjoxfQ.G3GxKdeS7TYb4TsdzTpSlj9z29tjBJVNJz0FQA4WeNU",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Decline Booking",
+			"request": {
+				"url": "http://localhost:5555/bookings/decline",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"bookingId\": 17\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Approve Booking",
+			"request": {
+				"url": "http://localhost:5555/bookings/approve",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"bookingId\": 17\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update notification",
+			"request": {
+				"url": "http://localhost:5555/notifications",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"notificationType\": \"Facebook-New\",\n\t\"notificationTemplate\": \"test the notification template\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "decline appointment",
+			"request": {
+				"url": "http://localhost:5555/appointments/decline",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2NjgxOTMzOCwianRpIjoiNzgyMDNlNjctN2Y5MC00MTU2LWFhOWMtY2VjNDI0NTU2Yzg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImJoYXZhbi5yZWRkeTE5OTdAZ21haWwuY29tIiwibmJmIjoxNjY2ODE5MzM4LCJleHAiOjE2NjY4MjI5MzgsInVzZXJJZCI6MTN9.imYPGWLqiEHwyone7lWARWMp3V760O8VwaBYAsBGhAM",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"appointmentId\": 2\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Approve Appointment",
+			"request": {
+				"url": "http://localhost:5555/appointments/approve",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2NjgxOTMzOCwianRpIjoiNzgyMDNlNjctN2Y5MC00MTU2LWFhOWMtY2VjNDI0NTU2Yzg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImJoYXZhbi5yZWRkeTE5OTdAZ21haWwuY29tIiwibmJmIjoxNjY2ODE5MzM4LCJleHAiOjE2NjY4MjI5MzgsInVzZXJJZCI6MTN9.imYPGWLqiEHwyone7lWARWMp3V760O8VwaBYAsBGhAM",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"appointmentId\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Gallery Image",
+			"request": {
+				"url": "http://localhost:5555/images/gallery/27",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Notification",
+			"request": {
+				"url": "http://localhost:5555/notifications/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete event",
+			"request": {
+				"url": "http://localhost:5555/event/86",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NDY5MiwianRpIjoiNzcwNTc2ZWYtNjcwYi00M2M0LTg1YjQtNjQyYWFhZWYzMmFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTQ2OTIsImV4cCI6MTY3MDU5ODI5MiwidXNlcklkIjoxfQ.aCSAlStFQRLyuTUr0Z5sAHIGm5MaZAcigah4xdfHoI8",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Admin User",
+			"request": {
+				"url": "http://localhost:5555/user/19",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MDU5NTQ1MiwianRpIjoiZjhkMzdlMDMtYTkxNy00ZjExLWFhYTUtOWZiYzc2NjBjYjcwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImF1dG9tYXRpb25AdGVzdC5jb20iLCJuYmYiOjE2NzA1OTU0NTIsImV4cCI6MTY3MDU5OTA1MiwidXNlcklkIjoxfQ.G3GxKdeS7TYb4TsdzTpSlj9z29tjBJVNJz0FQA4WeNU",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
