@@ -80,7 +80,7 @@ def createCurrentEvent(event: EventModel, userId, emailTrigger=False, smsTrigger
                 pass
 
         smsUtil.send_promotional_sms(
-            numbers, template, smsUtil.DEFAULT_SMS_SERVICE)
+            numbers, template, smsUtil.TWILIO_SMS_SERVICE)
     return currentEventId
 
 
