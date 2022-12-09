@@ -66,7 +66,6 @@ def createCurrentEvent(event: EventModel, userId, emailTrigger=False, smsTrigger
 
         emailIds = [p['EmailId'] for p in customers]
         emailUtil.triggerNotificationEmail(template, emailIds)
-        return currentEventId
 
     if smsTrigger:
         notification = notificationsDomain.getNotificationByType('SMS')
@@ -82,7 +81,6 @@ def createCurrentEvent(event: EventModel, userId, emailTrigger=False, smsTrigger
 
         smsUtil.send_promotional_sms(
             numbers, template, smsUtil.DEFAULT_SMS_SERVICE)
-        return currentEventId
     return currentEventId
 
 
