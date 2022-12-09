@@ -30,7 +30,7 @@ export class SigninComponent implements OnInit {
         this.router.navigate(['/admin']);
       },
       error: (err) => {
-        this.showError(err.error ?? 'Invalid username or password');
+        this.showError('Invalid username or password');
       },
     });
   }
