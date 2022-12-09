@@ -30,7 +30,6 @@ def getCurrentEvent():
             event[0]['EventDate'], '%Y-%m-%d')
         if today == currentEventData:
             timeSlot = event[0]['EventTimeSlot'].split('-')
-            print(timeSlot)
             cur = time.strftime('%H:%M')
             if cur >= timeSlot[0] and cur <= timeSlot[1]:
                 return event
