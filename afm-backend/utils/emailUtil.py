@@ -46,10 +46,7 @@ def triggerNotificationEmail(template, usernames):
     msg['From'] = msgSenderEmail
     msg['Subject'] = "AFM-RV near your location"
 
-    websiteUrl = os.environ.get("WEBSITE_URL")
-    msgBody = template.format(websiteUrl)
-
-    msg.set_content(msgBody)
+    msg.set_content(template)
 
     thread = threading.Thread(target=email_thread, args=(
         msg, msgSenderEmail, msgSenderPasscode, usernames))
