@@ -21,7 +21,6 @@ describe("Request and Verify for RV", () => {
     cy.get("[id=zipCode]").type("14214");
     cy.get("[id=mobileNumber]").type("7164168888");
     cy.get(".form-internal-box").click();
-    cy.wait(2000);
 
     cy.intercept("POST", "/bookings").as("createBooking");
     cy.get("[id=submit]").click();
