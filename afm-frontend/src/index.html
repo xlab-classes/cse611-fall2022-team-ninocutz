@@ -10,7 +10,11 @@
       type="image/x-icon"
       href="./assets/logo-mark-white-sm.png"
     />
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNyFNyDkVVh0oRli1DoTqkTJ5CBKZPFt0&libraries=places"></script>
+    <script>
+      function dummy() {}
+      window.dummy = dummy;
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmaKtwbBSbDcPJ5icOtu-5yWiOMqZ5PTg&libraries=places&callback=dummy"></script>
   </head>
   <body>
     <app-root></app-root>
